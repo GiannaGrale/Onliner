@@ -109,7 +109,7 @@ Local variable names are written in lowerCamelCase. Even when they are final and
 When there is a need to refer to a static field or method of a class, it is defined with the name of the class, not with a reference to an object or expression that returns an object of the type of that class.
  ## TAF Features overview:
 Each test method has next annotations:
-+ @Test - a mandatory one for test run;
++ @Test - a mandatory annotation for test run;
 + @BeforeMethod - defined the code that should be runned before a method\test method.
 + @AfterMethod - defined the code that should be runned after a method\test method.
 	
