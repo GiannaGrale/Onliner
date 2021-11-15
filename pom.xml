@@ -7,26 +7,32 @@
     <groupId>org.example</groupId>
     <artifactId>Onliner</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <name>Onliner</name>
+    <description>Test Automation Framework for Onliner.by</description>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
+        <selenium.version>4.0.0</selenium.version>
+        <testng.version>7.4.0</testng.version>
+        <webdrivermanager.version>5.0.3</webdrivermanager.version>
     </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
-            <version>4.0.0</version>
+            <version>${selenium.version}</version>
         </dependency>
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
-            <version>7.4.0</version>
+            <version>${testng.version}</version>
         </dependency>
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
-            <version>5.0.3</version>
+            <version>${webdrivermanager.version}</version>
         </dependency>
     </dependencies>
 
