@@ -110,8 +110,8 @@ When there is a need to refer to a static field or method of a class, it is defi
  ## TAF Features overview:
 Each test method has next annotations:
 + @Test - a mandatory annotation for test run;
-+ @BeforeMethod - defined the code that should be runned before a method\test method.
-+ @AfterMethod - defined the code that should be runned after a method\test method.
++ @BeforeMethod - define the code that should be runned before a method\test method.
++ @AfterMethod - define the code that should be runned after a method\test method.
 	
 ## Test execution
 	Right click on the test -> Run Test;
