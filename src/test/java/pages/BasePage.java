@@ -1,7 +1,9 @@
-package baseEntities;
+package pages;
 
 import core.ReadProperties;
+import drivers.DriverManager;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.PageFactory;
 
 public abstract class BasePage {
 
@@ -9,7 +11,8 @@ public abstract class BasePage {
     protected ReadProperties properties;
 
     public BasePage() {
-        driver = BaseTest.getDriver();
+        driver = DriverManager.getDriver();
         properties = ReadProperties.getInstance();
+        PageFactory.initElements(this.driver, this);
     }
 }

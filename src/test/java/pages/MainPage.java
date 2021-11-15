@@ -1,13 +1,15 @@
 package pages;
 
-import baseEntities.BasePage;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
 public class MainPage extends BasePage {
 
-    private final static By ENTRANCE_BUTTON = By.className("auth-bar__item--text");
-    private final static By LOGIN_VIA_NICKNAME_MESSAGE = By.xpath("//div[@class='auth-form__label-part auth-form__label-part_1']/following::div[@class='auth-form__label-title']");
+    @FindBy(className = "auth-bar__item--text")
+    public static WebElement entrance_Button;
+
+    @FindBy(xpath = "//div[@class='auth-form__label-part auth-form__label-part_1']/following::div[@class='auth-form__label-title']")
+    public static WebElement login_Via_NickName_Message;
 
     public MainPage() {
         super();
@@ -17,19 +19,11 @@ public class MainPage extends BasePage {
         driver.navigate().to(properties.getURL());
     }
 
-    public WebElement getEntranceButton() {
-        return driver.findElement(ENTRANCE_BUTTON);
-    }
-
-    public WebElement getLoginViaNicknameElement() {
-        return driver.findElement(LOGIN_VIA_NICKNAME_MESSAGE);
-    }
-
     public void enterAccount() {
-        getEntranceButton().click();
+        entrance_Button.click();
     }
 
     public String getLoginViaNickNameMessage() {
-        return  getLoginViaNicknameElement().getText();
+        return login_Via_NickName_Message.getText();
     }
 }
