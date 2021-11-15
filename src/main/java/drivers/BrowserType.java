@@ -4,5 +4,6 @@ public enum BrowserType {
     FIREFOX,
     CHROME,
     EDGE,
-    OPERA}
+    OPERA
+}
 
