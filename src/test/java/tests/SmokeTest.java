@@ -6,7 +6,7 @@ import pages.MainPage;
 
 public class SmokeTest extends BaseTest {
 
-    @Test (description = "test to check the entrance form")
+    @Test (description = "Test to check the entrance form")
     public void entranceFormTest(){
         MainPage newMainPage = new MainPage();
         newMainPage.openPage();
