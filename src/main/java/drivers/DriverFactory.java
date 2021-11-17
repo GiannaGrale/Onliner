@@ -16,7 +16,6 @@ public class DriverFactory {
     /***
      * Chooses a webdriver of a defined type
      * @param browser
-     * @return
      */
     public static WebDriver getDriver(BrowserType browser) {
         WebDriver driver;

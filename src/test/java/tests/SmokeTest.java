@@ -14,7 +14,7 @@ public class SmokeTest extends BaseTest {
         newMainPage.openPage();
         newMainPage.isPageOpened();
         newMainPage.openEntranceForm();
-        Assert.assertEquals(newMainPage.getLoginViaNickNameMessage(), "или через ник, e-mail");
+        Assert.assertEquals(newMainPage.getLoginViaNickNameMessage(), "или через ник, e-mail", "Message under login field isn't found.");
     }
 
     @Test (description = "Test to check the entrance to the shopping cart")
@@ -23,6 +23,6 @@ public class SmokeTest extends BaseTest {
         newMainPage.openPage();
         newMainPage.isPageOpened();
         newMainPage.goToShoppingCart();
-        Assert.assertEquals(newMainPage.getShoppingCartMessage(), "корзина");
+        Assert.assertEquals(newMainPage.getShoppingCartMessage(), "корзина", "Shopping cart message isn't found.");
     }
 }
