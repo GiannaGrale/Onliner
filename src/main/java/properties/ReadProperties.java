@@ -1,5 +1,5 @@
 
-package core;
+package properties;
 
 import java.io.*;
 import java.util.Properties;

@@ -1,31 +1,54 @@
 package pages;
 
-import org.openqa.selenium.WebElement;
+import elements.Button;
+import elements.Text;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.testng.Assert;
 
 
 public class MainPage extends BasePage {
 
     @FindBy(className = "auth-bar__item--text")
-    public WebElement entranceButton;
+    public Button entranceButton;
+
+    @FindBy(className = "auth-bar__item--cart")
+    public Button shoppingCart;
 
     @FindBy(xpath = "//form/descendant::div[@class='auth-form__label-title']")
-    public WebElement loginViaNickNameMessage;
+    public Text loginViaNickNameMessage;
+
+    @FindBy(className = "cart-form__title_condensed-additional")
+    public Text shoppingCartMessage;
 
     public MainPage() {
         super();
     }
 
     @Override
-    public void openPage() {
+    public MainPage openPage() {
         driver.navigate().to(properties.getPropertyValueByKey("url"));
+        return this;
     }
 
-    public void enterAccount() {
-        entranceButton.click();
+    @Override
+    public MainPage isPageOpened() {
+        try {
+            wait.until(ExpectedConditions.visibilityOf(entranceButton));
+        } catch (TimeoutException e) {
+            Assert.fail("The page is not opened");
+        }
+        return this;
     }
+
+    public void openEntranceForm() { entranceButton.click(); }
+
+    public void goToShoppingCart() { shoppingCart.click(); }
 
     public String getLoginViaNickNameMessage() {
-        return loginViaNickNameMessage.getText();
+        return loginViaNickNameMessage.getText().toLowerCase().trim();
     }
+
+    public String getShoppingCartMessage() { return shoppingCartMessage.getText().toLowerCase().trim(); }
 }

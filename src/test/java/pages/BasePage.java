@@ -1,21 +1,28 @@
 package pages;
 
 
-import core.ReadProperties;
+import factory.ElementFactory;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import properties.ReadProperties;
 import drivers.DriverManager;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.PageFactory;
+
+import java.time.Duration;
 
 
 public abstract class BasePage {
 
     protected WebDriver driver;
+    protected WebDriverWait wait;
     protected ReadProperties properties = new ReadProperties();
 
-    protected abstract void openPage();
+    protected abstract BasePage openPage();
+
+    protected abstract BasePage isPageOpened();
 
     public BasePage() {
         driver = DriverManager.getDriver();
-        PageFactory.initElements(this.driver, this);
+        ElementFactory.initElements(this.driver, this);
+        wait = new WebDriverWait(driver, Duration.ofSeconds(20));
     }
 }
