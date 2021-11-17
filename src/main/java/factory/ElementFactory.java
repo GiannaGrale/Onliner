@@ -11,7 +11,6 @@ import org.openqa.selenium.support.pagefactory.FieldDecorator;
  * Element factory for wrapped elements. Similar to {@link PageFactory}
  */
 public class ElementFactory {
-
     /**
      * As
      * {@link ElementFactory #initElements(WebDriver, Class)}

@@ -18,10 +18,10 @@ public final class ImplementedByProcessor {
      * @return The class name of the class in question
      */
     public static <T> Class<?> getWrapperClass(Class<T> iFace) {
-        if (iFace.isAnnotationPresent(ImplementedBy.class)) { //относится ли аннотация к этому классу
+        if (iFace.isAnnotationPresent(ImplementedBy.class)) {
             ImplementedBy annotation = iFace.getAnnotation(ImplementedBy.class);
             Class<?> clazz = annotation.value();
-            if (Element.class.isAssignableFrom(clazz)) {//Determines if the class or interface represented by this Class object is either the same as, or is a superclass or superinterface of, the class or interface represented by the specified Class parameter. It returns true if so; otherwise it returns false. I
+            if (Element.class.isAssignableFrom(clazz)) {
                 return annotation.value();
             }
         }

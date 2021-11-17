@@ -67,8 +67,6 @@ public class ElementDecorator implements FieldDecorator {
     }
 
     private Class<?> getErasureClass(Field field) {
-        // Type erasure in Java isn't complete. Attempt to discover the generic
-        // interfaceType of the list.
         Type genericType = field.getGenericType();
         if (!(genericType instanceof ParameterizedType)) {
             return null;

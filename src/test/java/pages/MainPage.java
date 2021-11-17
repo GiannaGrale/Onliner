@@ -42,13 +42,33 @@ public class MainPage extends BasePage {
         return this;
     }
 
-    public void openEntranceForm() { entranceButton.click(); }
+    /***
+     * Click on the entrance button
+     */
+    public void openEntranceForm() {
+        entranceButton.click();
+    }
 
-    public void goToShoppingCart() { shoppingCart.click(); }
+    /***
+     * Click on the shopping cart icon
+     */
+    public void goToShoppingCart() {
+        shoppingCart.click();
+    }
 
+    /***
+     * Get a message under login field
+     * @return the message under login field
+     */
     public String getLoginViaNickNameMessage() {
         return loginViaNickNameMessage.getText().toLowerCase().trim();
     }
 
-    public String getShoppingCartMessage() { return shoppingCartMessage.getText().toLowerCase().trim(); }
+    /***
+     * Display message "Cart" while entering the shopping cart
+     * @return return message of shoppingCartMessage element
+     */
+    public String getShoppingCartMessage() {
+        return shoppingCartMessage.getText().toLowerCase().trim();
+    }
 }
