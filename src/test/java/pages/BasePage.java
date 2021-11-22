@@ -1,18 +1,17 @@
 package pages;
 
 import factory.ElementFactory;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import properties.ReadProperties;
 import drivers.DriverManager;
 import org.openqa.selenium.WebDriver;
-import java.time.Duration;
-
 
 public abstract class BasePage {
 
     protected WebDriver driver;
-    protected WebDriverWait wait;
-    protected ReadProperties properties = new ReadProperties();
+    protected ReadProperties props;
+    public final Logger logger = LogManager.getLogger(this);
 
     /***
      * Navigate the webdriver to the chosen url
@@ -27,8 +26,8 @@ public abstract class BasePage {
     protected abstract BasePage isPageOpened();
 
     public BasePage() {
+        props = ReadProperties.getInstance();
         driver = DriverManager.getDriver();
         ElementFactory.initElements(this.driver, this);
-        wait = new WebDriverWait(driver, Duration.ofSeconds(20));
     }
 }
