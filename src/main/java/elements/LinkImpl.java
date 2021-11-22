@@ -1,6 +1,5 @@
 package elements;
 
-import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.WebElement;
 import util.ScrollUtils;
 
