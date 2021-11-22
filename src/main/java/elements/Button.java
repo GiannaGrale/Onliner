@@ -1,6 +1,6 @@
 package elements;
 
-@ImplementedBy(ButtonImp.class)
+@ImplementedBy(ButtonImpl.class)
 public interface Button extends Element {
 
      void click();
