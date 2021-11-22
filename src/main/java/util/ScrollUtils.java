@@ -1,7 +1,6 @@
 package util;
 
 import drivers.DriverManager;
-import elements.Element;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 

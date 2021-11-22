@@ -104,6 +104,6 @@ public class PositiveSmokeTest extends BaseTest {
                 .chooseManufacturer(ApplePage.class)
                 .displayTag();
         logger.info("chooseManufacturerTest is finished...");
-        Assert.assertEquals(applePage.tagText(), "apple");
+        Assert.assertEquals(applePage.tagText(), "apple", "The filter doesn't work");
     }
 }
