@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Search suite">
+    <test name="Search">
+        <groups>
+            <run>
+                <include name="search"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="tests.NegativeSmokeTest"/>
+        </classes>
+    </test>
+</suite>

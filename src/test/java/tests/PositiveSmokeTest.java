@@ -7,7 +7,7 @@ import pages.*;
 
 public class PositiveSmokeTest extends BaseTest {
 
-    @Test(description = "Test to check if the entrance form opens")
+    @Test(groups = {"login"}, description = "Test to check if the entrance form opens")
     public void entranceFormTest() {
         logger.info("entranceFromTest is started...");
         MainPage newMainPage = new MainPage()
@@ -18,7 +18,7 @@ public class PositiveSmokeTest extends BaseTest {
         logger.info("entranceFromTest is finished...");
     }
 
-    @Test(description = "Test to check the entrance to the shopping cart")
+    @Test(groups = {"cart"},description = "Test to check the entrance to the shopping cart")
     public void shoppingCartEntranceFormTest() {
         logger.info("shoppingCartEntranceFormTest is started...");
         ShoppingCartPage shoppingCartPage = new MainPage()
@@ -29,7 +29,7 @@ public class PositiveSmokeTest extends BaseTest {
         logger.info("shoppingCartEntranceFormTest is finished...");
     }
 
-    @Test(description = "Test for registration of a new user", enabled = false)
+    @Test(groups = {"login"}, description = "Test for registration of a new user", enabled = false)
     public void registrationTest() {
         String password = faker.internet().password();
         String login = faker.internet().emailAddress();
@@ -48,7 +48,7 @@ public class PositiveSmokeTest extends BaseTest {
         Assert.assertEquals(registrationPage.emailConfirmationMessage(), "Подтвердите ваш e-mail", "Fail to sign up.");
     }
 
-    @Test(description = "Test for login with correct credentials")
+    @Test(groups = {"login"}, description = "Test for login with correct credentials")
     public void logInTest() {
         logger.info("logInTest is started...");
         MainPage mainPage = new MainPage()
@@ -62,7 +62,7 @@ public class PositiveSmokeTest extends BaseTest {
         Assert.assertTrue(mainPage.getAvatar(), " The avatar cannot be displayed");
     }
 
-    @Test(description = "Add an item to the shopping cart test")
+    @Test(groups = {"cart"},description = "Add an item to the shopping cart test")
     public void addItemToCartTest() {
         logger.info("addItemToCartTest is started...");
         ShoppingCartPage cartPage = new MainPage()
@@ -79,7 +79,7 @@ public class PositiveSmokeTest extends BaseTest {
         Assert.assertEquals(cartPage.getCompleteOrderButtonText(), "перейти к оформлению", "The item wasn't added");
     }
 
-    @Test(description = "Redirection to 'About' page test")
+    @Test(groups = {"redirection"},description = "Redirection to 'About' page test")
     public void aboutPageTest() {
         logger.info("aboutPageTest is started...");
         AboutCompanyPage aboutCompanyPage = new MainPage()
@@ -90,7 +90,7 @@ public class PositiveSmokeTest extends BaseTest {
         Assert.assertEquals(aboutCompanyPage.getAboutPageText(), "реквизиты и юридический адрес:", "About page wasn't opened");
     }
 
-    @Test(description = "Test to choose Apple manufacturer in the filter")
+    @Test(groups = {"filters"}, description = "Test to choose Apple manufacturer in the filter")
     public void chooseManufacturerTest()  {
         logger.info("chooseManufacturerTest is started...");
         ApplePage applePage = new MainPage()

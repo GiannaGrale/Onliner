@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Filter suite">
+    <test name="Positive tests for filters">
+        <groups>
+            <run>
+                <include name="filters"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="tests.PositiveSmokeTest"/>
+        </classes>
+    </test>
+    <test name="Negative tests for filters">
+        <groups>
+            <run>
+                <include name="filters"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="tests.NegativeSmokeTest"/>
+        </classes>
+    </test>
+</suite>
