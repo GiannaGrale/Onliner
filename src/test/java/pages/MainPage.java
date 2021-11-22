@@ -1,11 +1,12 @@
 package pages;
 
-import elements.Button;
-import elements.Text;
+import elements.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
+import util.WaitUtils;
 
 
 public class MainPage extends BasePage {
@@ -19,8 +20,38 @@ public class MainPage extends BasePage {
     @FindBy(xpath = "//form/descendant::div[@class='auth-form__label-title']")
     public Text loginViaNickNameMessage;
 
-    @FindBy(className = "cart-form__title_condensed-additional")
-    public Text shoppingCartMessage;
+    @FindBy(linkText = "Зарегистрироваться на Onlíner")
+    public Link registrationLink;
+
+    @FindBy(xpath = "//input[@placeholder='Ник или e-mail']")
+    public Input loginInput;
+
+    @FindBy(xpath = "//input[@type='password']")
+    public Input passwordInput;
+
+    @FindBy(xpath = "//div/button[@type='submit']")
+    public Button loginButton;
+
+    @FindBy(className = "js-header-user-avatar")
+    public Picture avatar;
+
+    @FindBy(xpath = "//ul/li[@class='b-main-navigation__item']/a[2]/span")
+    public Link catalogue;
+
+    @FindBy(xpath = "//footer//ul/li[1]/a")
+    public Link aboutCompany;
+
+    @FindBy(css = ".auth-form__description.auth-form__description_extended-other")
+    public Text incorrectCredentialsWarning;
+
+    @FindBy(xpath = "//*[contains(text(),'Укажите пароль')]")
+    public Text emptyPasswordWarning;
+
+    @FindBy(xpath = "//form/input[@name='query']")
+    public Input mainSearchField;
+
+    @FindBy(css = ".search__suggest-addon.search__suggest-addon_active")
+    public Text searchInputHint;
 
     public MainPage() {
         super();
@@ -28,15 +59,17 @@ public class MainPage extends BasePage {
 
     @Override
     public MainPage openPage() {
-        driver.navigate().to(properties.getPropertyValueByKey("url"));
+        driver.navigate().to(props.getKeyProperty("url"));
+        logger.debug("Navigation to the url...");
         return this;
     }
 
     @Override
     public MainPage isPageOpened() {
         try {
-            wait.until(ExpectedConditions.visibilityOf(entranceButton));
+            WaitUtils.waitForVisibility(entranceButton);
         } catch (TimeoutException e) {
+            logger.debug("Element isn't found...");
             Assert.fail("The page is not opened");
         }
         return this;
@@ -45,15 +78,17 @@ public class MainPage extends BasePage {
     /***
      * Click on the entrance button
      */
-    public void openEntranceForm() {
+    public MainPage openEntranceForm() {
         entranceButton.click();
+        return this;
     }
 
     /***
      * Click on the shopping cart icon
      */
-    public void goToShoppingCart() {
+    public ShoppingCartPage goToShoppingCart() {
         shoppingCart.click();
+        return new ShoppingCartPage();
     }
 
     /***
@@ -68,7 +103,96 @@ public class MainPage extends BasePage {
      * Display message "Cart" while entering the shopping cart
      * @return return message of shoppingCartMessage element
      */
-    public String getShoppingCartMessage() {
-        return shoppingCartMessage.getText().toLowerCase().trim();
+    public String getLoginWarningMessage() {
+        WaitUtils.waitForVisibility(incorrectCredentialsWarning);
+        return incorrectCredentialsWarning.getText().toLowerCase().trim();
+    }
+
+    /***
+     * While entering no password, a warning message appears
+     * @return warning message
+     */
+    public String getPasswordInputWarning() {
+        WaitUtils.waitForVisibility(emptyPasswordWarning);
+        return emptyPasswordWarning.getText().toLowerCase().trim();
+    }
+
+    /***
+     * While entering a phrase into the input field, a hint appears
+     * @return hint message
+     */
+    public String getSearchInputHint() {
+        driver.switchTo().frame(driver.findElement(By.className("modal-iframe")));
+        WaitUtils.waitForVisibility(searchInputHint);
+        return searchInputHint.getText().toLowerCase().trim();
+    }
+
+    /***
+     * Insert the login into the login input
+     * @param login login
+     */
+    public MainPage insertLogin(String login) {
+        loginInput.sendKeys(login);
+        return this;
+    }
+
+    /***
+     * Insert the password to into the password input
+     * @param psw password
+     */
+    public MainPage insertPassword(String psw) {
+        passwordInput.sendKeys(psw);
+        return this;
+    }
+
+    /***
+     * Click the entrance button
+     */
+    public MainPage clickEntranceButton() {
+        loginButton.click();
+        return this;
+    }
+
+    /***
+     * Insert a text into the search field and look for items
+     * @param text any query
+     */
+    public MainPage insertTextIntoSearch(String text) {
+        mainSearchField.sendKeys(text);
+        mainSearchField.sendKeys(Keys.ENTER);
+        return this;
+    }
+
+    /***
+     * Click on the catalogue button
+     */
+    public CataloguePage clickOnCatalogue() {
+        catalogue.click();
+        return new CataloguePage();
+    }
+
+    /***
+     * When signed in, an avatar appears on the main page
+     */
+    public boolean getAvatar() {
+        WaitUtils.waitForVisibility(avatar);
+        avatar.isDisplayed();
+        return true;
+    }
+
+    /***
+     * Redirection to the registration form
+     */
+    public RegistrationPage goToRegistrationLink() {
+        registrationLink.click();
+        return new RegistrationPage();
+    }
+
+    /***
+     * Redirection to "About company" page
+     */
+    public AboutCompanyPage goToAboutCompanyLink() {
+        aboutCompany.click();
+        return new AboutCompanyPage();
     }
 }
