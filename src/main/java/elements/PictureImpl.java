@@ -1,5 +1,6 @@
 package elements;
 
+import org.openqa.selenium.ElementNotInteractableException;
 import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.WebElement;
 import util.ScrollUtils;
@@ -26,7 +27,7 @@ public class PictureImpl extends ElementImpl implements Picture {
                 getWrappedElement().isDisplayed();
                 return true;
             }
-            catch (Exception ex) {
+            catch (ElementNotInteractableException ex) {
                 ScrollUtils.jsElementClick(getWrappedElement());
                 getWrappedElement().isDisplayed();
                 return true;

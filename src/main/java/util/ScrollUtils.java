@@ -23,5 +23,4 @@ public class ScrollUtils {
         JavascriptExecutor js = ((JavascriptExecutor) DriverManager.getDriver());
         js.executeScript("arguments[0].scrollIntoView(true);", element);
     }
-
 }

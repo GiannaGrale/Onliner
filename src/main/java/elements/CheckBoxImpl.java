@@ -1,6 +1,7 @@
 package elements;
 
 
+import org.openqa.selenium.ElementNotInteractableException;
 import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.WebElement;
 import util.ScrollUtils;
@@ -24,7 +25,7 @@ public class CheckBoxImpl extends ElementImpl implements Checkbox {
             try {
                 WaitUtils.waitForVisibility(getWrappedElement());
                 changeState();
-            } catch (Exception ex) {
+            } catch (ElementNotInteractableException ex) {
                 ScrollUtils.scrollToElementView(getWrappedElement());
                 WaitUtils.waitForVisibility(getWrappedElement());
                 changeState();

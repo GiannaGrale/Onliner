@@ -1,11 +1,13 @@
 package pages;
 
+import drivers.DriverManager;
 import elements.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
+import properties.Type;
 import util.WaitUtils;
 
 
@@ -15,7 +17,7 @@ public class MainPage extends BasePage {
     public Button entranceButton;
 
     @FindBy(className = "auth-bar__item--cart")
-    public Button shoppingCart;
+    public Button shoppingCartButton;
 
     @FindBy(xpath = "//form/descendant::div[@class='auth-form__label-title']")
     public Text loginViaNickNameMessage;
@@ -29,17 +31,17 @@ public class MainPage extends BasePage {
     @FindBy(xpath = "//input[@type='password']")
     public Input passwordInput;
 
-    @FindBy(xpath = "//div/button[@type='submit']")
+    @FindBy(css = ".auth-form__control .auth-button")
     public Button loginButton;
 
     @FindBy(className = "js-header-user-avatar")
-    public Picture avatar;
+    public Picture avatarPicture;
 
-    @FindBy(xpath = "//ul/li[@class='b-main-navigation__item']/a[2]/span")
-    public Link catalogue;
+    @FindBy(xpath = "//nav//li[1]/a[2]/span")
+    public Link catalogueLink;
 
     @FindBy(xpath = "//footer//ul/li[1]/a")
-    public Link aboutCompany;
+    public Link aboutCompanyLink;
 
     @FindBy(css = ".auth-form__description.auth-form__description_extended-other")
     public Text incorrectCredentialsWarning;
@@ -59,7 +61,7 @@ public class MainPage extends BasePage {
 
     @Override
     public MainPage openPage() {
-        driver.navigate().to(props.getKeyProperty("url"));
+        DriverManager.getDriver().navigate().to(props.getKeyProperty(Type.URL));
         logger.debug("Navigation to the url...");
         return this;
     }
@@ -69,8 +71,8 @@ public class MainPage extends BasePage {
         try {
             WaitUtils.waitForVisibility(entranceButton);
         } catch (TimeoutException e) {
-            logger.debug("Element isn't found...");
-            Assert.fail("The page is not opened");
+            logger.debug("MainPage wasn't opened. EntranceButton wasn't found ");
+            Assert.fail("MainPage was not opened");
         }
         return this;
     }
@@ -87,7 +89,7 @@ public class MainPage extends BasePage {
      * Click on the shopping cart icon
      */
     public ShoppingCartPage goToShoppingCart() {
-        shoppingCart.click();
+        shoppingCartButton.click();
         return new ShoppingCartPage();
     }
 
@@ -167,17 +169,16 @@ public class MainPage extends BasePage {
      * Click on the catalogue button
      */
     public CataloguePage clickOnCatalogue() {
-        catalogue.click();
+        catalogueLink.click();
         return new CataloguePage();
     }
 
     /***
      * When signed in, an avatar appears on the main page
      */
-    public boolean getAvatar() {
-        WaitUtils.waitForVisibility(avatar);
-        avatar.isDisplayed();
-        return true;
+    public boolean isAvatarDisplayed() {
+        WaitUtils.waitForVisibility(avatarPicture);
+        return avatarPicture.isDisplayed();
     }
 
     /***
@@ -192,7 +193,7 @@ public class MainPage extends BasePage {
      * Redirection to "About company" page
      */
     public AboutCompanyPage goToAboutCompanyLink() {
-        aboutCompany.click();
+        aboutCompanyLink.click();
         return new AboutCompanyPage();
     }
 }

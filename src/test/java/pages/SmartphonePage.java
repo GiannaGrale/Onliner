@@ -7,45 +7,33 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
+import properties.Type;
 import util.FindElementUtils;
 import util.ScrollUtils;
 import util.WaitUtils;
 
 public class SmartphonePage extends BasePage {
 
-    protected Checkbox cBoxItem;
-
-    private static final String manufacturer = "//div[6]/descendant::li/.//input[@value='%s']/../span";
+    private static final String manufacturer = "//div[6]//li//input[@value='%s']/../span";
 
     @FindBy(xpath = "//h1[@class='schema-header__title']")
-    protected Text phones;
+    protected Text phonesTitle;
 
     @Override
     public SmartphonePage openPage() {
-        driver.navigate().to(props.getKeyProperty("catalogueURL" + OnlinerEndpoints.mobileEndpoint));
-        logger.debug("Navigation to the url...");
+        driver.navigate().to(props.getKeyProperty(Type.valueOf(Type.CATALOGUE_URL + OnlinerEndpoints.mobileEndpoint)));
+        logger.debug("Navigation to the catalogueURL " + OnlinerEndpoints.mobileEndpoint);
         return this;
     }
 
     @Override
     public SmartphonePage isPageOpened() {
         try {
-            WaitUtils.waitForVisibility(phones);
+            WaitUtils.waitForVisibility(phonesTitle);
         } catch (TimeoutException e) {
-            logger.debug("Element isn't found...");
-            Assert.fail("The page is not opened");
+            logger.debug("SmartphonePage wasn't opened. PhonesTitle wasn't found ");
+            Assert.fail("SmartphonePage was not opened");
         }
-        return this;
-    }
-
-    /***
-     * Scroll to the manufacturer checkbox
-     * @param brand a mobile phone brand
-     */
-    public SmartphonePage goToCheckbox(String brand) {
-        String chosenManufacturer = String.format(manufacturer, brand);
-        cBoxItem = FindElementUtils.findCheckbox(By.xpath(chosenManufacturer));
-        ScrollUtils.scrollToElementView(cBoxItem);
         return this;
     }
 
@@ -53,8 +41,11 @@ public class SmartphonePage extends BasePage {
      * Click on the chosen checkbox item
      * @param <T> redirection to a particular class, depends on the clicked checkbox value
      */
-    public <T> T chooseManufacturer(Class<T> clazz) {
+    public <T> T chooseManufacturer(Class<T> clazz, String brand) {
         try {
+            String chosenManufacturer = String.format(manufacturer, brand);
+            Checkbox cBoxItem = FindElementUtils.findCheckbox(By.xpath(chosenManufacturer));
+            ScrollUtils.scrollToElementView(cBoxItem);
             cBoxItem.clickCheckbox();
             return clazz.newInstance();
         } catch (Exception ex) {

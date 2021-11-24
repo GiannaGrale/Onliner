@@ -6,33 +6,34 @@ import endpoints.OnlinerEndpoints;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
+import properties.Type;
 import util.WaitUtils;
 
 public class PepperoniPage extends BasePage {
 
     @FindBy(className = "product-aside__price--primary")
-    protected Text price;
+    protected Text priceLabel;
 
     @FindBy(css = ".button-style.button-style_expletive")
-    protected Button addToCart;
+    protected Button addToCartButton;
 
     @FindBy(xpath = "//a[@title='Корзина']")
-    protected Button cart;
+    protected Button cartButton;
 
     @Override
     protected PepperoniPage openPage() {
-        driver.navigate().to(props.getKeyProperty("catalogueURL") + OnlinerEndpoints.pepperoniEndpoint);
-        logger.debug("Navigation to the url...");
+        driver.navigate().to(props.getKeyProperty(Type.valueOf(Type.CATALOGUE_URL + OnlinerEndpoints.pepperoniEndpoint)));
+        logger.debug("Navigation to the catalogueURL" + OnlinerEndpoints.pepperoniEndpoint);
         return this;
     }
 
     @Override
     protected PepperoniPage isPageOpened() {
         try {
-            WaitUtils.waitForVisibility(price);
+            WaitUtils.waitForVisibility(priceLabel);
         } catch (TimeoutException e) {
-            logger.debug("Element isn't found...");
-            Assert.fail("The page is not opened");
+            logger.debug("PepperoniPage wasn't opened. PriceLabel wasn't found ");
+            Assert.fail("PepperoniPage was not opened");
         }
         return this;
     }
@@ -41,8 +42,8 @@ public class PepperoniPage extends BasePage {
      * Add an item to the cart by clicking the add to cart button
      */
     public PepperoniPage clickAddToCartButton() {
-        WaitUtils.waitForVisibility(addToCart);
-        addToCart.click();
+        WaitUtils.waitForVisibility(addToCartButton);
+        addToCartButton.click();
         return this;
     }
 
@@ -50,7 +51,7 @@ public class PepperoniPage extends BasePage {
      * Click the shopping cart button
      */
     public ShoppingCartPage clickCartButton() {
-        cart.click();
+        cartButton.click();
         return new ShoppingCartPage();
     }
 }

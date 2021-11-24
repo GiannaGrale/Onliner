@@ -19,7 +19,17 @@
         <log4j.version>2.14.1</log4j.version>
         <aspectj.version>1.8.10</aspectj.version>
         <slf4j-log4j12.version>1.7.32</slf4j-log4j12.version>
-        <javafaker.version>0.15</javafaker.version>
+        <javafaker.version>1.0.2</javafaker.version>
+        <surefire.version>2.20</surefire.version>
+        <surefire-testng.version>2.12.4 </surefire-testng.version>
+        <maven-compiler.version>3.8.1</maven-compiler.version>
+        <cart>src/test/resources/cart.xml</cart>
+        <filter>src/test/resources/filter.xml</filter>
+        <login.group>src/test/resources/loginGroup.xml</login.group>
+        <redirection>src/test/resources/redirection.xml</redirection>
+        <search>src/test/resources/search.xml</search>
+        <suiteNegative>src/test/resources/suiteNegative.xml</suiteNegative>
+        <suitePositive>src/test/resources/suitePositive.xml</suitePositive>
     </properties>
 
     <dependencies>
@@ -58,6 +68,59 @@
             <artifactId>javafaker</artifactId>
             <version>${javafaker.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-ext</artifactId>
+            <version>1.7.32</version>
+        </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${surefire.version}</version>
+                <configuration>
+                    <argLine>
+                        -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
+                        -Dcucumber.options="--plugin io.qameta.allure.cucumber4jvm.AllureCucumber4Jvm"
+                    </argLine>
+                    <parallel>classes</parallel>
+                    <threadCount>2</threadCount>
+                    <suiteXmlFiles>
+                        <suiteXmlFile>${cart}</suiteXmlFile>
+                        <suiteXmlFile>${filter}</suiteXmlFile>
+                        <suiteXmlFile>${login.group}</suiteXmlFile>
+                        <suiteXmlFile>${redirection}</suiteXmlFile>
+                        <suiteXmlFile>${search}</suiteXmlFile>
+                        <suiteXmlFile>${suiteNegative}</suiteXmlFile>
+                        <suiteXmlFile>${suitePositive}</suiteXmlFile>
+                    </suiteXmlFiles>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.maven.surefire</groupId>
+                        <artifactId>surefire-testng</artifactId>
+                        <version>${surefire-testng.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.aspectj</groupId>
+                        <artifactId>aspectjweaver</artifactId>
+                        <version>${aspectj.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler.version}</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

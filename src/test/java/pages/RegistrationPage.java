@@ -6,6 +6,7 @@ import elements.Input;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
+import properties.Type;
 import util.WaitUtils;
 
 public class RegistrationPage extends BasePage {
@@ -26,12 +27,12 @@ public class RegistrationPage extends BasePage {
     protected Button registrationButton;
 
     @FindBy(css = ".auth-container .auth-form__title ")
-    protected Button emailConfirmationRequest;
+    protected Button emailConfirmationRequestButton;
 
     @Override
     public RegistrationPage openPage() {
-        driver.navigate().to(props.getKeyProperty("regURl"));
-        logger.debug("Navigation to the url...");
+        driver.navigate().to(props.getKeyProperty(Type.REGISTRATION_URL));
+        logger.debug("Navigation to the regURl...");
         return this;
     }
 
@@ -40,8 +41,8 @@ public class RegistrationPage extends BasePage {
         try {
             WaitUtils.waitForVisibility(loginInputField);
         } catch (TimeoutException e) {
-            logger.debug("Element isn't found...");
-            Assert.fail("The page is not opened");
+            logger.debug("RegistrationPage wasn't opened. LoginInputField wasn't found ");
+            Assert.fail("RegistrationPage was not opened");
         }
         return this;
     }
@@ -94,7 +95,7 @@ public class RegistrationPage extends BasePage {
      */
     public String emailConfirmationMessage() {
         WaitUtils.waitForInvisibility(registrationButton);
-        WaitUtils.waitForVisibility(emailConfirmationRequest);
-        return emailConfirmationRequest.getText().trim();
+        WaitUtils.waitForVisibility(emailConfirmationRequestButton);
+        return emailConfirmationRequestButton.getText().trim();
     }
 }

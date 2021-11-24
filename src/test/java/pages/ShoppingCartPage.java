@@ -5,6 +5,7 @@ import elements.Text;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
+import properties.Type;
 import util.WaitUtils;
 
 public class ShoppingCartPage extends BasePage {
@@ -17,8 +18,8 @@ public class ShoppingCartPage extends BasePage {
 
     @Override
     public ShoppingCartPage openPage() {
-        driver.navigate().to(props.getKeyProperty("cartURL"));
-        logger.debug("Navigation to the url...");
+        driver.navigate().to(props.getKeyProperty(Type.CART_URL));
+        logger.debug("Navigation to the cartURL...");
         return this;
     }
 
@@ -27,8 +28,8 @@ public class ShoppingCartPage extends BasePage {
         try {
             WaitUtils.waitForVisibility(cartMessage);
         } catch (TimeoutException e) {
-            logger.debug("Element isn't found...");
-            Assert.fail("The page is not opened");
+            logger.debug("ShoppingCartPage wasn't opened. CartMessage wasn't found ");
+            Assert.fail("ShoppingCartPage was not opened");
         }
         return this;
     }

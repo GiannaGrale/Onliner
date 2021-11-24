@@ -1,6 +1,7 @@
 package elements;
 
 
+import org.openqa.selenium.ElementNotInteractableException;
 import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.WebElement;
 import util.ScrollUtils;
@@ -23,7 +24,7 @@ public class InputImpl extends ElementImpl implements Input {
             try {
                 WaitUtils.waitForVisibility(getWrappedElement());
                 getWrappedElement().sendKeys(text);
-            } catch (Exception ex) {
+            } catch (ElementNotInteractableException ex) {
                 ScrollUtils.scrollToElementView(getWrappedElement());
                 WaitUtils.waitForVisibility(getWrappedElement());
                 getWrappedElement().sendKeys(text);

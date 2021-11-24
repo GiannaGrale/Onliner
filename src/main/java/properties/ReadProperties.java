@@ -34,9 +34,18 @@ public final class ReadProperties {
      * @param key key from config.properties
      * @return key value
      */
-    public String getKeyProperty(String key) {
+/*    public String getKeyProperty(String key) {
         if (properties.getProperty(key) != null) {
             return properties.getProperty(key);
+        } else {
+            logger.debug("The key value isn't found...");
+            throw new RuntimeException();
+        }
+    }*/
+
+    public String getKeyProperty(Type key) {
+        if (properties.getProperty(key.getTitle()) != null) {
+            return properties.getProperty(key.getTitle());
         } else {
             logger.debug("The key value isn't found...");
             throw new RuntimeException();
