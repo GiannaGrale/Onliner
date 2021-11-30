@@ -1,10 +1,9 @@
 package pages;
 
 
-import elements.Input;
-import elements.Link;
-import elements.Text;
+import elements.*;
 import endpoints.OnlinerEndpoints;
+import indices.Pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.FindBy;
@@ -16,8 +15,6 @@ import util.WaitUtils;
 
 public class DominoPage extends BasePage {
 
-    protected Link dominoLink;
-
     @FindBy(xpath = "//input[@placeholder='от']")
     protected Input minPriceInput;
 
@@ -27,6 +24,12 @@ public class DominoPage extends BasePage {
     @FindBy(className = "schema-header__title")
     protected Text headerLabel;
 
+    @FindBy(xpath = "//*[@id='schema-products']/div[1]/descendant::div[2]")
+    protected Picture pizzaPic;
+
+    public DominoPage() {
+        super();
+    }
 
     @Override
     public DominoPage openPage() {
@@ -50,16 +53,19 @@ public class DominoPage extends BasePage {
      * Chose a pizza from the list
      * @param pizza pizza item
      */
-    public <T> T choosePizza(Class<T> clazz, String pizza) {
+    @SuppressWarnings("unchecked")
+    public <T> T choosePizza(Class<T> clazz, Pages page, String pizza) {
         try {
-            dominoLink = FindElementUtils.findLink(By.linkText(pizza));
+            WaitUtils.waitForVisibility(pizzaPic);
+            Link dominoLink;
+            dominoLink = FindElementUtils.findLink(By.partialLinkText(pizza));
             ScrollUtils.scrollToElementView(dominoLink);
             dominoLink.click();
+            clazz = (Class<T>) Class.forName(page.getName());
             return clazz.newInstance();
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (IllegalAccessException | InstantiationException | ClassNotFoundException e) {
+            e.printStackTrace();
         }
-        logger.debug("Failed to redirect to another page..");
         return null;
     }
 

@@ -16,6 +16,10 @@ public class ShoppingCartPage extends BasePage {
     @FindBy(css = ".button-style.button-style_primary")
     protected Button completeOrderButton;
 
+    public ShoppingCartPage() {
+        super();
+    }
+
     @Override
     public ShoppingCartPage openPage() {
         driver.navigate().to(props.getKeyProperty(Type.CART_URL));

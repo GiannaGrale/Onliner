@@ -51,6 +51,7 @@ public class DriverFactory {
      */
     public static ChromeDriver getChrome() {
         WebDriverManager.getInstance(DriverManagerType.CHROME).setup();
+
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("disable-gpu");
         chromeOptions.addArguments("--start-maximized");

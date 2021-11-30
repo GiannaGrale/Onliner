@@ -7,26 +7,30 @@ import indices.Pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.How;
 import org.testng.Assert;
 import properties.Type;
 import util.FindElementUtils;
+import util.FormatterUtils;
 import util.WaitUtils;
 
 
 public class CataloguePage extends BasePage {
 
-    private static final String iconOptionLocator = "//li[@data-id=%s]";
-    private static final String leftDropdownLocator = "//div[@data-id=%s]/descendant::div[%s]";
-    private static final String middleDropdownLocator = "//div[@data-id=%s]/descendant::span[%s]";
-
     @FindBy(xpath = "//h1[@class='catalog-navigation__title']")
     protected Text catalogueName;
 
-    @FindBy(how = How.XPATH, using = "//li[@data-id=${%s}]")
-    protected Button button;
+    @FindBy(xpath = "//li[@data-id=%s]")
+    protected Button iconOptionBtn;
 
+    @FindBy(xpath = "//div[@data-id=%s]/descendant::div[%s]")
+    protected Button leftDropdownBtn;
 
+    @FindBy(xpath = "//div[@data-id=%s]/descendant::span[%s]")
+    protected Button middleDropdownBtn;
+
+    public CataloguePage() {
+        super();
+    }
 
     @Override
     public CataloguePage openPage() {
@@ -45,19 +49,15 @@ public class CataloguePage extends BasePage {
         }
         return this;
     }
-/*
-    public CataloguePage getIconOption(Icons index) {
-        button.format(index).click();
-        return this;
-    }*/
 
     /***
      * Choose the icon index and click it
      * @param index the icon index
      */
+
     public CataloguePage getIconOption(Icons index) {
-        String iconLocator = String.format(iconOptionLocator, index);
-        FindElementUtils.findElement(By.xpath(iconLocator)).click();
+        String formattedLocator = FormatterUtils.getFormattedStringLocator(iconOptionBtn, index);
+        FindElementUtils.findButton(By.xpath(formattedLocator)).clickBtn();
         return this;
     }
 
@@ -68,9 +68,8 @@ public class CataloguePage extends BasePage {
      *
      */
     public <T extends Enum<T>> CataloguePage getLeftDropdown(Icons icon, T item) {
-        String leftDropdownLocator = String.format(CataloguePage.leftDropdownLocator, icon, item);
-        System.out.println(leftDropdownLocator);
-        FindElementUtils.findElement(By.xpath(leftDropdownLocator)).click();
+        String leftDropdownLocator = FormatterUtils.getFormattedStringLocator(leftDropdownBtn, icon, item);
+        FindElementUtils.findButton(By.xpath(leftDropdownLocator)).clickBtn();
         return this;
     }
 
@@ -79,15 +78,19 @@ public class CataloguePage extends BasePage {
      * @param <T> redirection to the particular class depending on the chosen dropdown option
      * @param index middle dropdown option index
      */
-    public <T> T getMiddleDropdown(Class<T> clazz, Icons icon, String index) {
-        String middleDropdownLocator = String.format(CataloguePage.middleDropdownLocator, icon, index);
-        FindElementUtils.findElement(By.xpath(middleDropdownLocator)).click();
-        logger.debug("Failed to redirect to another page..");
+
+    @SuppressWarnings("unchecked")
+    public <T extends BasePage> T getMiddleDropdown(Class<T> clazz, Pages page, Icons icon, String index) {
         try {
+            String middleDropdownLocator = FormatterUtils.getFormattedStringLocator(middleDropdownBtn, icon, index);
+            FindElementUtils.findButton(By.xpath(middleDropdownLocator)).clickBtn();
+            clazz = (Class<T>) Class.forName(page.getName());
             return clazz.newInstance();
-        } catch (Exception ex) {
-            ex.printStackTrace();
+
+        } catch (IllegalAccessException | InstantiationException | ClassNotFoundException e) {
+            e.printStackTrace();
         }
+
         logger.debug("Failed to redirect to another page..");
         return null;
     }

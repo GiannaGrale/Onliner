@@ -3,6 +3,7 @@ package elements;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import util.ScrollUtils;
+import util.WaitUtils;
 
 public class TagImpl extends ElementImpl implements Tag {
 
@@ -12,18 +13,16 @@ public class TagImpl extends ElementImpl implements Tag {
 
     @Override
     public boolean retryingTagSearch() {
-        boolean result = false;
         int attempts = 0;
         while (attempts < 3) {
             try {
                 ScrollUtils.scrollUp(getWrappedElement());
-                getWrappedElement().isDisplayed();
-                result = true;
-                break;
+                WaitUtils.waitForVisibility(getWrappedElement());
+                return getWrappedElement().isDisplayed();
             } catch (StaleElementReferenceException e) {
             }
             attempts++;
         }
-        return result;
+        return false;
     }
 }

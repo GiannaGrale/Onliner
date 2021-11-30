@@ -10,6 +10,8 @@ import org.testng.Assert;
 import properties.Type;
 import util.WaitUtils;
 
+import java.util.Map;
+
 
 public class MainPage extends BasePage {
 

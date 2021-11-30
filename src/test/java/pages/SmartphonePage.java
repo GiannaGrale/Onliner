@@ -3,21 +3,28 @@ package pages;
 import elements.Checkbox;
 import elements.Text;
 import endpoints.OnlinerEndpoints;
+import indices.Pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
 import properties.Type;
 import util.FindElementUtils;
+import util.FormatterUtils;
 import util.ScrollUtils;
 import util.WaitUtils;
 
 public class SmartphonePage extends BasePage {
 
-    private static final String manufacturer = "//div[6]//li//input[@value='%s']/../span";
-
     @FindBy(xpath = "//h1[@class='schema-header__title']")
     protected Text phonesTitle;
+
+    @FindBy(xpath = "//div[6]//li//input[@value= '%s']/../span")
+    protected Checkbox manufacturerCbx;
+
+    public SmartphonePage() {
+        super();
+    }
 
     @Override
     public SmartphonePage openPage() {
@@ -41,15 +48,18 @@ public class SmartphonePage extends BasePage {
      * Click on the chosen checkbox item
      * @param <T> redirection to a particular class, depends on the clicked checkbox value
      */
-    public <T> T chooseManufacturer(Class<T> clazz, String brand) {
+    @SuppressWarnings("unchecked")
+    public <T extends BasePage> T chooseManufacturer(Class<T> clazz, Pages page, String brand) {
+        String chosenManufacturer = FormatterUtils.getFormattedStringLocator(manufacturerCbx, brand);
+        manufacturerCbx = FindElementUtils.findCheckbox(By.xpath(chosenManufacturer));
+        ScrollUtils.scrollToElementView(manufacturerCbx);
+        manufacturerCbx.clickCheckbox();
         try {
-            String chosenManufacturer = String.format(manufacturer, brand);
-            Checkbox cBoxItem = FindElementUtils.findCheckbox(By.xpath(chosenManufacturer));
-            ScrollUtils.scrollToElementView(cBoxItem);
-            cBoxItem.clickCheckbox();
+            clazz = (Class<T>) Class.forName(page.getName());
             return clazz.newInstance();
-        } catch (Exception ex) {
-            ex.printStackTrace();
+
+        } catch (IllegalAccessException | InstantiationException | ClassNotFoundException e) {
+            e.printStackTrace();
         }
         logger.debug("Failed to redirect to another page..");
         return null;

@@ -18,6 +18,10 @@ public class ApplePage extends BasePage {
     @FindBy(className = "schema-header__title")
     protected Text headerLabel;
 
+    public ApplePage() {
+        super();
+    }
+
     @Override
     public ApplePage openPage() {
         driver.navigate().to(props.getKeyProperty(Type.valueOf(Type.CATALOGUE_URL + OnlinerEndpoints.appleFilterEndpoint)));
@@ -39,7 +43,7 @@ public class ApplePage extends BasePage {
     /***
      * When the checkbox option is selected, a tag of the manufacturer appears
      */
-    public ApplePage displayTag() {
+    public ApplePage displayTag()  {
         tagSign.retryingTagSearch();
         return new ApplePage();
     }

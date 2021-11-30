@@ -12,6 +12,10 @@ public class AboutCompanyPage extends BasePage {
     @FindBy(xpath = "//p[2]/strong")
     protected Text requisitesLabel;
 
+    public AboutCompanyPage() {
+        super();
+    }
+
     @Override
     public AboutCompanyPage openPage() {
         driver.navigate().to(props.getKeyProperty(Type.ABOUT_PAGE_URL));

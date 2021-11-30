@@ -1,5 +1,7 @@
 package elements;
 
+
+
 import java.util.List;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Coordinates;
@@ -13,10 +15,14 @@ import org.openqa.selenium.interactions.Locatable;
 
 public class ElementImpl implements Element {
 
-    private final WebElement element;
+    private WebElement element;
 
-    public ElementImpl(final WebElement element) {
+    public ElementImpl(WebElement element) {
         this.element = element;
+    }
+
+    public WebElement getWebElement() {
+        return element;
     }
 
     @Override
@@ -113,6 +119,7 @@ public class ElementImpl implements Element {
     public boolean elementWired() {
         return (element != null);
     }
+
 
     @Override
     public <X> X getScreenshotAs(OutputType<X> outputType) throws WebDriverException {

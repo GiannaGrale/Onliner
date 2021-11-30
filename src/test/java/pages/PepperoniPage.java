@@ -7,6 +7,7 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
 import properties.Type;
+import util.ScrollUtils;
 import util.WaitUtils;
 
 public class PepperoniPage extends BasePage {
@@ -20,6 +21,10 @@ public class PepperoniPage extends BasePage {
     @FindBy(xpath = "//a[@title='Корзина']")
     protected Button cartButton;
 
+    public PepperoniPage() {
+        super();
+    }
+
     @Override
     protected PepperoniPage openPage() {
         driver.navigate().to(props.getKeyProperty(Type.valueOf(Type.CATALOGUE_URL + OnlinerEndpoints.pepperoniEndpoint)));
@@ -28,7 +33,7 @@ public class PepperoniPage extends BasePage {
     }
 
     @Override
-    protected PepperoniPage isPageOpened() {
+    public PepperoniPage isPageOpened() {
         try {
             WaitUtils.waitForVisibility(priceLabel);
         } catch (TimeoutException e) {
@@ -42,7 +47,7 @@ public class PepperoniPage extends BasePage {
      * Add an item to the cart by clicking the add to cart button
      */
     public PepperoniPage clickAddToCartButton() {
-        WaitUtils.waitForVisibility(addToCartButton);
+        ScrollUtils.scrollToElementView(addToCartButton);
         addToCartButton.click();
         return this;
     }
@@ -51,6 +56,8 @@ public class PepperoniPage extends BasePage {
      * Click the shopping cart button
      */
     public ShoppingCartPage clickCartButton() {
+        WaitUtils.waitForInvisibility(addToCartButton);
+        ScrollUtils.scrollUp(cartButton);
         cartButton.click();
         return new ShoppingCartPage();
     }

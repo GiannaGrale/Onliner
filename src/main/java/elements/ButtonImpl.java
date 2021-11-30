@@ -1,7 +1,6 @@
 package elements;
 
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.ElementNotInteractableException;
 import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.WebElement;
@@ -14,18 +13,12 @@ import util.WaitUtils;
  */
 public class ButtonImpl extends ElementImpl implements Button {
 
-    public By foundBy;
-    public By formatLocator;
-
-
-    public ButtonImpl(WebElement element, By foundBy, String using) {
+    public ButtonImpl(WebElement element) {
         super(element);
-        this.foundBy = foundBy;
-        this.formatLocator = FindByHelper.getLocator(using);
     }
 
     @Override
-    public void click() {
+    public void clickBtn() {
         try {
             getWrappedElement().click();
         } catch (ElementNotInteractableException ex) {
@@ -38,16 +31,5 @@ public class ButtonImpl extends ElementImpl implements Button {
                 getWrappedElement().click();
             }
         }
-    }
-
-
-    public Button format(Object... args) {
-        if (this.formatLocator == null) {
-            this.formatLocator = this.foundBy;
-        }
-        String locator = String.format(this.formatLocator.toString(), args);
-        this.foundBy = FindByHelper.getLocator(formatLocator.toString());
-        return this;
-
     }
 }

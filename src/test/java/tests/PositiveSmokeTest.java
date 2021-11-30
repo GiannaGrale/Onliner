@@ -59,20 +59,20 @@ public class PositiveSmokeTest extends BaseTest {
     }
 
     @Test(description = "Add an item to the shopping cart test")
-    public void addItemToCartTest() {
+    public void addItemToCartTest()  {
         ShoppingCartPage cartPage = new MainPage()
                 .openPage()
-                .isPageOpened()
                 .clickOnCatalogue()
                 .isPageOpened()
                 .getIconOption(Icons.FOOD)
                 .getLeftDropdown(Icons.FOOD, Food.PIZZA)
-                .getMiddleDropdown(DominoPage.class, Icons.FOOD, Pizza_Options.DOMINO)
+                .getMiddleDropdown(DominoPage.class, Pages.DOMINO, Icons.FOOD, Pizza_Options.DOMINO)
                 .isPageOpened()
-                .choosePizza(PepperoniPage.class, "Пицца Domino's Пепперони (классика, 36 см)")
+                .choosePizza(PepperoniPage.class, Pages.PEPPERONI, "Пицца Domino's Пепперони (классика, 36 см")
+                .isPageOpened()
                 .clickAddToCartButton()
                 .clickCartButton();
-        Assert.assertEquals(cartPage.getCompleteOrderButtonText(), "перейти к оформлению", "The item wasn't added");
+      Assert.assertEquals(cartPage.getCompleteOrderButtonText(), "перейти к оформлению", "The item wasn't added");
     }
 
     @Test(description = "Redirection to 'About' page test")
@@ -89,10 +89,12 @@ public class PositiveSmokeTest extends BaseTest {
         ApplePage applePage = new MainPage()
                 .openPage()
                 .clickOnCatalogue()
+                .isPageOpened()
                 .getIconOption(Icons.ELECTRONICS)
                 .getLeftDropdown(Icons.ELECTRONICS, Electronics.MOBILE_PHONES)
-                .getMiddleDropdown(SmartphonePage.class, Icons.ELECTRONICS, Phone_Devices.SMARTPHONES)
-                .chooseManufacturer(ApplePage.class, "apple")
+                .getMiddleDropdown(SmartphonePage.class, Pages.SMARTPHONE, Icons.ELECTRONICS, Phone_Devices.SMARTPHONES)
+                .isPageOpened()
+                .chooseManufacturer(ApplePage.class, Pages.APPLE,  "'apple'")
                 .displayTag();
         Assert.assertEquals(applePage.tagText(), "apple", "The filter doesn't work");
     }

@@ -29,6 +29,10 @@ public class RegistrationPage extends BasePage {
     @FindBy(css = ".auth-container .auth-form__title ")
     protected Button emailConfirmationRequestButton;
 
+    public RegistrationPage() {
+        super();
+    }
+
     @Override
     public RegistrationPage openPage() {
         driver.navigate().to(props.getKeyProperty(Type.REGISTRATION_URL));

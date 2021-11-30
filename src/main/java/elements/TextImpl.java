@@ -17,13 +17,11 @@ public class TextImpl extends ElementImpl implements Text {
     public String getText() {
         try {
             return getWrappedElement().getText();
-        }
-        catch (ElementNotVisibleException notVisibleException) {
+        } catch (ElementNotVisibleException notVisibleException) {
             try {
                 WaitUtils.waitForVisibility(getWrappedElement());
                 return getWrappedElement().getText();
-            }
-            catch (Exception ex) {
+            } catch (Exception ex) {
                 ScrollUtils.scrollToElementView(getWrappedElement());
                 WaitUtils.waitForVisibility(getWrappedElement());
                 return getWrappedElement().getText();

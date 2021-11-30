@@ -1,6 +1,7 @@
 package tests;
 
 import indices.Food;
+import indices.Pages;
 import indices.Pizza_Options;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -65,7 +66,8 @@ public class NegativeSmokeTest extends BaseTest {
                 .isPageOpened()
                 .getIconOption(Icons.FOOD)
                 .getLeftDropdown(Icons.FOOD, Food.PIZZA)
-                .getMiddleDropdown(DominoPage.class, Icons.FOOD, Pizza_Options.DOMINO)
+                .getMiddleDropdown(DominoPage.class, Pages.DOMINO, Icons.FOOD, Pizza_Options.DOMINO)
+                .isPageOpened()
                 .setMinPrice("-60");
         Assert.assertTrue(dominoPage.areGoodsDisplayed(), "Goods are available");
     }

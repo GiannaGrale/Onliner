@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import util.ScrollUtils;
 import util.WaitUtils;
 
+
 /***
  * Wrapper class with Input functionalities
  */
