@@ -1,6 +1,5 @@
 package tests;
 
-import com.github.javafaker.Faker;
 import drivers.BrowserType;
 import drivers.DriverFactory;
 import drivers.DriverManager;
@@ -12,8 +11,8 @@ import properties.ReadProperties;
 import static drivers.DriverManager.getDriver;
 
 public class BaseTest {
+
     protected final Logger logger = LogManager.getLogger(this);
-    protected Faker faker = new Faker();
     protected ReadProperties props = ReadProperties.getInstance();
 
     /***

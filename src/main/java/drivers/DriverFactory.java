@@ -17,6 +17,7 @@ import org.openqa.selenium.opera.OperaOptions;
 
 
 public class DriverFactory {
+
     private static Logger logger = LogManager.getLogger(DriverFactory.class);
 
     /***
@@ -51,7 +52,6 @@ public class DriverFactory {
      */
     public static ChromeDriver getChrome() {
         WebDriverManager.getInstance(DriverManagerType.CHROME).setup();
-
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("disable-gpu");
         chromeOptions.addArguments("--start-maximized");

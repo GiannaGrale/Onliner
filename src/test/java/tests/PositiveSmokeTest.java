@@ -1,10 +1,12 @@
 package tests;
 
 import indices.*;
+import testData.Catalogue;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.*;
-import properties.Type;
+import properties.Property;
+import util.RandomSymbolUtil;
 
 
 public class PositiveSmokeTest extends BaseTest {
@@ -13,7 +15,7 @@ public class PositiveSmokeTest extends BaseTest {
     public void entranceFormTest() {
         MainPage newMainPage = new MainPage()
                 .openPage()
-                .isPageOpened()
+                .waitForPageOpened()
                 .openEntranceForm();
         Assert.assertEquals(newMainPage.getLoginViaNickNameMessage(), "или через ник, e-mail", "Message under login field wasn't found.");
     }
@@ -22,25 +24,23 @@ public class PositiveSmokeTest extends BaseTest {
     public void shoppingCartEntranceFormTest() {
         ShoppingCartPage shoppingCartPage = new MainPage()
                 .openPage()
-                .isPageOpened()
+                .waitForPageOpened()
                 .goToShoppingCart()
-                .isPageOpened();
+                .waitForPageOpened();
         Assert.assertEquals(shoppingCartPage.getShoppingCartMessage(), "корзина", "Shopping cart message wasn't found.");
     }
 
     @Test(description = "Test for registration of a new user", enabled = false)
     public void registrationTest() {
-        String password = faker.internet().password();
-        String login = faker.internet().emailAddress();
         RegistrationPage registrationPage = new MainPage()
                 .openPage()
-                .isPageOpened()
+                .waitForPageOpened()
                 .openEntranceForm()
                 .goToRegistrationLink()
-                .isPageOpened()
-                .setLogin(login)
-                .setPassword(password)
-                .setRepeatPassword(password)
+                .waitForPageOpened()
+                .setLogin(RandomSymbolUtil.fakeLogin)
+                .setPassword(RandomSymbolUtil.fakePassword)
+                .setRepeatPassword(RandomSymbolUtil.fakePassword)
                 .acceptPrivacyPolicy()
                 .clickRegistrationButton();
         Assert.assertEquals(registrationPage.emailConfirmationMessage(), "Подтвердите ваш e-mail", "Fail to sign up.");
@@ -50,36 +50,36 @@ public class PositiveSmokeTest extends BaseTest {
     public void logInTest() {
         MainPage mainPage = new MainPage()
                 .openPage()
-                .isPageOpened()
+                .waitForPageOpened()
                 .openEntranceForm()
-                .insertLogin(props.getKeyProperty(Type.LOGIN))
-                .insertPassword(props.getKeyProperty(Type.PASSWORD))
+                .insertLogin(props.getKeyProperty(Property.LOGIN))
+                .insertPassword(props.getKeyProperty(Property.PASSWORD))
                 .clickEntranceButton();
         Assert.assertTrue(mainPage.isAvatarDisplayed(), " The avatar cannot be displayed");
     }
 
     @Test(description = "Add an item to the shopping cart test")
-    public void addItemToCartTest()  {
+    public void addItemToCartTest() {
         ShoppingCartPage cartPage = new MainPage()
                 .openPage()
                 .clickOnCatalogue()
-                .isPageOpened()
+                .waitForPageOpened()
                 .getIconOption(Icons.FOOD)
                 .getLeftDropdown(Icons.FOOD, Food.PIZZA)
-                .getMiddleDropdown(DominoPage.class, Pages.DOMINO, Icons.FOOD, Pizza_Options.DOMINO)
-                .isPageOpened()
-                .choosePizza(PepperoniPage.class, Pages.PEPPERONI, "Пицца Domino's Пепперони (классика, 36 см")
-                .isPageOpened()
+                .getMiddleDropdown(DominoPage.class, Pages.DOMINO, Icons.FOOD, PizzaOptions.DOMINO)
+                .waitForPageOpened()
+                .choosePizza(PepperoniPage.class, Pages.PEPPERONI, Catalogue.PIZZA)
+                .waitForPageOpened()
                 .clickAddToCartButton()
                 .clickCartButton();
-      Assert.assertEquals(cartPage.getCompleteOrderButtonText(), "перейти к оформлению", "The item wasn't added");
+        Assert.assertEquals(cartPage.getCompleteOrderButtonText(), "перейти к оформлению", "The item wasn't added");
     }
 
     @Test(description = "Redirection to 'About' page test")
     public void aboutPageTest() {
         AboutCompanyPage aboutCompanyPage = new MainPage()
                 .openPage()
-                .isPageOpened()
+                .waitForPageOpened()
                 .goToAboutCompanyLink();
         Assert.assertEquals(aboutCompanyPage.getAboutPageText(), "реквизиты и юридический адрес:", "About page wasn't opened");
     }
@@ -89,12 +89,12 @@ public class PositiveSmokeTest extends BaseTest {
         ApplePage applePage = new MainPage()
                 .openPage()
                 .clickOnCatalogue()
-                .isPageOpened()
+                .waitForPageOpened()
                 .getIconOption(Icons.ELECTRONICS)
                 .getLeftDropdown(Icons.ELECTRONICS, Electronics.MOBILE_PHONES)
-                .getMiddleDropdown(SmartphonePage.class, Pages.SMARTPHONE, Icons.ELECTRONICS, Phone_Devices.SMARTPHONES)
-                .isPageOpened()
-                .chooseManufacturer(ApplePage.class, Pages.APPLE,  "'apple'")
+                .getMiddleDropdown(SmartphonePage.class, Pages.SMARTPHONE, Icons.ELECTRONICS, PhoneDevices.SMARTPHONES)
+                .waitForPageOpened()
+                .chooseManufacturer(ApplePage.class, Pages.APPLE, Catalogue.BRAND)
                 .displayTag();
         Assert.assertEquals(applePage.tagText(), "apple", "The filter doesn't work");
     }
