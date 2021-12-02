@@ -21,8 +21,10 @@ public final class ReadProperties {
     }
 
     private ReadProperties() {
-        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("config.properties")) {
-            properties.load(inputStream);
+        try (InputStream urlStream = getClass().getClassLoader().getResourceAsStream("config.properties");
+             InputStream loginStream = getClass().getClassLoader().getResourceAsStream("login.properties")) {
+            properties.load(urlStream);
+            properties.load(loginStream);
         } catch (IOException e) {
             logger.debug("The file cannot be read...");
             e.printStackTrace();
@@ -34,7 +36,7 @@ public final class ReadProperties {
      * @param key key from config.properties
      * @return key value
      */
-    public String getKeyProperty(Type key) {
+    public String getKeyProperty(Property key) {
         if (properties.getProperty(key.getTitle()) != null) {
             return properties.getProperty(key.getTitle());
         } else {

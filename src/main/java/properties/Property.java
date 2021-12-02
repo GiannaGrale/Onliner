@@ -1,17 +1,17 @@
 package properties;
 
-public enum Type {
+public enum Property {
+
     URL("url"),
     REGISTRATION_URL("regURl"),
     CATALOGUE_URL("catalogueURL"),
     CART_URL("cartURL"),
-    ABOUT_PAGE_URL("aboutURl"),
     PASSWORD("password"),
     LOGIN("login");
 
     private final String title;
 
-    Type(String title) {
+    Property(String title) {
         this.title = title;
     }
 
