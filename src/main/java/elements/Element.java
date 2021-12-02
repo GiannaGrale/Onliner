@@ -11,4 +11,5 @@ import org.openqa.selenium.interactions.Locatable;
 public interface Element extends WebElement, WrapsElement, Locatable {
 
     boolean elementWired();
+    Element format(Object... replaceString);
 }
