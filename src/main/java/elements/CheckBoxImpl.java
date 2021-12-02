@@ -18,28 +18,20 @@ public class CheckBoxImpl extends ElementImpl implements Checkbox {
     }
 
     @Override
-    public void clickCheckbox() {
+    public void clickCheckbox(boolean isChecked) {
+        isChecked = this.getWrappedElement().isSelected();
         try {
-            changeState();
+            if (!isChecked)
+                this.getWrappedElement().click();
         } catch (ElementNotVisibleException notVisibleException) {
             try {
                 WaitUtils.waitForVisibility(getWrappedElement());
-                changeState();
+                this.getWrappedElement().click();
             } catch (ElementNotInteractableException ex) {
                 ScrollUtils.scrollToElementView(getWrappedElement());
                 WaitUtils.waitForVisibility(getWrappedElement());
-                changeState();
+                this.getWrappedElement().click();
             }
         }
-    }
-
-    @Override
-    public boolean isSelected() {
-        return this.getWrappedElement().isSelected();
-    }
-
-    @Override
-    public void changeState() {
-        if (!this.isSelected()) this.getWrappedElement().click();
     }
 }

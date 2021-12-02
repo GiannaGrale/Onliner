@@ -1,9 +1,12 @@
 package elements;
 
+import org.awaitility.Awaitility;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import util.ScrollUtils;
-import util.WaitUtils;
+
+
+import java.util.concurrent.TimeUnit;
 
 public class TagImpl extends ElementImpl implements Tag {
 
@@ -13,15 +16,12 @@ public class TagImpl extends ElementImpl implements Tag {
 
     @Override
     public boolean retryingTagSearch() {
-        int attempts = 0;
-        while (attempts < 3) {
-            try {
-                ScrollUtils.scrollUp(getWrappedElement());
-                WaitUtils.waitForVisibility(getWrappedElement());
-                return getWrappedElement().isDisplayed();
-            } catch (StaleElementReferenceException e) {
-            }
-            attempts++;
+        ScrollUtils.scrollUp(getWrappedElement());
+        try {
+            Awaitility.waitAtMost(5, TimeUnit.SECONDS)
+                    .pollInterval(1, TimeUnit.SECONDS)
+                    .until(() -> getWrappedElement().isDisplayed());
+        } catch (StaleElementReferenceException e) {
         }
         return false;
     }

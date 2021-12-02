@@ -18,7 +18,7 @@ public class ButtonImpl extends ElementImpl implements Button {
     }
 
     @Override
-    public void clickBtn() {
+    public void click() {
         try {
             getWrappedElement().click();
         } catch (ElementNotInteractableException ex) {

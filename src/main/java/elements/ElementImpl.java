@@ -1,8 +1,9 @@
 package elements;
 
 
-
 import java.util.List;
+
+import drivers.DriverManager;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Coordinates;
 import org.openqa.selenium.interactions.Locatable;
@@ -12,10 +13,11 @@ import org.openqa.selenium.interactions.Locatable;
  * An implementation of the Element interface. Delegates its work to an underlying WebElement instance for
  * custom functionality.
  */
-
 public class ElementImpl implements Element {
 
-    private WebElement element;
+    public WebElement element;
+
+    private String formatString;
 
     public ElementImpl(WebElement element) {
         this.element = element;
@@ -23,6 +25,16 @@ public class ElementImpl implements Element {
 
     public WebElement getWebElement() {
         return element;
+    }
+
+    public Element format(Object... replaceString) {
+        if (this.formatString == null) {
+            this.formatString = this.element.toString();
+        }
+        String locator = String.format(this.formatString, replaceString);
+        By by = FindByHelper.getByFromElement(locator);
+        element = DriverManager.getDriver().findElement(by);
+        return this;
     }
 
     @Override
@@ -119,7 +131,6 @@ public class ElementImpl implements Element {
     public boolean elementWired() {
         return (element != null);
     }
-
 
     @Override
     public <X> X getScreenshotAs(OutputType<X> outputType) throws WebDriverException {

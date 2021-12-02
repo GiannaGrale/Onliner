@@ -19,17 +19,14 @@ public class PictureImpl extends ElementImpl implements Picture {
     @Override
     public boolean isDisplayed() {
         try {
-            getWrappedElement().isDisplayed();
-            return true;
+            return getWrappedElement().isDisplayed();
         } catch (ElementNotVisibleException e) {
             try {
                 WaitUtils.waitForVisibility(getWrappedElement());
-                getWrappedElement().isDisplayed();
-                return true;
+                return getWrappedElement().isDisplayed();
             } catch (ElementNotInteractableException ex) {
                 ScrollUtils.jsElementClick(getWrappedElement());
-                getWrappedElement().isDisplayed();
-                return true;
+                return getWrappedElement().isDisplayed();
             }
         }
     }
