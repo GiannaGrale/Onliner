@@ -2,6 +2,7 @@ package indices;
 
 
 public enum Pages {
+
     APPLE("pages.ApplePage"),
     ABOUT_COMPANY("pages.AboutCompanyPage"),
     CATALOGUE("pages.CataloguePage"),

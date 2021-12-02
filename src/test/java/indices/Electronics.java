@@ -1,6 +1,7 @@
 package indices;
 
 public enum Electronics {
+
     MOBILE_PHONES("4"),
     TV("8"),
     TABLETS_ELECTRONIC_BOOKS("12"),

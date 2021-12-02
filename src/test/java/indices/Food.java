@@ -1,6 +1,7 @@
 package indices;
 
 public enum Food {
+
     PIZZA("4"),
     SUSHI("8"),
     BURGERS_FASTFOOD("12"),
