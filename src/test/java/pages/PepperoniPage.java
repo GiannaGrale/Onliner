@@ -2,15 +2,16 @@ package pages;
 
 import elements.Button;
 import elements.Text;
-import endpoints.OnlinerEndpoints;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
-import properties.Type;
+import properties.Property;
 import util.ScrollUtils;
 import util.WaitUtils;
 
 public class PepperoniPage extends BasePage {
+
+    public static final String PEPPERONI_ENDPOINT = "dominos/dominospizza/domipepperonito5";
 
     @FindBy(className = "product-aside__price--primary")
     protected Text priceLabel;
@@ -27,17 +28,16 @@ public class PepperoniPage extends BasePage {
 
     @Override
     protected PepperoniPage openPage() {
-        driver.navigate().to(props.getKeyProperty(Type.valueOf(Type.CATALOGUE_URL + OnlinerEndpoints.pepperoniEndpoint)));
-        logger.debug("Navigation to the catalogueURL" + OnlinerEndpoints.pepperoniEndpoint);
+        driver.navigate().to(props.getKeyProperty(Property.valueOf(Property.CATALOGUE_URL + PEPPERONI_ENDPOINT)));
+        logger.debug("Navigation to the catalogueURL" + PEPPERONI_ENDPOINT);
         return this;
     }
 
     @Override
-    public PepperoniPage isPageOpened() {
+    public PepperoniPage waitForPageOpened() {
         try {
             WaitUtils.waitForVisibility(priceLabel);
         } catch (TimeoutException e) {
-            logger.debug("PepperoniPage wasn't opened. PriceLabel wasn't found ");
             Assert.fail("PepperoniPage was not opened");
         }
         return this;

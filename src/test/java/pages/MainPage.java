@@ -7,10 +7,8 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
-import properties.Type;
+import properties.Property;
 import util.WaitUtils;
-
-import java.util.Map;
 
 
 public class MainPage extends BasePage {
@@ -55,7 +53,7 @@ public class MainPage extends BasePage {
     public Input mainSearchField;
 
     @FindBy(css = ".search__suggest-addon.search__suggest-addon_active")
-    public Text searchInputHint;
+    public Text searchInputMessage;
 
     public MainPage() {
         super();
@@ -63,17 +61,16 @@ public class MainPage extends BasePage {
 
     @Override
     public MainPage openPage() {
-        DriverManager.getDriver().navigate().to(props.getKeyProperty(Type.URL));
+        DriverManager.getDriver().navigate().to(props.getKeyProperty(Property.URL));
         logger.debug("Navigation to the url...");
         return this;
     }
 
     @Override
-    public MainPage isPageOpened() {
+    public MainPage waitForPageOpened() {
         try {
             WaitUtils.waitForVisibility(entranceButton);
         } catch (TimeoutException e) {
-            logger.debug("MainPage wasn't opened. EntranceButton wasn't found ");
             Assert.fail("MainPage was not opened");
         }
         return this;
@@ -125,10 +122,10 @@ public class MainPage extends BasePage {
      * While entering a phrase into the input field, a hint appears
      * @return hint message
      */
-    public String getSearchInputHint() {
+    public String getSearchInputMessage() {
         driver.switchTo().frame(driver.findElement(By.className("modal-iframe")));
-        WaitUtils.waitForVisibility(searchInputHint);
-        return searchInputHint.getText().toLowerCase().trim();
+        WaitUtils.waitForVisibility(searchInputMessage);
+        return searchInputMessage.getText().toLowerCase().trim();
     }
 
     /***

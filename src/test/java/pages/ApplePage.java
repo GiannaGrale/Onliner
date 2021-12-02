@@ -2,15 +2,16 @@ package pages;
 
 import elements.Tag;
 import elements.Text;
-import endpoints.OnlinerEndpoints;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
-import properties.Type;
+import properties.Property;
 import util.WaitUtils;
 
 
 public class ApplePage extends BasePage {
+
+    public static final String APPLE_FILTER_ENDPOINT = "mobile?mfr%5B0%5D=apple";
 
     @FindBy(className = "schema-tags__text")
     protected Tag tagSign;
@@ -24,17 +25,16 @@ public class ApplePage extends BasePage {
 
     @Override
     public ApplePage openPage() {
-        driver.navigate().to(props.getKeyProperty(Type.valueOf(Type.CATALOGUE_URL + OnlinerEndpoints.appleFilterEndpoint)));
-        logger.debug("Navigation to the catalogueURL" + OnlinerEndpoints.appleFilterEndpoint);
+        driver.navigate().to(props.getKeyProperty(Property.valueOf(Property.CATALOGUE_URL + APPLE_FILTER_ENDPOINT)));
+        logger.debug("Navigation to the catalogueURL" + APPLE_FILTER_ENDPOINT);
         return this;
     }
 
     @Override
-    public ApplePage isPageOpened() {
+    public ApplePage waitForPageOpened() {
         try {
             WaitUtils.waitForVisibility(headerLabel);
         } catch (TimeoutException e) {
-            logger.debug("ApplePage wasn't opened. HeaderLabel wasn't found ");
             Assert.fail("ApplePage was not opened");
         }
         return this;
@@ -43,9 +43,9 @@ public class ApplePage extends BasePage {
     /***
      * When the checkbox option is selected, a tag of the manufacturer appears
      */
-    public ApplePage displayTag()  {
+    public ApplePage displayTag() {
         tagSign.retryingTagSearch();
-        return new ApplePage();
+        return this;
     }
 
     /***

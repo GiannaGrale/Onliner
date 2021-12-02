@@ -2,19 +2,20 @@ package pages;
 
 import elements.Checkbox;
 import elements.Text;
-import endpoints.OnlinerEndpoints;
 import indices.Pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
-import properties.Type;
+import properties.Property;
 import util.FindElementUtils;
 import util.FormatterUtils;
 import util.ScrollUtils;
 import util.WaitUtils;
 
 public class SmartphonePage extends BasePage {
+
+    public static final String MOBILE_ENDPOINT = "mobile";
 
     @FindBy(xpath = "//h1[@class='schema-header__title']")
     protected Text phonesTitle;
@@ -28,17 +29,16 @@ public class SmartphonePage extends BasePage {
 
     @Override
     public SmartphonePage openPage() {
-        driver.navigate().to(props.getKeyProperty(Type.valueOf(Type.CATALOGUE_URL + OnlinerEndpoints.mobileEndpoint)));
-        logger.debug("Navigation to the catalogueURL " + OnlinerEndpoints.mobileEndpoint);
+        driver.navigate().to(props.getKeyProperty(Property.valueOf(Property.CATALOGUE_URL + MOBILE_ENDPOINT)));
+        logger.debug("Navigation to the catalogueURL " + MOBILE_ENDPOINT);
         return this;
     }
 
     @Override
-    public SmartphonePage isPageOpened() {
+    public SmartphonePage waitForPageOpened() {
         try {
             WaitUtils.waitForVisibility(phonesTitle);
         } catch (TimeoutException e) {
-            logger.debug("SmartphonePage wasn't opened. PhonesTitle wasn't found ");
             Assert.fail("SmartphonePage was not opened");
         }
         return this;
@@ -53,11 +53,9 @@ public class SmartphonePage extends BasePage {
         String chosenManufacturer = FormatterUtils.getFormattedStringLocator(manufacturerCbx, brand);
         manufacturerCbx = FindElementUtils.findCheckbox(By.xpath(chosenManufacturer));
         ScrollUtils.scrollToElementView(manufacturerCbx);
-        manufacturerCbx.clickCheckbox();
+        manufacturerCbx.click();
         try {
-            clazz = (Class<T>) Class.forName(page.getName());
-            return clazz.newInstance();
-
+            return (T) Class.forName(page.getName()).newInstance();
         } catch (IllegalAccessException | InstantiationException | ClassNotFoundException e) {
             e.printStackTrace();
         }

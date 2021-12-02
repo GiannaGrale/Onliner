@@ -2,18 +2,19 @@ package pages;
 
 
 import elements.*;
-import endpoints.OnlinerEndpoints;
 import indices.Pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
-import properties.Type;
+import properties.Property;
 import util.FindElementUtils;
 import util.ScrollUtils;
 import util.WaitUtils;
 
 public class DominoPage extends BasePage {
+
+    public static final String DOMINO_ENDPOINT = "dominos";
 
     @FindBy(xpath = "//input[@placeholder='от']")
     protected Input minPriceInput;
@@ -33,17 +34,16 @@ public class DominoPage extends BasePage {
 
     @Override
     public DominoPage openPage() {
-        driver.navigate().to(props.getKeyProperty(Type.valueOf(Type.CATALOGUE_URL + OnlinerEndpoints.dominosEndpoint)));
-        logger.debug("Navigation to the catalogueURL...");
+        driver.navigate().to(props.getKeyProperty(Property.valueOf(Property.CATALOGUE_URL + DOMINO_ENDPOINT)));
+        logger.debug("Navigation to the catalogueURL..." + DOMINO_ENDPOINT);
         return this;
     }
 
     @Override
-    public DominoPage isPageOpened() {
+    public DominoPage waitForPageOpened() {
         try {
             WaitUtils.waitForVisibility(headerLabel);
         } catch (TimeoutException e) {
-            logger.debug("DominoPage wasn't opened. HeaderLabel wasn't found ");
             Assert.fail("DominoPage was not opened");
         }
         return this;
@@ -61,8 +61,7 @@ public class DominoPage extends BasePage {
             dominoLink = FindElementUtils.findLink(By.partialLinkText(pizza));
             ScrollUtils.scrollToElementView(dominoLink);
             dominoLink.click();
-            clazz = (Class<T>) Class.forName(page.getName());
-            return clazz.newInstance();
+            return (T) Class.forName(page.getName()).newInstance();
         } catch (IllegalAccessException | InstantiationException | ClassNotFoundException e) {
             e.printStackTrace();
         }

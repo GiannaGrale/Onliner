@@ -25,7 +25,7 @@ public abstract class BasePage {
      * Checks element presence on a page
      * @return page if the elements presents
      */
-    protected abstract BasePage isPageOpened();
+    protected abstract BasePage waitForPageOpened();
 
     public BasePage() {
         props = ReadProperties.getInstance();

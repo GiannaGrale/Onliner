@@ -6,7 +6,7 @@ import elements.Input;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
-import properties.Type;
+import properties.Property;
 import util.WaitUtils;
 
 public class RegistrationPage extends BasePage {
@@ -35,17 +35,16 @@ public class RegistrationPage extends BasePage {
 
     @Override
     public RegistrationPage openPage() {
-        driver.navigate().to(props.getKeyProperty(Type.REGISTRATION_URL));
+        driver.navigate().to(props.getKeyProperty(Property.REGISTRATION_URL));
         logger.debug("Navigation to the regURl...");
         return this;
     }
 
     @Override
-    public RegistrationPage isPageOpened() {
+    public RegistrationPage waitForPageOpened() {
         try {
             WaitUtils.waitForVisibility(loginInputField);
         } catch (TimeoutException e) {
-            logger.debug("RegistrationPage wasn't opened. LoginInputField wasn't found ");
             Assert.fail("RegistrationPage was not opened");
         }
         return this;
