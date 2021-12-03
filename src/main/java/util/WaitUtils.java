@@ -16,7 +16,7 @@ public class WaitUtils {
     protected static WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), TIMEOUT);
 
     public static void waitForVisibility(WebElement element) {
-            wait.until(ExpectedConditions.visibilityOf(element));
+        wait.until(ExpectedConditions.visibilityOf(element));
     }
 
     public static void elementToBeClickable(WebElement element) {
