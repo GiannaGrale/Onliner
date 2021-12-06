@@ -1,7 +1,5 @@
 package pages;
 
-
-import elements.Button;
 import elements.Text;
 import indices.Icons;
 import indices.Pages;
@@ -10,8 +8,6 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
 import properties.Property;
-import util.FindElementUtils;
-import util.FormatterUtils;
 import util.WaitUtils;
 
 
@@ -20,14 +16,11 @@ public class CataloguePage extends BasePage {
     @FindBy(xpath = "//h1[@class='catalog-navigation__title']")
     protected Text catalogueName;
 
-    @FindBy(xpath = "//li[@data-id=%s]")
-    protected Button iconOptionBtn;
+    protected static final String iconOptionBtn = "//li[@data-id=%s]";
 
-    @FindBy(xpath = "//div[@data-id=%s]/descendant::div[%s]")
-    protected Button leftDropdownBtn;
+    protected static final String leftDropdownBtn = "//div[@data-id=%s]/descendant::div[%s]";
 
-    @FindBy(xpath = "//div[@data-id=%s]/descendant::span[%s]")
-    protected Button middleDropdownBtn;
+    protected static final String middleDropdownBtn = "//div[@data-id=%s]/descendant::span[%s]";
 
     public CataloguePage() {
         super();
@@ -54,10 +47,9 @@ public class CataloguePage extends BasePage {
      * Choose the icon index and click it
      * @param index the icon index
      */
-
     public CataloguePage getIconOption(Icons index) {
-        String formattedLocator = FormatterUtils.getFormattedStringLocator(iconOptionBtn, index);
-        FindElementUtils.findButton(By.xpath(formattedLocator)).click();
+        waitForPageOpened();
+        driver.findElement(By.xpath(String.format(iconOptionBtn, index))).click();
         return this;
     }
 
@@ -68,8 +60,7 @@ public class CataloguePage extends BasePage {
      *
      */
     public <T extends Enum<T>> CataloguePage getLeftDropdown(Icons icon, T item) {
-        String leftDropdownLocator = FormatterUtils.getFormattedStringLocator(leftDropdownBtn, icon, item);
-        FindElementUtils.findButton(By.xpath(leftDropdownLocator)).click();
+        driver.findElement(By.xpath(String.format(leftDropdownBtn, icon, item))).click();
         return this;
     }
 
@@ -78,12 +69,10 @@ public class CataloguePage extends BasePage {
      * @param <T> redirection to the particular class depending on the chosen dropdown option
      * @param index middle dropdown option index
      */
-
     @SuppressWarnings("unchecked")
     public <T extends BasePage> T getMiddleDropdown(Class<T> clazz, Pages page, Icons icon, String index) {
         try {
-            String middleDropdownLocator = FormatterUtils.getFormattedStringLocator(middleDropdownBtn, icon, index);
-            FindElementUtils.findButton(By.xpath(middleDropdownLocator)).click();
+            driver.findElement(By.xpath(String.format(middleDropdownBtn, icon, index))).click();
             return (T) Class.forName(page.getName()).newInstance();
         } catch (IllegalAccessException | InstantiationException | ClassNotFoundException e) {
             e.printStackTrace();

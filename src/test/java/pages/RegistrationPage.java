@@ -9,6 +9,7 @@ import org.testng.Assert;
 import properties.Property;
 import util.WaitUtils;
 
+
 public class RegistrationPage extends BasePage {
 
     @FindBy(xpath = "//input[@type='email']")
@@ -55,6 +56,7 @@ public class RegistrationPage extends BasePage {
      * @param login login
      */
     public RegistrationPage setLogin(String login) {
+        waitForPageOpened();
         loginInputField.sendKeys(login);
         return this;
     }

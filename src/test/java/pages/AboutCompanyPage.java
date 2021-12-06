@@ -6,6 +6,7 @@ import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
 import util.WaitUtils;
 
+
 public class AboutCompanyPage extends BasePage {
 
     private static final String ABOUT_PAGE_URL = "https://blog.onliner.by/about";
@@ -39,6 +40,7 @@ public class AboutCompanyPage extends BasePage {
      * @return about company page header
      */
     public String getAboutPageText() {
+        waitForPageOpened();
         return requisitesLabel.getText().toLowerCase().trim();
     }
 }

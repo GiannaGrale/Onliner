@@ -44,6 +44,7 @@ public class ApplePage extends BasePage {
      * When the checkbox option is selected, a tag of the manufacturer appears
      */
     public ApplePage displayTag() {
+        waitForPageOpened();
         tagSign.retryingTagSearch();
         return this;
     }

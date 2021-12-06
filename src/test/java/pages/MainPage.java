@@ -80,6 +80,7 @@ public class MainPage extends BasePage {
      * Click on the entrance button
      */
     public MainPage openEntranceForm() {
+        waitForPageOpened();
         entranceButton.click();
         return this;
     }

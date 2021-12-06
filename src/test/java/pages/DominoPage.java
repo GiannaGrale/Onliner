@@ -1,16 +1,16 @@
 package pages;
 
-
 import elements.*;
 import indices.Pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
 import properties.Property;
-import util.FindElementUtils;
 import util.ScrollUtils;
 import util.WaitUtils;
+
 
 public class DominoPage extends BasePage {
 
@@ -56,9 +56,9 @@ public class DominoPage extends BasePage {
     @SuppressWarnings("unchecked")
     public <T> T choosePizza(Class<T> clazz, Pages page, String pizza) {
         try {
+            waitForPageOpened();
             WaitUtils.waitForVisibility(pizzaPic);
-            Link dominoLink;
-            dominoLink = FindElementUtils.findLink(By.partialLinkText(pizza));
+            WebElement dominoLink = driver.findElement(By.partialLinkText(pizza));
             ScrollUtils.scrollToElementView(dominoLink);
             dominoLink.click();
             return (T) Class.forName(page.getName()).newInstance();

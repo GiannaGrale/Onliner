@@ -8,6 +8,7 @@ import org.testng.Assert;
 import properties.Property;
 import util.WaitUtils;
 
+
 public class ShoppingCartPage extends BasePage {
 
     @FindBy(css = ".cart-form__title.cart-form__title_big-alter ")
@@ -42,6 +43,7 @@ public class ShoppingCartPage extends BasePage {
      * @return an order completion button text
      */
     public String getCompleteOrderButtonText() {
+        waitForPageOpened();
         WaitUtils.waitForVisibility(completeOrderButton);
         return completeOrderButton.getText().toLowerCase().trim();
     }

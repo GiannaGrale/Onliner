@@ -1,17 +1,16 @@
 package pages;
 
-import elements.Checkbox;
 import elements.Text;
 import indices.Pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
 import properties.Property;
-import util.FindElementUtils;
-import util.FormatterUtils;
 import util.ScrollUtils;
 import util.WaitUtils;
+
 
 public class SmartphonePage extends BasePage {
 
@@ -20,8 +19,7 @@ public class SmartphonePage extends BasePage {
     @FindBy(xpath = "//h1[@class='schema-header__title']")
     protected Text phonesTitle;
 
-    @FindBy(xpath = "//div[6]//li//input[@value= '%s']/../span")
-    protected Checkbox manufacturerCbx;
+    protected static final String manufacturer = "//div[6]//li//input[@value= '%s']/../span";
 
     public SmartphonePage() {
         super();
@@ -50,8 +48,8 @@ public class SmartphonePage extends BasePage {
      */
     @SuppressWarnings("unchecked")
     public <T extends BasePage> T chooseManufacturer(Class<T> clazz, Pages page, String brand) {
-        String chosenManufacturer = FormatterUtils.getFormattedStringLocator(manufacturerCbx, brand);
-        manufacturerCbx = FindElementUtils.findCheckbox(By.xpath(chosenManufacturer));
+        waitForPageOpened();
+        WebElement manufacturerCbx = driver.findElement(By.xpath(String.format(manufacturer, brand)));
         ScrollUtils.scrollToElementView(manufacturerCbx);
         manufacturerCbx.click();
         try {

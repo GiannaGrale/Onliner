@@ -9,6 +9,7 @@ import properties.Property;
 import util.ScrollUtils;
 import util.WaitUtils;
 
+
 public class PepperoniPage extends BasePage {
 
     public static final String PEPPERONI_ENDPOINT = "dominos/dominospizza/domipepperonito5";
@@ -47,6 +48,7 @@ public class PepperoniPage extends BasePage {
      * Add an item to the cart by clicking the add to cart button
      */
     public PepperoniPage clickAddToCartButton() {
+        waitForPageOpened();
         ScrollUtils.scrollToElementView(addToCartButton);
         addToCartButton.click();
         return this;
