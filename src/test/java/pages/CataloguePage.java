@@ -16,11 +16,11 @@ public class CataloguePage extends BasePage {
     @FindBy(xpath = "//h1[@class='catalog-navigation__title']")
     protected Text catalogueName;
 
-    protected static final String iconOptionBtn = "//li[@data-id=%s]";
+    protected static final String ICON_OPTION_BUTTON = "//li[@data-id=%s]";
 
-    protected static final String leftDropdownBtn = "//div[@data-id=%s]/descendant::div[%s]";
+    protected static final String LEFT_DROPDOWN_BUTTON = "//div[@data-id=%s]/descendant::div[%s]";
 
-    protected static final String middleDropdownBtn = "//div[@data-id=%s]/descendant::span[%s]";
+    protected static final String MIDDLE_DROPDOWN_BUTTON = "//div[@data-id=%s]/descendant::span[%s]";
 
     public CataloguePage() {
         super();
@@ -49,7 +49,7 @@ public class CataloguePage extends BasePage {
      */
     public CataloguePage getIconOption(Icons index) {
         waitForPageOpened();
-        driver.findElement(By.xpath(String.format(iconOptionBtn, index))).click();
+        driver.findElement(By.xpath(String.format(ICON_OPTION_BUTTON, index))).click();
         return this;
     }
 
@@ -60,7 +60,7 @@ public class CataloguePage extends BasePage {
      *
      */
     public <T extends Enum<T>> CataloguePage getLeftDropdown(Icons icon, T item) {
-        driver.findElement(By.xpath(String.format(leftDropdownBtn, icon, item))).click();
+        driver.findElement(By.xpath(String.format(LEFT_DROPDOWN_BUTTON, icon, item))).click();
         return this;
     }
 
@@ -72,7 +72,7 @@ public class CataloguePage extends BasePage {
     @SuppressWarnings("unchecked")
     public <T extends BasePage> T getMiddleDropdown(Class<T> clazz, Pages page, Icons icon, String index) {
         try {
-            driver.findElement(By.xpath(String.format(middleDropdownBtn, icon, index))).click();
+            driver.findElement(By.xpath(String.format(MIDDLE_DROPDOWN_BUTTON, icon, index))).click();
             return (T) Class.forName(page.getName()).newInstance();
         } catch (IllegalAccessException | InstantiationException | ClassNotFoundException e) {
             e.printStackTrace();
