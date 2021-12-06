@@ -11,7 +11,7 @@ public class DriverManager {
     private static ThreadLocal<WebDriver> webDriver = new ThreadLocal<>();
 
     /***
-     * The method removes the current thread’s copy of this thread-local variable to the specified value
+     * The method gets the current thread’s copy of this thread-local variable to the specified value
      * @return webdriver of the current thread
      */
     public static WebDriver getDriver() {
@@ -20,8 +20,7 @@ public class DriverManager {
 
     /***
      * The method sets the current thread’s copy of this thread-local variable to the specified value
-     * @param driver
-     * @return webdriver of the current thread
+     * @param driver set driver
      */
     public static void setWebDriver(WebDriver driver) {
         webDriver.set(driver);
@@ -29,7 +28,7 @@ public class DriverManager {
 
     /***
      * This method remove the current thread’s copy of this thread-local variable to the specified value
-     * @param driver
+     * @param driver close driver
      */
     public static void quitDriver(WebDriver driver) {
         if (driver != null) {
