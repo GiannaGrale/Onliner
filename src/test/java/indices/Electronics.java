@@ -1,5 +1,8 @@
 package indices;
 
+/***
+ * Indices of electronic items
+ */
 public enum Electronics {
 
     MOBILE_PHONES("4"),
@@ -16,18 +19,18 @@ public enum Electronics {
     MUSIC_DEVICES("48"),
     OPTICAL_DEVICES("52");
 
-    private final String title;
+    private final String index;
 
-    Electronics(String title) {
-        this.title = title;
+    Electronics(String index) {
+        this.index = index;
     }
 
-    public String getTitle() {
-        return title;
+    public String getIndex() {
+        return index;
     }
 
     @Override
     public String toString() {
-        return title;
+        return index;
     }
 }

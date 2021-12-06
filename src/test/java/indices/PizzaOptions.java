@@ -1,5 +1,8 @@
 package indices;
 
+/***
+ * Indices of pizza options
+ */
 public interface PizzaOptions {
 
    String DOMINO = "1";

@@ -1,6 +1,8 @@
 package indices;
 
-
+/***
+ * List of pages
+ */
 public enum Pages {
 
     APPLE("pages.ApplePage"),

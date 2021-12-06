@@ -1,5 +1,8 @@
 package indices;
 
+/***
+ * Catalogue of dropdown items
+ */
 public enum Icons {
 
     ELECTRONICS("1"),
@@ -13,18 +16,18 @@ public enum Icons {
     WORK_OFFICE("9"),
     FOOD("16");
 
-    private final String title;
+    private final String index;
 
-    Icons(String title) {
-        this.title = title;
+    Icons(String index) {
+        this.index = index;
     }
 
-    public String getTitle() {
-        return title;
+    public String getIndex() {
+        return index;
     }
 
     @Override
     public String toString() {
-        return title;
+        return index;
     }
 }

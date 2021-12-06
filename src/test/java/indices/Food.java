@@ -1,5 +1,8 @@
 package indices;
 
+/***
+ * Indices of food items
+ */
 public enum Food {
 
     PIZZA("4"),
@@ -14,18 +17,18 @@ public enum Food {
     DESSERTS("48"),
     ALL_RESTAURANTS("52");
 
-    private final String title;
+    private final String index;
 
-    Food(String title) {
-        this.title = title;
+    Food(String index) {
+        this.index = index;
     }
 
-    public String getTitle() {
-        return title;
+    public String getIndex() {
+        return index;
     }
 
     @Override
     public String toString() {
-        return title;
+        return index;
     }
 }
