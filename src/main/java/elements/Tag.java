@@ -1,8 +1,7 @@
 package elements;
 
-
 @ImplementedBy(TagImpl.class)
-public interface Tag extends Element{
+public interface Tag extends Element {
 
-    boolean retryingTagSearch();
+     void findTag();
 }

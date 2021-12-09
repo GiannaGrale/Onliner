@@ -5,14 +5,13 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Coordinates;
 import org.openqa.selenium.interactions.Locatable;
 
-
 /**
  * An implementation of the Element interface. Delegates its work to an underlying WebElement instance for
  * custom functionality.
  */
 public class ElementImpl implements Element {
 
-    public WebElement element;
+    private WebElement element;
 
     public ElementImpl(WebElement element) {
         this.element = element;

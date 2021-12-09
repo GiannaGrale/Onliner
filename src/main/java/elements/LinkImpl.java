@@ -1,6 +1,6 @@
 package elements;
 
-
+import org.openqa.selenium.ElementNotInteractableException;
 import org.openqa.selenium.WebElement;
 import util.ScrollUtils;
 import util.WaitUtils;
@@ -19,7 +19,7 @@ public class LinkImpl extends ElementImpl implements Link {
         try {
             WaitUtils.elementToBeClickable(getWrappedElement());
             getWrappedElement().click();
-        } catch (Exception e) {
+        } catch (ElementNotInteractableException ex) {
             ScrollUtils.scrollToElementView(getWrappedElement());
             getWrappedElement().click();
         }
