@@ -31,4 +31,3 @@ public class FilterTest extends BaseTest {
         Assert.assertTrue(dominoPage.areNoGoodsWarning(), "Goods are available");
     }
 }
-
