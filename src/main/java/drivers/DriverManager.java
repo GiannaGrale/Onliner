@@ -4,7 +4,7 @@ import org.openqa.selenium.WebDriver;
 
 public class DriverManager {
     /***
-     * Threadlocal allows to to make a webdriver object thread-safe, i.e.
+     * Threadlocal allows  to make a webdriver object thread-safe, i.e.
      * a single object can be used with multiply threads at the same time
      * without causing a problem.
      */
@@ -20,7 +20,7 @@ public class DriverManager {
 
     /***
      * The method sets the current thread’s copy of this thread-local variable to the specified value
-     * @param driver set driver
+     * @param driver set driver of the current thread
      */
     public static void setWebDriver(WebDriver driver) {
         webDriver.set(driver);
@@ -28,7 +28,7 @@ public class DriverManager {
 
     /***
      * This method remove the current thread’s copy of this thread-local variable to the specified value
-     * @param driver close driver
+     * @param driver close driver of the current thread
      */
     public static void quitDriver(WebDriver driver) {
         if (driver != null) {

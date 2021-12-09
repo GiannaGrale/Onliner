@@ -1,10 +1,7 @@
 package drivers;
 
-
 import io.github.bonigarcia.wdm.WebDriverManager;
 import io.github.bonigarcia.wdm.config.DriverManagerType;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -15,14 +12,10 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.opera.OperaDriver;
 import org.openqa.selenium.opera.OperaOptions;
 
-
 public class DriverFactory {
-
-    private static Logger logger = LogManager.getLogger(DriverFactory.class);
-
     /***
      * Chooses a webdriver of a defined type
-     * @param browser
+     * @param browser chosen driver
      */
     public static WebDriver getDriver(BrowserType browser) {
         WebDriver driver;
@@ -40,7 +33,6 @@ public class DriverFactory {
                 driver = getEdge();
                 break;
             default:
-                logger.error("Please, choose a correct name of the browser...");
                 throw new RuntimeException("Incorrect BrowserName");
         }
         return driver;
