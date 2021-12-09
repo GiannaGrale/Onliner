@@ -1,4 +1,4 @@
-package indices;
+package entities;
 
 /***
  * Indices of electronic items

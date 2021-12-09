@@ -13,16 +13,25 @@ public class WaitUtils {
 
     private static final Duration TIMEOUT = Duration.ofSeconds(35);
 
-    protected static WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), TIMEOUT);
+    private static final WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), TIMEOUT);
 
+    /***
+     * Waits for the element visibility
+     */
     public static void waitForVisibility(WebElement element) {
         wait.until(ExpectedConditions.visibilityOf(element));
     }
 
+    /***
+     * Waits until the element is clickable
+     */
     public static void elementToBeClickable(WebElement element) {
         wait.until(ExpectedConditions.elementToBeClickable(element));
     }
 
+    /***
+     * Waits until the element invisibility
+     */
     public static void waitForInvisibility(WebElement element) {
         wait.until(ExpectedConditions.invisibilityOf(element));
     }

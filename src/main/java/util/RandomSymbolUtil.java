@@ -9,19 +9,27 @@ public class RandomSymbolUtil {
 
     static Faker faker = new Faker();
 
+    /***
+     * Generates random string
+     * @return random login string
+     */
     public static String getRandomLogin() {
         return faker.internet().emailAddress();
     }
 
+    /***
+     * Generates random password
+     * @return random password string
+     */
     public static String getRandomPassword() {
         return faker.internet().password();
     }
 
+    /***
+     * Generates random query
+     * @return random query string
+     */
     public static String getRandomQuery() {
         return faker.internet().ipV6Address();
-    }
-
-    public static String getNoCredentials() {
-        return "";
     }
 }

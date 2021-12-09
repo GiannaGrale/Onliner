@@ -1,4 +1,4 @@
-package indices;
+package entities;
 
 /***
  * Catalogue of dropdown items
