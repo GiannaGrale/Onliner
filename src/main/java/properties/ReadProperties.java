@@ -1,17 +1,19 @@
-
 package properties;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import java.io.*;
-import java.util.Properties;
+import java.util.*;
 
-
+/***
+ * Class for reading properties from files
+ */
 public final class ReadProperties {
 
     private static final Logger logger = LogManager.getLogger();
-    private final Properties properties = new Properties();
     private static ReadProperties instance;
+    private final Properties properties = new Properties();
+    private Map<String, Properties> propsMap  = new HashMap<>();
 
     public static ReadProperties getInstance() {
         if (instance == null) {
@@ -21,13 +23,22 @@ public final class ReadProperties {
     }
 
     private ReadProperties() {
-        try (InputStream urlStream = getClass().getClassLoader().getResourceAsStream("config.properties");
-             InputStream loginStream = getClass().getClassLoader().getResourceAsStream("login.properties")) {
-            properties.load(urlStream);
-            properties.load(loginStream);
-        } catch (IOException e) {
-            logger.debug("The file cannot be read...");
-            e.printStackTrace();
+    }
+
+    /***
+     * Reads property file
+     * @param file property file
+     */
+    private void readPropertyFile(String file) {
+        if (!propsMap.containsKey(file)) {
+            InputStream inputStream = getClass().getClassLoader().getResourceAsStream(file);
+            try {
+                properties.load(inputStream);
+            } catch (IOException e) {
+                logger.debug("Cannot read the file");
+                throw new UncheckedIOException(e);
+            }
+            propsMap.put(file, properties);
         }
     }
 
@@ -36,12 +47,8 @@ public final class ReadProperties {
      * @param key key from config.properties
      * @return key value
      */
-    public String getKeyProperty(Property key) {
-        if (properties.getProperty(key.getTitle()) != null) {
-            return properties.getProperty(key.getTitle());
-        } else {
-            logger.debug("The key value isn't found...");
-            throw new RuntimeException();
-        }
+    public String getKeyProperty(String propsFileName, String key) {
+        readPropertyFile(propsFileName);
+        return propsMap.get(propsFileName).getProperty(key);
     }
 }
