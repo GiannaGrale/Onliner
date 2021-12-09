@@ -6,29 +6,30 @@ import elements.Input;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
-import properties.Property;
+import properties.ConfigStorage;
 import util.WaitUtils;
-
 
 public class RegistrationPage extends BasePage {
 
+    private final String REGISTRATION_URL = ConfigStorage.getRegistrationUrl();
+
     @FindBy(xpath = "//input[@type='email']")
-    protected Input loginInputField;
+    private Input loginInputField;
 
     @FindBy(xpath = "//div[6]/descendant::input")
-    protected Input passwordInputField;
+    private Input passwordInputField;
 
     @FindBy(xpath = "//div[@autocomplete='repeatPassword']/descendant::input")
-    protected Input repeatPasswordInputField;
+    private Input repeatPasswordInputField;
 
     @FindBy(xpath = "//span[@class='i-checkbox__faux']")
-    protected Checkbox privacyPolicyCheckbox;
+    private Checkbox privacyPolicyCheckbox;
 
     @FindBy(xpath = "//button[@type='submit']")
-    protected Button registrationButton;
+    private Button registrationButton;
 
     @FindBy(css = ".auth-container .auth-form__title ")
-    protected Button emailConfirmationRequestButton;
+    private Button emailConfirmationRequestButton;
 
     public RegistrationPage() {
         super();
@@ -36,8 +37,8 @@ public class RegistrationPage extends BasePage {
 
     @Override
     public RegistrationPage openPage() {
-        driver.navigate().to(props.getKeyProperty(Property.REGISTRATION_URL));
-        logger.debug("Navigation to the regURl...");
+        driver.navigate().to(REGISTRATION_URL);
+        logger.debug("Navigation to the URL " + REGISTRATION_URL);
         return this;
     }
 

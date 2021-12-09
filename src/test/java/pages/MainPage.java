@@ -1,59 +1,56 @@
 package pages;
 
-import drivers.DriverManager;
 import elements.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
-import properties.Property;
+import properties.ConfigStorage;
 import util.WaitUtils;
-
 
 public class MainPage extends BasePage {
 
+    private final String MAIN_URL = ConfigStorage.getMainUrl();
+
     @FindBy(className = "auth-bar__item--text")
-    public Button entranceButton;
+    private Button entranceButton;
 
     @FindBy(className = "auth-bar__item--cart")
-    public Button shoppingCartButton;
+    private Button shoppingCartButton;
 
-    @FindBy(xpath = "//form/descendant::div[@class='auth-form__label-title']")
-    public Text loginViaNickNameMessage;
+    @FindBy(className = "auth-form__label-title")
+    private Text loginVia;
 
     @FindBy(linkText = "Зарегистрироваться на Onlíner")
-    public Link registrationLink;
+    private Link registrationLink;
 
     @FindBy(xpath = "//input[@placeholder='Ник или e-mail']")
-    public Input loginInput;
+    private Input loginInput;
 
     @FindBy(xpath = "//input[@type='password']")
-    public Input passwordInput;
+    private Input passwordInput;
 
     @FindBy(css = ".auth-form__control .auth-button")
-    public Button loginButton;
+    private Button loginButton;
 
     @FindBy(className = "js-header-user-avatar")
-    public Picture avatarPicture;
+    private Picture avatarPicture;
 
     @FindBy(xpath = "//nav//li[1]/a[2]/span")
-    public Link catalogueLink;
+    private Link catalogueLink;
 
     @FindBy(xpath = "//footer//ul/li[1]/a")
-    public Link aboutCompanyLink;
+    private Link aboutCompanyLink;
 
     @FindBy(css = ".auth-form__description.auth-form__description_extended-other")
-    public Text incorrectCredentialsWarning;
-
-    @FindBy(xpath = "//*[contains(text(),'Укажите пароль')]")
-    public Text emptyPasswordWarning;
+    private Text incorrectCredentialsWarning;
 
     @FindBy(xpath = "//form/input[@name='query']")
-    public Input mainSearchField;
+    private Input mainSearchField;
 
     @FindBy(css = ".search__suggest-addon.search__suggest-addon_active")
-    public Text searchInputMessage;
+    private Text searchInputMessage;
 
     public MainPage() {
         super();
@@ -61,8 +58,8 @@ public class MainPage extends BasePage {
 
     @Override
     public MainPage openPage() {
-        DriverManager.getDriver().navigate().to(props.getKeyProperty(Property.URL));
-        logger.debug("Navigation to the url...");
+        driver.navigate().to(MAIN_URL);
+        logger.debug("Navigation to the URL " + MAIN_URL);
         return this;
     }
 
@@ -97,28 +94,18 @@ public class MainPage extends BasePage {
      * Get a message under login field
      * @return the message under login field
      */
-    public String getLoginViaNickNameMessage() {
-        return loginViaNickNameMessage.getText().toLowerCase().trim();
+    public String getLoginOptionMessage() {
+        return loginVia.getText().toLowerCase().trim();
     }
 
     /***
      * Display message "Cart" while entering the shopping cart
      * @return return message of shoppingCartMessage element
      */
-    public String getLoginWarningMessage() {
+    public String getIncorrectCredentials() {
         WaitUtils.waitForVisibility(incorrectCredentialsWarning);
         return incorrectCredentialsWarning.getText().toLowerCase().trim();
     }
-
-    /***
-     * While entering no password, a warning message appears
-     * @return warning message
-     */
-    public String getPasswordInputWarning() {
-        WaitUtils.waitForVisibility(emptyPasswordWarning);
-        return emptyPasswordWarning.getText().toLowerCase().trim();
-    }
-
     /***
      * While entering a phrase into the input field, a hint appears
      * @return hint message

@@ -1,26 +1,26 @@
 package pages;
 
 import elements.Text;
-import indices.Icons;
-import indices.Pages;
+import entities.CatalogueOptions;
+import entities.Icons;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
-import properties.Property;
+import properties.ConfigStorage;
 import util.WaitUtils;
-
+import java.lang.reflect.InvocationTargetException;
 
 public class CataloguePage extends BasePage {
 
+    private final String CATALOGUE_URL = ConfigStorage.getCatalogueUrl();
+
     @FindBy(xpath = "//h1[@class='catalog-navigation__title']")
-    protected Text catalogueName;
+    private Text catalogueName;
 
-    protected static final String ICON_OPTION_BUTTON = "//li[@data-id=%s]";
-
-    protected static final String LEFT_DROPDOWN_BUTTON = "//div[@data-id=%s]/descendant::div[%s]";
-
-    protected static final String MIDDLE_DROPDOWN_BUTTON = "//div[@data-id=%s]/descendant::span[%s]";
+    private static final String ICON_OPTION_BUTTON = "//li[@data-id=%s]";
+    private static final String LEFT_DROPDOWN_BUTTON = "//div[@data-id=%s]/descendant::div[%s]";
+    private static final String MIDDLE_DROPDOWN_BUTTON = "//div[@data-id=%s]/descendant::span[%s]";
 
     public CataloguePage() {
         super();
@@ -28,8 +28,8 @@ public class CataloguePage extends BasePage {
 
     @Override
     public CataloguePage openPage() {
-        driver.navigate().to(props.getKeyProperty(Property.CATALOGUE_URL));
-        logger.debug("Navigation to the catalogueURL...");
+        driver.navigate().to(CATALOGUE_URL);
+        logger.debug("Navigation to the URL " + CATALOGUE_URL);
         return this;
     }
 
@@ -44,40 +44,22 @@ public class CataloguePage extends BasePage {
     }
 
     /***
-     * Choose the icon index and click it
-     * @param index the icon index
-     */
-    public CataloguePage getIconOption(Icons index) {
-        waitForPageOpened();
-        driver.findElement(By.xpath(String.format(ICON_OPTION_BUTTON, index))).click();
-        return this;
-    }
-
-    /***
-     * Choose the left side dropdown option and click it
-     * @param icon catalogue icon
-     * @param item item from a dropdown
-     *
-     */
-    public <T extends Enum<T>> CataloguePage getLeftDropdown(Icons icon, T item) {
-        driver.findElement(By.xpath(String.format(LEFT_DROPDOWN_BUTTON, icon, item))).click();
-        return this;
-    }
-
-    /***
      * Choose the middle dropdown option and click it
      * @param <T> redirection to the particular class depending on the chosen dropdown option
      * @param index middle dropdown option index
      */
+
     @SuppressWarnings("unchecked")
-    public <T extends BasePage> T getMiddleDropdown(Class<T> clazz, Pages page, Icons icon, String index) {
+    public <T extends BasePage> T selectCatalogueDetail(Class<T> clazz, Icons icon, Enum<?> item, CatalogueOptions index) {
+        waitForPageOpened();
         try {
-            driver.findElement(By.xpath(String.format(MIDDLE_DROPDOWN_BUTTON, icon, index))).click();
-            return (T) Class.forName(page.getName()).newInstance();
-        } catch (IllegalAccessException | InstantiationException | ClassNotFoundException e) {
+            driver.findElement(By.xpath(String.format(ICON_OPTION_BUTTON, icon))).click();
+            driver.findElement(By.xpath(String.format(LEFT_DROPDOWN_BUTTON, icon, item))).click();
+            driver.findElement(By.xpath(String.format(MIDDLE_DROPDOWN_BUTTON, icon, index.getIndex()))).click();
+            return (T) Class.forName(clazz.getName()).getConstructor().newInstance();
+        } catch (InstantiationException | IllegalAccessException | ClassNotFoundException | NoSuchMethodException | InvocationTargetException e) {
             e.printStackTrace();
         }
-        logger.debug("Failed to redirect to another page..");
-        return null;
+        return (T) this;
     }
 }

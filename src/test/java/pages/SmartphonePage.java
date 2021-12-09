@@ -1,25 +1,24 @@
 package pages;
 
 import elements.Text;
-import indices.Pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
-import properties.Property;
+import properties.ConfigStorage;
 import util.ScrollUtils;
 import util.WaitUtils;
 
-
 public class SmartphonePage extends BasePage {
 
-    public static final String MOBILE_ENDPOINT = "mobile";
+    private static final String MOBILE_ENDPOINT = "mobile";
+    private final String CATALOGUE_URL = ConfigStorage.getCatalogueUrl();
 
     @FindBy(xpath = "//h1[@class='schema-header__title']")
-    protected Text phonesTitle;
+    private Text phonesTitle;
 
-    protected static final String manufacturer = "//div[6]//li//input[@value= '%s']/../span";
+    private static final String manufacturer = "//div[6]//li//input[@value= '%s']/../span";
 
     public SmartphonePage() {
         super();
@@ -27,8 +26,8 @@ public class SmartphonePage extends BasePage {
 
     @Override
     public SmartphonePage openPage() {
-        driver.navigate().to(props.getKeyProperty(Property.valueOf(Property.CATALOGUE_URL + MOBILE_ENDPOINT)));
-        logger.debug("Navigation to the catalogueURL " + MOBILE_ENDPOINT);
+        driver.navigate().to(CATALOGUE_URL + MOBILE_ENDPOINT);
+        logger.debug("Navigation to the URL " + MOBILE_ENDPOINT);
         return this;
     }
 
@@ -44,20 +43,11 @@ public class SmartphonePage extends BasePage {
 
     /***
      * Click on the chosen checkbox item
-     * @param <T> redirection to a particular class, depends on the clicked checkbox value
      */
-    @SuppressWarnings("unchecked")
-    public <T extends BasePage> T chooseManufacturer(Class<T> clazz, Pages page, String brand) {
-        waitForPageOpened();
+    public ApplePage chooseBrand(String brand){
         WebElement manufacturerCbx = driver.findElement(By.xpath(String.format(manufacturer, brand)));
         ScrollUtils.scrollToElementView(manufacturerCbx);
         manufacturerCbx.click();
-        try {
-            return (T) Class.forName(page.getName()).newInstance();
-        } catch (IllegalAccessException | InstantiationException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        logger.debug("Failed to redirect to another page..");
-        return null;
+        return new ApplePage();
     }
 }

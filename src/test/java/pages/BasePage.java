@@ -3,16 +3,13 @@ package pages;
 import factory.ElementFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import properties.ReadProperties;
 import drivers.DriverManager;
 import org.openqa.selenium.WebDriver;
-
 
 public abstract class BasePage {
 
     protected WebDriver driver;
-    protected ReadProperties props;
-    public final Logger logger = LogManager.getLogger(this);
+    protected final Logger logger = LogManager.getLogger(this);
 
     /***
      * Navigate the webdriver to the chosen url
@@ -27,7 +24,6 @@ public abstract class BasePage {
     protected abstract BasePage waitForPageOpened();
 
     public BasePage() {
-        props = ReadProperties.getInstance();
         driver = DriverManager.getDriver();
         ElementFactory.initElements(this.driver, this);
     }

@@ -1,32 +1,33 @@
 package pages;
 
 import elements.*;
-import indices.Pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
-import properties.Property;
+import properties.ConfigStorage;
 import util.ScrollUtils;
 import util.WaitUtils;
 
+import java.lang.reflect.InvocationTargetException;
 
 public class DominoPage extends BasePage {
 
-    public static final String DOMINO_ENDPOINT = "dominos";
+    private final String CATALOGUE_URL = ConfigStorage.getCatalogueUrl();
+    private static final String DOMINO_ENDPOINT = "dominos";
 
     @FindBy(xpath = "//input[@placeholder='от']")
-    protected Input minPriceInput;
+    private Input minPriceInput;
 
     @FindBy(xpath = "//*[@id='schema-products']/div/nobr")
-    protected Text warningMessage;
+    private Text warningMessage;
 
     @FindBy(className = "schema-header__title")
-    protected Text headerLabel;
+    private Text headerLabel;
 
     @FindBy(xpath = "//*[@id='schema-products']/div[1]/descendant::div[2]")
-    protected Picture pizzaPic;
+    private Picture pizzaPic;
 
     public DominoPage() {
         super();
@@ -34,8 +35,8 @@ public class DominoPage extends BasePage {
 
     @Override
     public DominoPage openPage() {
-        driver.navigate().to(props.getKeyProperty(Property.valueOf(Property.CATALOGUE_URL + DOMINO_ENDPOINT)));
-        logger.debug("Navigation to the catalogueURL..." + DOMINO_ENDPOINT);
+        driver.navigate().to(CATALOGUE_URL + DOMINO_ENDPOINT);
+        logger.debug("Navigation to the URL " + DOMINO_ENDPOINT);
         return this;
     }
 
@@ -54,18 +55,18 @@ public class DominoPage extends BasePage {
      * @param pizza pizza item
      */
     @SuppressWarnings("unchecked")
-    public <T> T choosePizza(Class<T> clazz, Pages page, String pizza) {
+    public <T> T choosePizza(Class<T> clazz, String pizza) {
         try {
             waitForPageOpened();
             WaitUtils.waitForVisibility(pizzaPic);
             WebElement dominoLink = driver.findElement(By.partialLinkText(pizza));
             ScrollUtils.scrollToElementView(dominoLink);
             dominoLink.click();
-            return (T) Class.forName(page.getName()).newInstance();
-        } catch (IllegalAccessException | InstantiationException | ClassNotFoundException e) {
+            return (T) Class.forName(clazz.getName()).getConstructor().newInstance();
+        } catch (InstantiationException | IllegalAccessException | ClassNotFoundException | NoSuchMethodException | InvocationTargetException e) {
             e.printStackTrace();
         }
-        return null;
+        return (T) this;
     }
 
     /***
@@ -80,7 +81,7 @@ public class DominoPage extends BasePage {
     /***
      * Message on absence of goods on the list
      */
-    public boolean areGoodsDisplayed() {
+    public boolean areNoGoodsWarning() {
         WaitUtils.waitForVisibility(warningMessage);
         return warningMessage.isDisplayed();
     }

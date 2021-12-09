@@ -1,6 +1,5 @@
 package factory;
 
-
 import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.DefaultElementLocatorFactory;

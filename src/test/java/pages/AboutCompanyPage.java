@@ -6,13 +6,12 @@ import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
 import util.WaitUtils;
 
-
 public class AboutCompanyPage extends BasePage {
 
     private static final String ABOUT_PAGE_URL = "https://blog.onliner.by/about";
 
-    @FindBy(xpath = "//p[2]/strong")
-    protected Text requisitesLabel;
+    @FindBy(className = "news-header__title")
+    private Text requisitesLabel;
 
     public AboutCompanyPage() {
         super();
@@ -21,7 +20,7 @@ public class AboutCompanyPage extends BasePage {
     @Override
     public AboutCompanyPage openPage() {
         driver.navigate().to(ABOUT_PAGE_URL);
-        logger.debug("Navigation to the aboutURl...");
+        logger.debug("Navigation to the URL " + ABOUT_PAGE_URL);
         return this;
     }
 
@@ -39,7 +38,7 @@ public class AboutCompanyPage extends BasePage {
      * Get "About company" message
      * @return about company page header
      */
-    public String getAboutPageText() {
+    public String getAboutPageTitle() {
         waitForPageOpened();
         return requisitesLabel.getText().toLowerCase().trim();
     }

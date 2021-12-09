@@ -5,23 +5,23 @@ import elements.Text;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
-import properties.Property;
+import properties.ConfigStorage;
 import util.ScrollUtils;
 import util.WaitUtils;
 
-
 public class PepperoniPage extends BasePage {
 
-    public static final String PEPPERONI_ENDPOINT = "dominos/dominospizza/domipepperonito5";
+    private final String CATALOGUE_URL = ConfigStorage.getCatalogueUrl();
+    private static final String PEPPERONI_ENDPOINT = "dominos/dominospizza/domipepperonito5";
 
     @FindBy(className = "product-aside__price--primary")
-    protected Text priceLabel;
+    private Text priceLabel;
 
     @FindBy(css = ".button-style.button-style_expletive")
-    protected Button addToCartButton;
+    private Button addToCartButton;
 
     @FindBy(xpath = "//a[@title='Корзина']")
-    protected Button cartButton;
+    private Button cartButton;
 
     public PepperoniPage() {
         super();
@@ -29,8 +29,8 @@ public class PepperoniPage extends BasePage {
 
     @Override
     protected PepperoniPage openPage() {
-        driver.navigate().to(props.getKeyProperty(Property.valueOf(Property.CATALOGUE_URL + PEPPERONI_ENDPOINT)));
-        logger.debug("Navigation to the catalogueURL" + PEPPERONI_ENDPOINT);
+        driver.navigate().to(CATALOGUE_URL + PEPPERONI_ENDPOINT);
+        logger.debug("Navigation to the URL " + PEPPERONI_ENDPOINT);
         return this;
     }
 

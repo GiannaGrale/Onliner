@@ -5,19 +5,19 @@ import elements.Text;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
-import properties.Property;
+import properties.ConfigStorage;
 import util.WaitUtils;
-
 
 public class ApplePage extends BasePage {
 
-    public static final String APPLE_FILTER_ENDPOINT = "mobile?mfr%5B0%5D=apple";
+    private static final String APPLE_FILTER_ENDPOINT = "mobile?mfr%5B0%5D=apple";
+    private final String CATALOGUE_URL = ConfigStorage.getCatalogueUrl();
 
     @FindBy(className = "schema-tags__text")
-    protected Tag tagSign;
+    private Tag tagSign;
 
     @FindBy(className = "schema-header__title")
-    protected Text headerLabel;
+    private Text headerLabel;
 
     public ApplePage() {
         super();
@@ -25,8 +25,8 @@ public class ApplePage extends BasePage {
 
     @Override
     public ApplePage openPage() {
-        driver.navigate().to(props.getKeyProperty(Property.valueOf(Property.CATALOGUE_URL + APPLE_FILTER_ENDPOINT)));
-        logger.debug("Navigation to the catalogueURL" + APPLE_FILTER_ENDPOINT);
+        driver.navigate().to(CATALOGUE_URL + APPLE_FILTER_ENDPOINT);
+        logger.debug("Navigation to the URL " + APPLE_FILTER_ENDPOINT);
         return this;
     }
 
@@ -45,7 +45,7 @@ public class ApplePage extends BasePage {
      */
     public ApplePage displayTag() {
         waitForPageOpened();
-        tagSign.retryingTagSearch();
+        tagSign.findTag();
         return this;
     }
 

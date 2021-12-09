@@ -5,17 +5,18 @@ import elements.Text;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
-import properties.Property;
+import properties.ConfigStorage;
 import util.WaitUtils;
-
 
 public class ShoppingCartPage extends BasePage {
 
+    private final String CART_URL = ConfigStorage.getCartUrl();
+
     @FindBy(css = ".cart-form__title.cart-form__title_big-alter ")
-    protected Text cartMessage;
+    private Text cartMessage;
 
     @FindBy(css = ".button-style.button-style_primary")
-    protected Button completeOrderButton;
+    private Button completeOrderButton;
 
     public ShoppingCartPage() {
         super();
@@ -23,8 +24,8 @@ public class ShoppingCartPage extends BasePage {
 
     @Override
     public ShoppingCartPage openPage() {
-        driver.navigate().to(props.getKeyProperty(Property.CART_URL));
-        logger.debug("Navigation to the cartURL...");
+        driver.navigate().to(CART_URL);
+        logger.debug("Navigation to the URL " + CART_URL);
         return this;
     }
 
