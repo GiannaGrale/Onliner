@@ -1,6 +1,6 @@
 package elements;
 
-import org.openqa.selenium.ElementNotVisibleException;
+import org.openqa.selenium.ElementNotInteractableException;
 import org.openqa.selenium.WebElement;
 import util.ScrollUtils;
 import util.WaitUtils;
@@ -17,15 +17,11 @@ public class TextImpl extends ElementImpl implements Text {
     public String getText() {
         try {
             return getWrappedElement().getText();
-        } catch (ElementNotVisibleException notVisibleException) {
-            try {
-                WaitUtils.waitForVisibility(getWrappedElement());
-                return getWrappedElement().getText();
-            } catch (Exception ex) {
-                ScrollUtils.scrollToElementView(getWrappedElement());
-                WaitUtils.waitForVisibility(getWrappedElement());
-                return getWrappedElement().getText();
-            }
+        } catch (ElementNotInteractableException e) {
+            ScrollUtils.scrollToElementView(getWrappedElement());
+            WaitUtils.waitForVisibility(getWrappedElement());
+            return getWrappedElement().getText();
         }
     }
 }
+
