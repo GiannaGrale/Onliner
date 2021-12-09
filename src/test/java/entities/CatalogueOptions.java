@@ -16,6 +16,5 @@ public enum CatalogueOptions {
 
     public String getIndex() {
         return index;
-
     }
 }
