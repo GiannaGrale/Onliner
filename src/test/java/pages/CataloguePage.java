@@ -48,7 +48,6 @@ public class CataloguePage extends BasePage {
      * @param <T> redirection to the particular class depending on the chosen dropdown option
      * @param index middle dropdown option index
      */
-
     @SuppressWarnings("unchecked")
     public <T extends BasePage> T selectCatalogueDetail(Class<T> clazz, Icons icon, Enum<?> item, CatalogueOptions index) {
         waitForPageOpened();
