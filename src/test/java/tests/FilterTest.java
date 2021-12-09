@@ -1,6 +1,6 @@
 package tests;
 
-import indices.*;
+import entities.*;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.ApplePage;
@@ -9,31 +9,26 @@ import pages.MainPage;
 import pages.SmartphonePage;
 import testData.Catalogue;
 
-
 public class FilterTest extends BaseTest {
-
-    @Test(description = "Positive test to choose Apple manufacturer in the filter")
+    @Test(description = "TC-5, Test to choose a manufacturer in the filter")
     public void chooseManufacturerTest() {
         ApplePage applePage = new MainPage()
                 .openPage()
                 .clickOnCatalogue()
-                .getIconOption(Icons.ELECTRONICS)
-                .getLeftDropdown(Icons.ELECTRONICS, Electronics.MOBILE_PHONES)
-                .getMiddleDropdown(SmartphonePage.class, Pages.SMARTPHONE, Icons.ELECTRONICS, PhoneDevices.SMARTPHONES)
-                .chooseManufacturer(ApplePage.class, Pages.APPLE, Catalogue.BRAND)
+                .selectCatalogueDetail(SmartphonePage.class, Icons.ELECTRONICS, Electronics.MOBILE_PHONES, CatalogueOptions.SMARTPHONES)
+                .chooseBrand(Catalogue.APPLE)
                 .displayTag();
         Assert.assertEquals(applePage.tagText(), "apple", "The filter doesn't work");
     }
 
-    @Test(description = "Negative test to check system behavior while entering negative start price for the goods")
+    @Test(description = "TC-10, Test to check system behavior while entering negative start price for the goods")
     public void negativePriceTest() {
         DominoPage dominoPage = new MainPage()
                 .openPage()
                 .clickOnCatalogue()
-                .getIconOption(Icons.FOOD)
-                .getLeftDropdown(Icons.FOOD, Food.PIZZA)
-                .getMiddleDropdown(DominoPage.class, Pages.DOMINO, Icons.FOOD, PizzaOptions.DOMINO)
+                .selectCatalogueDetail(DominoPage.class, Icons.FOOD, Food.PIZZA, CatalogueOptions.DOMINO)
                 .setMinPrice(Catalogue.PRICE);
-        Assert.assertTrue(dominoPage.areGoodsDisplayed(), "Goods are available");
+        Assert.assertTrue(dominoPage.areNoGoodsWarning(), "Goods are available");
     }
 }
+

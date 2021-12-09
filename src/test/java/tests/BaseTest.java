@@ -7,13 +7,14 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
-import properties.ReadProperties;
+import properties.TestDataStorage;
 import static drivers.DriverManager.getDriver;
 
 public class BaseTest {
 
     protected final Logger logger = LogManager.getLogger(this);
-    protected ReadProperties props = ReadProperties.getInstance();
+    protected String LOGIN = TestDataStorage.getLogin();
+    protected String PSW = TestDataStorage.getPassword();
 
     /***
      * Set and open the local thread browser type.

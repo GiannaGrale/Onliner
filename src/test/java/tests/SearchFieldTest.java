@@ -5,10 +5,9 @@ import org.testng.annotations.Test;
 import pages.MainPage;
 import util.RandomSymbolUtil;
 
-
 public class SearchFieldTest extends BaseTest {
 
-    @Test(description = "Negative test to check the input hint while entering nonexistent item")
+    @Test(description = "TC-9, Test to check the input hint while entering nonexistent item")
     public void searchFieldTest() {
         MainPage mainPage = new MainPage()
                 .openPage()
