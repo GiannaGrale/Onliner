@@ -12,6 +12,6 @@ public class SearchFieldTest extends BaseTest {
         MainPage mainPage = new MainPage()
                 .openPage()
                 .insertTextIntoSearch(RandomSymbolUtil.getRandomQuery());
-        Assert.assertEquals(mainPage.getSearchInputMessage(), "ничего не найдено", "The search field isn't opened or such item exists");
+        Assert.assertEquals(mainPage.getSearchInputMessage(), "ничего не найдено", "The search field wasn't opened or the item that shouldn't be found appears in the search");
     }
 }

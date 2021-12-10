@@ -14,13 +14,13 @@ public class RegistrationPage extends BasePage {
     private final String REGISTRATION_URL = ConfigStorage.getRegistrationUrl();
 
     @FindBy(xpath = "//input[@type='email']")
-    private Input loginInputField;
+    private Input loginFieldInput;
 
     @FindBy(xpath = "//div[6]/descendant::input")
-    private Input passwordInputField;
+    private Input passwordFieldInput;
 
     @FindBy(xpath = "//div[@autocomplete='repeatPassword']/descendant::input")
-    private Input repeatPasswordInputField;
+    private Input repeatPasswordFieldInput;
 
     @FindBy(xpath = "//span[@class='i-checkbox__faux']")
     private Checkbox privacyPolicyCheckbox;
@@ -45,7 +45,7 @@ public class RegistrationPage extends BasePage {
     @Override
     public RegistrationPage waitForPageOpened() {
         try {
-            WaitUtils.waitForVisibility(loginInputField);
+            WaitUtils.waitForVisibility(loginFieldInput);
         } catch (TimeoutException e) {
             Assert.fail("RegistrationPage was not opened");
         }
@@ -58,7 +58,7 @@ public class RegistrationPage extends BasePage {
      */
     public RegistrationPage setLogin(String login) {
         waitForPageOpened();
-        loginInputField.sendKeys(login);
+        loginFieldInput.sendKeys(login);
         return this;
     }
 
@@ -67,7 +67,7 @@ public class RegistrationPage extends BasePage {
      * @param password password
      */
     public RegistrationPage setPassword(String password) {
-        passwordInputField.sendKeys(password);
+        passwordFieldInput.sendKeys(password);
         return this;
     }
 
@@ -76,7 +76,7 @@ public class RegistrationPage extends BasePage {
      * @param password password
      */
     public RegistrationPage setRepeatPassword(String password) {
-        repeatPasswordInputField.sendKeys(password);
+        repeatPasswordFieldInput.sendKeys(password);
         return this;
     }
 

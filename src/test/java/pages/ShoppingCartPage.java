@@ -13,7 +13,7 @@ public class ShoppingCartPage extends BasePage {
     private final String CART_URL = ConfigStorage.getCartUrl();
 
     @FindBy(css = ".cart-form__title.cart-form__title_big-alter ")
-    private Text cartMessage;
+    private Text cartMessageText;
 
     @FindBy(css = ".button-style.button-style_primary")
     private Button completeOrderButton;
@@ -32,7 +32,7 @@ public class ShoppingCartPage extends BasePage {
     @Override
     public ShoppingCartPage waitForPageOpened() {
         try {
-            WaitUtils.waitForVisibility(cartMessage);
+            WaitUtils.waitForVisibility(cartMessageText);
         } catch (TimeoutException e) {
             Assert.fail("ShoppingCartPage was not opened");
         }
@@ -53,6 +53,6 @@ public class ShoppingCartPage extends BasePage {
      * While entering the cart, a cart header is displayed
      */
     public String getShoppingCartMessage() {
-        return cartMessage.getText().toLowerCase().trim();
+        return cartMessageText.getText().toLowerCase().trim();
     }
 }

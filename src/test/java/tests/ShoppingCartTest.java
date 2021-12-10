@@ -3,6 +3,7 @@ package tests;
 import entities.CatalogueOptions;
 import entities.Food;
 import entities.Icons;
+import exceptions.IncorrectClassRedirectionException;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.DominoPage;
@@ -18,18 +19,18 @@ public class ShoppingCartTest extends BaseTest {
         ShoppingCartPage shoppingCartPage = new MainPage()
                 .openPage()
                 .goToShoppingCart();
-        Assert.assertEquals(shoppingCartPage.getShoppingCartMessage(), "корзина", "Shopping cart message wasn't found.");
+        Assert.assertEquals(shoppingCartPage.getShoppingCartMessage(), "корзина", "Shopping cart message while opening the entrance form wasn't found.");
     }
 
     @Test(description = "TC-4, Add an item to the shopping cart test")
-    public void addItemToCartTest()  {
+    public void addItemToCartTest() throws IncorrectClassRedirectionException {
         ShoppingCartPage cartPage = new MainPage()
                 .openPage()
                 .clickOnCatalogue()
-                .selectCatalogueDetail(DominoPage.class, Icons.FOOD, Food.PIZZA, CatalogueOptions.DOMINO)
-                .choosePizza(PepperoniPage.class, Catalogue.PIZZA)
+                .selectCatalogueDetail(Icons.FOOD, Food.PIZZA, CatalogueOptions.DOMINO, DominoPage.class)
+                .choosePizza(Catalogue.PIZZA, PepperoniPage.class)
                 .clickAddToCartButton()
                 .clickCartButton();
-        Assert.assertEquals(cartPage.getCompleteOrderButtonText(), "перейти к оформлению", "The item wasn't added");
+        Assert.assertEquals(cartPage.getCompleteOrderButtonText(), "перейти к оформлению", "The item wasn't added to the shopping cart");
     }
 }

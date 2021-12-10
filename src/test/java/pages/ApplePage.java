@@ -5,19 +5,17 @@ import elements.Text;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
-import properties.ConfigStorage;
 import util.WaitUtils;
 
 public class ApplePage extends BasePage {
 
     private static final String APPLE_FILTER_ENDPOINT = "mobile?mfr%5B0%5D=apple";
-    private final String CATALOGUE_URL = ConfigStorage.getCatalogueUrl();
 
     @FindBy(className = "schema-tags__text")
-    private Tag tagSign;
+    private Tag filterTag;
 
     @FindBy(className = "schema-header__title")
-    private Text headerLabel;
+    private Text headerText;
 
     public ApplePage() {
         super();
@@ -33,19 +31,10 @@ public class ApplePage extends BasePage {
     @Override
     public ApplePage waitForPageOpened() {
         try {
-            WaitUtils.waitForVisibility(headerLabel);
+            WaitUtils.waitForVisibility(headerText);
         } catch (TimeoutException e) {
             Assert.fail("ApplePage was not opened");
         }
-        return this;
-    }
-
-    /***
-     * When the checkbox option is selected, a tag of the manufacturer appears
-     */
-    public ApplePage displayTag() {
-        waitForPageOpened();
-        tagSign.findTag();
         return this;
     }
 
@@ -54,6 +43,8 @@ public class ApplePage extends BasePage {
      * @return tag text
      */
     public String tagText() {
-        return tagSign.getText().toLowerCase().trim();
+        waitForPageOpened();
+        filterTag.findTag();
+        return filterTag.getText().toLowerCase().trim();
     }
 }

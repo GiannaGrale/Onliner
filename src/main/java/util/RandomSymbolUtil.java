@@ -7,7 +7,7 @@ import com.github.javafaker.Faker;
  */
 public class RandomSymbolUtil {
 
-    static Faker faker = new Faker();
+    private static final Faker faker = new Faker();
 
     /***
      * Generates random string

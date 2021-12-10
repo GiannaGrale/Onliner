@@ -20,7 +20,7 @@ public class MainPage extends BasePage {
     private Button shoppingCartButton;
 
     @FindBy(className = "auth-form__label-title")
-    private Text loginVia;
+    private Text loginViaText;
 
     @FindBy(linkText = "Зарегистрироваться на Onlíner")
     private Link registrationLink;
@@ -44,13 +44,13 @@ public class MainPage extends BasePage {
     private Link aboutCompanyLink;
 
     @FindBy(css = ".auth-form__description.auth-form__description_extended-other")
-    private Text incorrectCredentialsWarning;
+    private Text incorrectCredentialsWarningText;
 
     @FindBy(xpath = "//form/input[@name='query']")
-    private Input mainSearchField;
+    private Input mainSearchFieldText;
 
     @FindBy(css = ".search__suggest-addon.search__suggest-addon_active")
-    private Text searchInputMessage;
+    private Text searchInputText;
 
     public MainPage() {
         super();
@@ -95,7 +95,7 @@ public class MainPage extends BasePage {
      * @return the message under login field
      */
     public String getLoginOptionMessage() {
-        return loginVia.getText().toLowerCase().trim();
+        return loginViaText.getText().toLowerCase().trim();
     }
 
     /***
@@ -103,8 +103,8 @@ public class MainPage extends BasePage {
      * @return return message of shoppingCartMessage element
      */
     public String getIncorrectCredentials() {
-        WaitUtils.waitForVisibility(incorrectCredentialsWarning);
-        return incorrectCredentialsWarning.getText().toLowerCase().trim();
+        WaitUtils.waitForVisibility(incorrectCredentialsWarningText);
+        return incorrectCredentialsWarningText.getText().toLowerCase().trim();
     }
     /***
      * While entering a phrase into the input field, a hint appears
@@ -112,8 +112,8 @@ public class MainPage extends BasePage {
      */
     public String getSearchInputMessage() {
         driver.switchTo().frame(driver.findElement(By.className("modal-iframe")));
-        WaitUtils.waitForVisibility(searchInputMessage);
-        return searchInputMessage.getText().toLowerCase().trim();
+        WaitUtils.waitForVisibility(searchInputText);
+        return searchInputText.getText().toLowerCase().trim();
     }
 
     /***
@@ -147,8 +147,8 @@ public class MainPage extends BasePage {
      * @param text any query
      */
     public MainPage insertTextIntoSearch(String text) {
-        mainSearchField.sendKeys(text);
-        mainSearchField.sendKeys(Keys.ENTER);
+        mainSearchFieldText.sendKeys(text);
+        mainSearchFieldText.sendKeys(Keys.ENTER);
         return this;
     }
 

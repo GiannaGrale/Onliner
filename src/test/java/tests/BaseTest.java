@@ -13,8 +13,9 @@ import static drivers.DriverManager.getDriver;
 public class BaseTest {
 
     protected final Logger logger = LogManager.getLogger(this);
-    protected String LOGIN = TestDataStorage.getLogin();
-    protected String PSW = TestDataStorage.getPassword();
+
+    protected static final String LOGIN = TestDataStorage.getLogin();
+    protected static final String PSW = TestDataStorage.getPassword();
 
     /***
      * Set and open the local thread browser type.

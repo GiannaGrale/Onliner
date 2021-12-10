@@ -11,7 +11,7 @@ public class AboutCompanyPage extends BasePage {
     private static final String ABOUT_PAGE_URL = "https://blog.onliner.by/about";
 
     @FindBy(className = "news-header__title")
-    private Text requisitesLabel;
+    private Text requisitesHeaderText;
 
     public AboutCompanyPage() {
         super();
@@ -27,7 +27,7 @@ public class AboutCompanyPage extends BasePage {
     @Override
     public AboutCompanyPage waitForPageOpened() {
         try {
-            WaitUtils.waitForVisibility(requisitesLabel);
+            WaitUtils.waitForVisibility(requisitesHeaderText);
         } catch (TimeoutException e) {
             Assert.fail("AboutCompanyPage was not opened");
         }
@@ -40,6 +40,6 @@ public class AboutCompanyPage extends BasePage {
      */
     public String getAboutPageTitle() {
         waitForPageOpened();
-        return requisitesLabel.getText().toLowerCase().trim();
+        return requisitesHeaderText.getText().toLowerCase().trim();
     }
 }

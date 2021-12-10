@@ -33,6 +33,7 @@ public class DriverManager {
     public static void quitDriver(WebDriver driver) {
         if (driver != null) {
             driver.quit();
+            webDriver.remove();
         }
     }
 }

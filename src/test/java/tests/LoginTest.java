@@ -38,7 +38,7 @@ public class LoginTest extends BaseTest {
                 .insertLogin(LOGIN)
                 .insertPassword(PSW)
                 .clickEntranceButton();
-        Assert.assertTrue(mainPage.isAvatarDisplayed(), " The avatar cannot be displayed");
+        Assert.assertTrue(mainPage.isAvatarDisplayed(), " The user failed to log in");
     }
 
     @Test(description = "TC-6, Test to check system behavior using the correct password and incorrect login")
@@ -47,9 +47,9 @@ public class LoginTest extends BaseTest {
                 .openPage()
                 .openEntranceForm()
                 .insertLogin(RandomSymbolUtil.getRandomLogin())
-                .insertPassword(LOGIN)
+                .insertPassword(PSW)
                 .clickEntranceButton();
-        Assert.assertEquals(mainPage.getIncorrectCredentials(), "неверный логин или пароль", "The login is correct!");
+        Assert.assertEquals(mainPage.getIncorrectCredentials(), "неверный логин или пароль", "The user signed in with an incorrect login");
     }
 
     @Test(description = "TC-8, Test to check system behavior using the correct login and incorrect password")
@@ -57,10 +57,10 @@ public class LoginTest extends BaseTest {
         MainPage mainPage = new MainPage()
                 .openPage()
                 .openEntranceForm()
-                .insertLogin(PSW)
+                .insertLogin(LOGIN)
                 .insertPassword(RandomSymbolUtil.getRandomPassword())
                 .clickEntranceButton();
-        Assert.assertEquals(mainPage.getIncorrectCredentials(), "неверный логин или пароль", "The password is correct!");
+        Assert.assertEquals(mainPage.getIncorrectCredentials(), "неверный логин или пароль", "The user signed in with an incorrect password");
     }
 
     @Test(description = "TC-7, Test to check system behavior using no credentials")
@@ -71,6 +71,6 @@ public class LoginTest extends BaseTest {
                 .insertLogin("")
                 .insertPassword("")
                 .clickEntranceButton();
-        Assert.assertEquals(mainPage.getIncorrectCredentials(), "укажите ник или e-mail", "You've logged in with these credentials");
+        Assert.assertEquals(mainPage.getIncorrectCredentials(), "укажите ник или e-mail", "The user signed in with no credentials");
     }
 }

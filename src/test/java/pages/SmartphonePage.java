@@ -6,17 +6,15 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
-import properties.ConfigStorage;
 import util.ScrollUtils;
 import util.WaitUtils;
 
 public class SmartphonePage extends BasePage {
 
     private static final String MOBILE_ENDPOINT = "mobile";
-    private final String CATALOGUE_URL = ConfigStorage.getCatalogueUrl();
 
     @FindBy(xpath = "//h1[@class='schema-header__title']")
-    private Text phonesTitle;
+    private Text phonesTitleText;
 
     private static final String manufacturer = "//div[6]//li//input[@value= '%s']/../span";
 
@@ -34,7 +32,7 @@ public class SmartphonePage extends BasePage {
     @Override
     public SmartphonePage waitForPageOpened() {
         try {
-            WaitUtils.waitForVisibility(phonesTitle);
+            WaitUtils.waitForVisibility(phonesTitleText);
         } catch (TimeoutException e) {
             Assert.fail("SmartphonePage was not opened");
         }

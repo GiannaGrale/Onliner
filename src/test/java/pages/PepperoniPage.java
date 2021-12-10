@@ -5,17 +5,15 @@ import elements.Text;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
-import properties.ConfigStorage;
 import util.ScrollUtils;
 import util.WaitUtils;
 
 public class PepperoniPage extends BasePage {
 
-    private final String CATALOGUE_URL = ConfigStorage.getCatalogueUrl();
     private static final String PEPPERONI_ENDPOINT = "dominos/dominospizza/domipepperonito5";
 
     @FindBy(className = "product-aside__price--primary")
-    private Text priceLabel;
+    private Text priceLabelText;
 
     @FindBy(css = ".button-style.button-style_expletive")
     private Button addToCartButton;
@@ -37,7 +35,7 @@ public class PepperoniPage extends BasePage {
     @Override
     public PepperoniPage waitForPageOpened() {
         try {
-            WaitUtils.waitForVisibility(priceLabel);
+            WaitUtils.waitForVisibility(priceLabelText);
         } catch (TimeoutException e) {
             Assert.fail("PepperoniPage was not opened");
         }

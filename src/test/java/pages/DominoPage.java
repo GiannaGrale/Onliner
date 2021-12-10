@@ -1,12 +1,11 @@
 package pages;
 
 import elements.*;
-import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebElement;
+import exceptions.ElementNotFoundException;
+import exceptions.IncorrectClassRedirectionException;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
-import properties.ConfigStorage;
 import util.ScrollUtils;
 import util.WaitUtils;
 
@@ -14,20 +13,19 @@ import java.lang.reflect.InvocationTargetException;
 
 public class DominoPage extends BasePage {
 
-    private final String CATALOGUE_URL = ConfigStorage.getCatalogueUrl();
     private static final String DOMINO_ENDPOINT = "dominos";
 
     @FindBy(xpath = "//input[@placeholder='от']")
     private Input minPriceInput;
 
-    @FindBy(xpath = "//*[@id='schema-products']/div/nobr")
-    private Text warningMessage;
+    @FindBy(xpath = "//*[@id='schema-products']/div")
+    private Text warningMessageText;
 
     @FindBy(className = "schema-header__title")
     private Text headerLabel;
 
-    @FindBy(xpath = "//*[@id='schema-products']/div[1]/descendant::div[2]")
-    private Picture pizzaPic;
+    @FindBy(xpath = "//div[@class='schema-product__image']")
+    private Picture pizzaPicture;
 
     public DominoPage() {
         super();
@@ -55,18 +53,19 @@ public class DominoPage extends BasePage {
      * @param pizza pizza item
      */
     @SuppressWarnings("unchecked")
-    public <T> T choosePizza(Class<T> clazz, String pizza) {
+    public <T> T choosePizza(String pizza, Class<T> clazz) throws IncorrectClassRedirectionException {
         try {
             waitForPageOpened();
-            WaitUtils.waitForVisibility(pizzaPic);
+            WaitUtils.waitForVisibility(pizzaPicture);
             WebElement dominoLink = driver.findElement(By.partialLinkText(pizza));
             ScrollUtils.scrollToElementView(dominoLink);
             dominoLink.click();
             return (T) Class.forName(clazz.getName()).getConstructor().newInstance();
         } catch (InstantiationException | IllegalAccessException | ClassNotFoundException | NoSuchMethodException | InvocationTargetException e) {
-            e.printStackTrace();
+            throw new IncorrectClassRedirectionException("Failed to redirect to another page in choosePizza");
+        } catch (StaleElementReferenceException | ElementNotInteractableException e) {
+            throw new ElementNotFoundException("Failed to find an element during choosePizza implementation");
         }
-        return (T) this;
     }
 
     /***
@@ -81,8 +80,8 @@ public class DominoPage extends BasePage {
     /***
      * Message on absence of goods on the list
      */
-    public boolean areNoGoodsWarning() {
-        WaitUtils.waitForVisibility(warningMessage);
-        return warningMessage.isDisplayed();
+    public boolean areNoGoodsWarningDisplayed() {
+        WaitUtils.waitForVisibility(warningMessageText);
+        return warningMessageText.isDisplayed();
     }
 }
