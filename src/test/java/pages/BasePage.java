@@ -1,18 +1,18 @@
 package pages;
 
 import factory.ElementFactory;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import properties.ReadProperties;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import drivers.DriverManager;
 import org.openqa.selenium.WebDriver;
-import java.time.Duration;
-
+import properties.ConfigStorage;
 
 public abstract class BasePage {
 
+    protected final Logger logger = LogManager.getLogger(this);
+
     protected WebDriver driver;
-    protected WebDriverWait wait;
-    protected ReadProperties properties = new ReadProperties();
+    protected final String CATALOGUE_URL = ConfigStorage.getCatalogueUrl();
 
     /***
      * Navigate the webdriver to the chosen url
@@ -24,11 +24,10 @@ public abstract class BasePage {
      * Checks element presence on a page
      * @return page if the elements presents
      */
-    protected abstract BasePage isPageOpened();
+    protected abstract BasePage waitForPageOpened();
 
     public BasePage() {
         driver = DriverManager.getDriver();
         ElementFactory.initElements(this.driver, this);
-        wait = new WebDriverWait(driver, Duration.ofSeconds(20));
     }
 }

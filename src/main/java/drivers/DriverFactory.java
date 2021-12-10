@@ -15,7 +15,7 @@ import org.openqa.selenium.opera.OperaOptions;
 public class DriverFactory {
     /***
      * Chooses a webdriver of a defined type
-     * @param browser
+     * @param browser chosen driver
      */
     public static WebDriver getDriver(BrowserType browser) {
         WebDriver driver;
