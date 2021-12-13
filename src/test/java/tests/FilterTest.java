@@ -8,11 +8,12 @@ import pages.ApplePage;
 import pages.DominoPage;
 import pages.MainPage;
 import pages.SmartphonePage;
+import retryAnalyzer.Retry;
 import testData.Catalogue;
 
 public class FilterTest extends BaseTest {
 
-    @Test(description = "TC-5, Test to choose a manufacturer in the filter")
+    @Test(retryAnalyzer = Retry.class, description = "TC-5, Test to choose a manufacturer in the filter")
     public void chooseManufacturerTest() throws IncorrectClassRedirectionException {
         ApplePage applePage = new MainPage()
                 .openPage()

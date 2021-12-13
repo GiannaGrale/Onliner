@@ -10,6 +10,7 @@ import pages.DominoPage;
 import pages.MainPage;
 import pages.PepperoniPage;
 import pages.ShoppingCartPage;
+import retryAnalyzer.Retry;
 import testData.Catalogue;
 
 public class ShoppingCartTest extends BaseTest {
@@ -22,7 +23,7 @@ public class ShoppingCartTest extends BaseTest {
         Assert.assertEquals(shoppingCartPage.getShoppingCartMessage(), "корзина", "Shopping cart message while opening the entrance form wasn't found.");
     }
 
-    @Test(description = "TC-4, Add an item to the shopping cart test")
+    @Test(retryAnalyzer = Retry.class, description = "TC-4, Add an item to the shopping cart test")
     public void addItemToCartTest() throws IncorrectClassRedirectionException {
         ShoppingCartPage cartPage = new MainPage()
                 .openPage()
