@@ -4,11 +4,11 @@ import org.testng.IRetryAnalyzer;
 import org.testng.ITestResult;
 
 /***
- * RetryAnalyzer helps to check if the failure was caused by a product bug or another reason.
+ * RetryAnalyzer helps to check if the failure was caused by a network glitch, random machine issues, delayed server response.
  */
 public class Retry implements IRetryAnalyzer {
     private int attempt = 0;
-    private static final int MAX_RETRY = 4;
+    private static final int MAX_RETRY = 2;
 
     @Override
     public boolean retry(ITestResult iTestResult) {
