@@ -3,13 +3,16 @@ package tests;
 import drivers.BrowserType;
 import drivers.DriverFactory;
 import drivers.DriverManager;
+import listeners.OnlinerTestListener;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
 import properties.TestDataStorage;
 import static drivers.DriverManager.getDriver;
 
+@Listeners(OnlinerTestListener.class)
 public class BaseTest {
 
     protected final Logger logger = LogManager.getLogger(this);
