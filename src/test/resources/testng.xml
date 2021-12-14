@@ -1,8 +1,29 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="ISO-8859-5"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Suite">
-    <test name="Test" >
+<suite name="Onliner suite">
+    <test name="Filters">
         <classes>
+            <class name="tests.FilterTest"/>
+        </classes>
+    </test>
+    <test name="Hyperlink">
+        <classes>
+            <class name="tests.HyperLinkTest"/>
+        </classes>
+    </test>
+    <test name="Sign in/up">
+        <classes>
+            <class name="tests.LoginTest"/>
+        </classes>
+    </test>
+    <test name="Search">
+        <classes>
+            <class name="tests.SearchFieldTest"/>
+        </classes>
+    </test>
+    <test name="Cart">
+        <classes>
+            <class name="tests.ShoppingCartTest"/>
         </classes>
     </test>
 </suite>
