@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="ISO-8859-5"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Onliner suite">
+    <listeners>
+        <listener class-name="retryAnalyzer.AnnotationTransformer"/>
+    </listeners>
     <test name="Filters">
         <classes>
             <class name="tests.FilterTest"/>
