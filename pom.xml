@@ -24,6 +24,7 @@
         <surefire.version>2.20</surefire.version>
         <surefire-testng.version>2.12.4 </surefire-testng.version>
         <maven-compiler.version>3.8.1</maven-compiler.version>
+        <allure.version>2.16.1</allure.version>
 
         <cart>src/test/resources/cart.xml</cart>
         <filter>src/test/resources/filter.xml</filter>
@@ -69,6 +70,11 @@
             <groupId>com.github.javafaker</groupId>
             <artifactId>javafaker</artifactId>
             <version>${javafaker.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-testng</artifactId>
+            <version>${allure.version}</version>
         </dependency>
     </dependencies>
 
