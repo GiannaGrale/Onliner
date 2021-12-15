@@ -22,9 +22,10 @@
         <slf4j-log4j12.version>1.7.32</slf4j-log4j12.version>
         <javafaker.version>1.0.2</javafaker.version>
         <surefire.version>2.20</surefire.version>
-        <surefire-testng.version>2.12.4 </surefire-testng.version>
+        <surefire-testng.version>2.12.4</surefire-testng.version>
         <maven-compiler.version>3.8.1</maven-compiler.version>
         <allure.version>2.16.1</allure.version>
+        <allure.env.writer>1.0.0</allure.env.writer>
 
         <cart>src/test/resources/cart.xml</cart>
         <filter>src/test/resources/filter.xml</filter>
@@ -76,6 +77,11 @@
             <artifactId>allure-testng</artifactId>
             <version>${allure.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.github.automatedowl</groupId>
+            <artifactId>allure-environment-writer</artifactId>
+            <version>${allure.env.writer}</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -125,5 +131,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

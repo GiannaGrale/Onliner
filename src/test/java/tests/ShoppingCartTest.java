@@ -4,6 +4,7 @@ import entities.CatalogueOptions;
 import entities.Food;
 import entities.Icons;
 import exceptions.IncorrectClassRedirectionException;
+import io.qameta.allure.Feature;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.DominoPage;
@@ -15,7 +16,8 @@ import testData.Catalogue;
 
 public class ShoppingCartTest extends BaseTest {
 
-    @Test(description = "Test to check the entrance to the shopping cart")
+    @Feature("Shopping cart")
+    @Test(description = "TC-11, Test to check the entrance to the shopping cart")
     public void shoppingCartEntranceFormTest() {
         ShoppingCartPage shoppingCartPage = new MainPage()
                 .openPage()
@@ -23,6 +25,7 @@ public class ShoppingCartTest extends BaseTest {
         Assert.assertEquals(shoppingCartPage.getShoppingCartMessage(), "корзина", "Shopping cart message while opening the entrance form wasn't found.");
     }
 
+    @Feature("Shopping cart")
     @Test(retryAnalyzer = Retry.class, description = "TC-4, Add an item to the shopping cart test")
     public void addItemToCartTest() throws IncorrectClassRedirectionException {
         ShoppingCartPage cartPage = new MainPage()

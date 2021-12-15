@@ -3,6 +3,7 @@ package pages;
 import elements.*;
 import exceptions.ElementNotFoundException;
 import exceptions.IncorrectClassRedirectionException;
+import io.qameta.allure.Step;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
@@ -32,6 +33,7 @@ public class DominoPage extends BasePage {
     }
 
     @Override
+    @Step("Open a domino's page")
     public DominoPage openPage() {
         driver.navigate().to(CATALOGUE_URL + DOMINO_ENDPOINT);
         logger.debug("Navigation to the URL " + DOMINO_ENDPOINT);
@@ -53,6 +55,7 @@ public class DominoPage extends BasePage {
      * @param pizza pizza item
      */
     @SuppressWarnings("unchecked")
+    @Step("Choose pizza")
     public <T> T choosePizza(String pizza, Class<T> clazz) throws IncorrectClassRedirectionException {
         try {
             waitForPageOpened();
@@ -72,6 +75,7 @@ public class DominoPage extends BasePage {
      * Set the price in the price filter
      * @param number price
      */
+    @Step("Set {number} as a price")
     public DominoPage setMinPrice(String number) {
         minPriceInput.sendKeys(number);
         return this;

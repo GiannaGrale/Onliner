@@ -1,13 +1,21 @@
 package listeners;
 
+import com.google.common.collect.ImmutableMap;
+import io.qameta.allure.Attachment;
+import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+import static com.github.automatedowl.tools.AllureEnvironmentWriter.allureEnvironmentWriter;
 
 /***
- * OnlinerTestListener is used to log information on the test run flow
+ * OnlinerTestListener is used to log information on the test run flow and to the reporting system.
  */
 public class OnlinerTestListener implements ITestListener {
 
@@ -31,6 +39,12 @@ public class OnlinerTestListener implements ITestListener {
     @Override
     public void onStart(ITestContext context) {
         logger.info("The test class run started on " + context.getStartDate());
+        allureEnvironmentWriter(
+                ImmutableMap.<String, String>builder()
+                        .put("Browser", "Chrome")
+                        .put("Browser.Version", "96.0.4664.93 (Official build), (64 bit)")
+                        .build(), System.getProperty("user.dir")
+                        + "/target/allure-results/");
     }
 
     @Override
@@ -38,18 +52,53 @@ public class OnlinerTestListener implements ITestListener {
         logger.info("The test class run finished on ... " + context.getEndDate());
     }
 
+    @Attachment(value = "Test.log", type = "text/plain")
+    public static byte[] appendLogToAllure() {
+        try {
+            return FileUtils.readFileToByteArray(new File("target/test.log"));
+        } catch (IOException ignored) {
+            return null;
+        }
+    }
+
+    public static void clearFile() throws IOException {
+        File myFoo = new File("target/test.log");
+        FileOutputStream fooStream = new FileOutputStream(myFoo, false);
+        byte[] myBytes = "".getBytes();
+        fooStream.write(myBytes);
+        fooStream.close();
+    }
+
     @Override
     public void onTestSuccess(ITestResult result) {
-        logger.info(result.getName() + " passed successfully...");
+        logger.info(result.getName() + " successful...");
+        try {
+            appendLogToAllure();
+            clearFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void onTestFailure(ITestResult result) {
         logger.info(result.getName() + " failed...");
+        try {
+            appendLogToAllure();
+            clearFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void onTestSkipped(ITestResult result) {
         logger.info(result.getName() + " skipped...");
+        try {
+            appendLogToAllure();
+            clearFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

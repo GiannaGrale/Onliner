@@ -11,7 +11,7 @@
     </test>
     <test name="Hyperlink">
         <classes>
-            <class name="tests.HyperLinkTest"/>
+            <class name="tests.RedirectionPageTest"/>
         </classes>
     </test>
     <test name="Sign in/up">

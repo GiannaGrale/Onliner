@@ -1,6 +1,7 @@
 package pages;
 
 import elements.Text;
+import io.qameta.allure.Step;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
@@ -18,6 +19,7 @@ public class AboutCompanyPage extends BasePage {
     }
 
     @Override
+    @Step("Open an about company page")
     public AboutCompanyPage openPage() {
         driver.navigate().to(ABOUT_PAGE_URL);
         logger.debug("Navigation to the URL " + ABOUT_PAGE_URL);

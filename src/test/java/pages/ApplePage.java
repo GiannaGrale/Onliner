@@ -2,6 +2,7 @@ package pages;
 
 import elements.Tag;
 import elements.Text;
+import io.qameta.allure.Step;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
@@ -22,6 +23,7 @@ public class ApplePage extends BasePage {
     }
 
     @Override
+    @Step("Open an apple page")
     public ApplePage openPage() {
         driver.navigate().to(CATALOGUE_URL + APPLE_FILTER_ENDPOINT);
         logger.debug("Navigation to the URL " + APPLE_FILTER_ENDPOINT);

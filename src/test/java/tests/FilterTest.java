@@ -2,6 +2,7 @@ package tests;
 
 import entities.*;
 import exceptions.IncorrectClassRedirectionException;
+import io.qameta.allure.Feature;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.ApplePage;
@@ -13,6 +14,7 @@ import testData.Catalogue;
 
 public class FilterTest extends BaseTest {
 
+    @Feature("Filters")
     @Test(retryAnalyzer = Retry.class, description = "TC-5, Test to choose a manufacturer in the filter")
     public void chooseManufacturerTest() throws IncorrectClassRedirectionException {
         ApplePage applePage = new MainPage()
@@ -23,6 +25,7 @@ public class FilterTest extends BaseTest {
         Assert.assertEquals(applePage.tagText(), "apple", "The apple manufacturer filter doesn't work");
     }
 
+    @Feature("Filters")
     @Test(description = "TC-10, Test to check system behavior while entering negative start price for the goods")
     public void negativePriceTest() throws IncorrectClassRedirectionException {
         DominoPage dominoPage = new MainPage()

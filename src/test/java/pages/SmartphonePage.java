@@ -1,6 +1,7 @@
 package pages;
 
 import elements.Text;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
@@ -23,6 +24,7 @@ public class SmartphonePage extends BasePage {
     }
 
     @Override
+    @Step("Open a smartphone page")
     public SmartphonePage openPage() {
         driver.navigate().to(CATALOGUE_URL + MOBILE_ENDPOINT);
         logger.debug("Navigation to the URL " + MOBILE_ENDPOINT);
@@ -42,6 +44,7 @@ public class SmartphonePage extends BasePage {
     /***
      * Click on the chosen checkbox item
      */
+    @Step("Choose the brand: {brand}")
     public ApplePage chooseBrand(String brand){
         WebElement manufacturerCbx = driver.findElement(By.xpath(String.format(manufacturer, brand)));
         ScrollUtils.scrollToElementView(manufacturerCbx);
