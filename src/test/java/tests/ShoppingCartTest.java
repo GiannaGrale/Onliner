@@ -14,9 +14,9 @@ import pages.ShoppingCartPage;
 import retryAnalyzer.Retry;
 import testData.Catalogue;
 
+@Feature("Shopping cart")
 public class ShoppingCartTest extends BaseTest {
 
-    @Feature("Shopping cart")
     @Test(description = "TC-11, Test to check the entrance to the shopping cart")
     public void shoppingCartEntranceFormTest() {
         ShoppingCartPage shoppingCartPage = new MainPage()
@@ -25,7 +25,6 @@ public class ShoppingCartTest extends BaseTest {
         Assert.assertEquals(shoppingCartPage.getShoppingCartMessage(), "корзина", "Shopping cart message while opening the entrance form wasn't found.");
     }
 
-    @Feature("Shopping cart")
     @Test(retryAnalyzer = Retry.class, description = "TC-4, Add an item to the shopping cart test")
     public void addItemToCartTest() throws IncorrectClassRedirectionException {
         ShoppingCartPage cartPage = new MainPage()

@@ -5,9 +5,9 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.*;
 
+@Feature("Hyperlink")
 public class RedirectionPageTest extends BaseTest {
 
-    @Feature("Hyperlink")
     @Test(description = "TC-3, Test to check redirection to 'About' page")
     public void aboutPageTest() {
         AboutCompanyPage aboutCompanyPage = new MainPage()
