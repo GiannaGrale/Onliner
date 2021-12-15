@@ -2,6 +2,7 @@ package tests;
 
 import entities.*;
 import exceptions.IncorrectClassRedirectionException;
+import io.qameta.allure.Feature;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.ApplePage;
@@ -11,6 +12,7 @@ import pages.SmartphonePage;
 import retryAnalyzer.Retry;
 import testData.Catalogue;
 
+@Feature("Filters")
 public class FilterTest extends BaseTest {
 
     @Test(retryAnalyzer = Retry.class, description = "TC-5, Test to choose a manufacturer in the filter")

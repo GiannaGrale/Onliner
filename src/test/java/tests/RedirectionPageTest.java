@@ -1,10 +1,12 @@
 package tests;
 
+import io.qameta.allure.Feature;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.*;
 
-public class HyperLinkTest extends BaseTest {
+@Feature("Hyperlink")
+public class RedirectionPageTest extends BaseTest {
 
     @Test(description = "TC-3, Test to check redirection to 'About' page")
     public void aboutPageTest() {

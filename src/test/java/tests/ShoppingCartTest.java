@@ -4,6 +4,7 @@ import entities.CatalogueOptions;
 import entities.Food;
 import entities.Icons;
 import exceptions.IncorrectClassRedirectionException;
+import io.qameta.allure.Feature;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.DominoPage;
@@ -13,9 +14,10 @@ import pages.ShoppingCartPage;
 import retryAnalyzer.Retry;
 import testData.Catalogue;
 
+@Feature("Shopping cart")
 public class ShoppingCartTest extends BaseTest {
 
-    @Test(description = "Test to check the entrance to the shopping cart")
+    @Test(description = "TC-11, Test to check the entrance to the shopping cart")
     public void shoppingCartEntranceFormTest() {
         ShoppingCartPage shoppingCartPage = new MainPage()
                 .openPage()

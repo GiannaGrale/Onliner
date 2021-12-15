@@ -2,6 +2,7 @@ package pages;
 
 import elements.Button;
 import elements.Text;
+import io.qameta.allure.Step;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
@@ -23,6 +24,7 @@ public class ShoppingCartPage extends BasePage {
     }
 
     @Override
+    @Step("Open a shopping cart page")
     public ShoppingCartPage openPage() {
         driver.navigate().to(CART_URL);
         logger.debug("Navigation to the URL " + CART_URL);

@@ -5,6 +5,7 @@ import entities.CatalogueOptions;
 import entities.Icons;
 import exceptions.ElementNotFoundException;
 import exceptions.IncorrectClassRedirectionException;
+import io.qameta.allure.Step;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
@@ -26,6 +27,7 @@ public class CataloguePage extends BasePage {
     }
 
     @Override
+    @Step("Open a catalogue page")
     public CataloguePage openPage() {
         driver.navigate().to(CATALOGUE_URL);
         logger.debug("Navigation to the URL " + CATALOGUE_URL);
@@ -48,6 +50,7 @@ public class CataloguePage extends BasePage {
      * @param index middle dropdown option index
      */
     @SuppressWarnings("unchecked")
+    @Step("Choose a catalogue option")
     public <T extends BasePage> T selectCatalogueDetail(Icons icon, Enum<?> item, CatalogueOptions index, Class<T> clazz) throws IncorrectClassRedirectionException {
         try {
             waitForPageOpened();
@@ -62,4 +65,3 @@ public class CataloguePage extends BasePage {
         }
     }
 }
-

@@ -1,10 +1,12 @@
 package tests;
 
+import io.qameta.allure.Feature;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.MainPage;
 import util.RandomSymbolUtil;
 
+@Feature("Search field")
 public class SearchFieldTest extends BaseTest {
 
     @Test(description = "TC-9, Test to check the input hint while entering nonexistent item")

@@ -1,6 +1,7 @@
 package pages;
 
 import elements.*;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.TimeoutException;
@@ -57,6 +58,7 @@ public class MainPage extends BasePage {
     }
 
     @Override
+    @Step("Open a home page")
     public MainPage openPage() {
         driver.navigate().to(MAIN_URL);
         logger.debug("Navigation to the URL " + MAIN_URL);
@@ -76,6 +78,7 @@ public class MainPage extends BasePage {
     /***
      * Click on the entrance button
      */
+    @Step("Open registration/login form")
     public MainPage openEntranceForm() {
         waitForPageOpened();
         entranceButton.click();
@@ -85,6 +88,7 @@ public class MainPage extends BasePage {
     /***
      * Click on the shopping cart icon
      */
+    @Step("Click on shopping cart button")
     public ShoppingCartPage goToShoppingCart() {
         shoppingCartButton.click();
         return new ShoppingCartPage();
@@ -120,6 +124,7 @@ public class MainPage extends BasePage {
      * Insert the login into the login input
      * @param login login
      */
+    @Step("Insert the following login: {login}")
     public MainPage insertLogin(String login) {
         loginInput.sendKeys(login);
         return this;
@@ -129,6 +134,7 @@ public class MainPage extends BasePage {
      * Insert the password to into the password input
      * @param psw password
      */
+    @Step("Insert the following password: {psw}")
     public MainPage insertPassword(String psw) {
         passwordInput.sendKeys(psw);
         return this;
@@ -137,6 +143,7 @@ public class MainPage extends BasePage {
     /***
      * Click the entrance button
      */
+    @Step("Click on the entrance button")
     public MainPage clickEntranceButton() {
         loginButton.click();
         return this;
@@ -146,6 +153,7 @@ public class MainPage extends BasePage {
      * Insert a text into the search field and look for items
      * @param text any query
      */
+    @Step("Insert the query {text} into the search field")
     public MainPage insertTextIntoSearch(String text) {
         mainSearchFieldText.sendKeys(text);
         mainSearchFieldText.sendKeys(Keys.ENTER);
@@ -155,6 +163,7 @@ public class MainPage extends BasePage {
     /***
      * Click on the catalogue button
      */
+    @Step("Click on catalogue")
     public CataloguePage clickOnCatalogue() {
         catalogueLink.click();
         return new CataloguePage();
@@ -171,6 +180,7 @@ public class MainPage extends BasePage {
     /***
      * Redirection to the registration form
      */
+    @Step("Click on the registration link")
     public RegistrationPage goToRegistrationLink() {
         registrationLink.click();
         return new RegistrationPage();
@@ -179,6 +189,7 @@ public class MainPage extends BasePage {
     /***
      * Redirection to "About company" page
      */
+    @Step("Click on 'About company' hyperlink in the footer")
     public AboutCompanyPage goToAboutCompanyLink() {
         aboutCompanyLink.click();
         return new AboutCompanyPage();

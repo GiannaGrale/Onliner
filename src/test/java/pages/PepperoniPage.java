@@ -2,6 +2,7 @@ package pages;
 
 import elements.Button;
 import elements.Text;
+import io.qameta.allure.Step;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
@@ -26,6 +27,7 @@ public class PepperoniPage extends BasePage {
     }
 
     @Override
+    @Step("Open a pepperoni pizza page")
     protected PepperoniPage openPage() {
         driver.navigate().to(CATALOGUE_URL + PEPPERONI_ENDPOINT);
         logger.debug("Navigation to the URL " + PEPPERONI_ENDPOINT);
@@ -45,6 +47,7 @@ public class PepperoniPage extends BasePage {
     /***
      * Add an item to the cart by clicking the add to cart button
      */
+    @Step("Click on the add to cart button")
     public PepperoniPage clickAddToCartButton() {
         waitForPageOpened();
         ScrollUtils.scrollToElementView(addToCartButton);
@@ -55,6 +58,7 @@ public class PepperoniPage extends BasePage {
     /***
      * Click the shopping cart button
      */
+    @Step("Open a shopping cart")
     public ShoppingCartPage clickCartButton() {
         WaitUtils.waitForInvisibility(addToCartButton);
         ScrollUtils.scrollUp(cartButton);

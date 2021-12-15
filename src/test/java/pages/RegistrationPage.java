@@ -3,6 +3,7 @@ package pages;
 import elements.Button;
 import elements.Checkbox;
 import elements.Input;
+import io.qameta.allure.Step;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
@@ -36,6 +37,7 @@ public class RegistrationPage extends BasePage {
     }
 
     @Override
+    @Step("Open a registration page")
     public RegistrationPage openPage() {
         driver.navigate().to(REGISTRATION_URL);
         logger.debug("Navigation to the URL " + REGISTRATION_URL);
@@ -56,6 +58,7 @@ public class RegistrationPage extends BasePage {
      * Insert the login into the login field
      * @param login login
      */
+    @Step("Set the following login: {login}")
     public RegistrationPage setLogin(String login) {
         waitForPageOpened();
         loginFieldInput.sendKeys(login);
@@ -66,6 +69,7 @@ public class RegistrationPage extends BasePage {
      * Insert the password to the password field
      * @param password password
      */
+    @Step("Set the following password: {password}")
     public RegistrationPage setPassword(String password) {
         passwordFieldInput.sendKeys(password);
         return this;
@@ -75,6 +79,7 @@ public class RegistrationPage extends BasePage {
      * Duplicate the password into the password repeat field
      * @param password password
      */
+    @Step("Repeat the password: {password}")
     public RegistrationPage setRepeatPassword(String password) {
         repeatPasswordFieldInput.sendKeys(password);
         return this;
@@ -83,6 +88,7 @@ public class RegistrationPage extends BasePage {
     /***
      * Click the registration button
      */
+    @Step("Click on the registration button")
     public RegistrationPage clickRegistrationButton() {
         registrationButton.click();
         return this;
@@ -91,6 +97,7 @@ public class RegistrationPage extends BasePage {
     /***
      * Check the accept privacy policy box
      */
+    @Step("Accept privacy policy")
     public RegistrationPage acceptPrivacyPolicy() {
         privacyPolicyCheckbox.click();
         return this;

@@ -1,14 +1,17 @@
 package tests;
 
+import io.qameta.allure.Feature;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import pages.MainPage;
 import pages.RegistrationPage;
 import util.RandomSymbolUtil;
 
+@Feature("Sign in/up")
 public class LoginTest extends BaseTest {
 
-    @Test(description = "Test to check if the entrance form opens")
+    @Test(description = "TC-1, Test to check if the entrance form opens")
     public void entranceFormTest() {
         MainPage newMainPage = new MainPage()
                 .openPage()
@@ -16,7 +19,8 @@ public class LoginTest extends BaseTest {
         Assert.assertEquals(newMainPage.getLoginOptionMessage(), "через социальные сети", "Message under login field wasn't found.");
     }
 
-    @Test(description = "TC-2, Test for registration of a new user", enabled = false)
+    @Ignore
+    @Test(description = "TC-2.1, Test for registration of a new user", enabled = false)
     public void registrationTest() {
         RegistrationPage registrationPage = new MainPage()
                 .openPage()
@@ -30,7 +34,7 @@ public class LoginTest extends BaseTest {
         Assert.assertEquals(registrationPage.emailConfirmationMessage(), "Подтвердите ваш e-mail", "Fail to sign up.");
     }
 
-    @Test(description = "TC-3, Test for login with correct credentials")
+    @Test(description = "TC-2, Test for login with correct credentials")
     public void logInTest() {
         MainPage mainPage = new MainPage()
                 .openPage()
