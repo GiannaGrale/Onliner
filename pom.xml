@@ -17,7 +17,7 @@
         <selenium.version>4.1.0</selenium.version>
         <testng.version>7.4.0</testng.version>
         <webdrivermanager.version>5.0.3</webdrivermanager.version>
-        <log4j.version>2.14.1</log4j.version>
+        <log4j.version>2.16.0</log4j.version>
         <aspectj.version>1.8.10</aspectj.version>
         <slf4j-log4j12.version>1.7.32</slf4j-log4j12.version>
         <javafaker.version>1.0.2</javafaker.version>
@@ -26,6 +26,8 @@
         <maven-compiler.version>3.8.1</maven-compiler.version>
         <allure.version>2.16.1</allure.version>
         <allure.env.writer>1.0.0</allure.env.writer>
+        <cucumber.version>6.10.4</cucumber.version>
+        <pico.version>7.1.0</pico.version>
 
         <cart>src/test/resources/cart.xml</cart>
         <filter>src/test/resources/filter.xml</filter>
@@ -81,6 +83,22 @@
             <groupId>com.github.automatedowl</groupId>
             <artifactId>allure-environment-writer</artifactId>
             <version>${allure.env.writer}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>${cucumber.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-testng</artifactId>
+            <version>${cucumber.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-picocontainer</artifactId>
+            <version>${pico.version}</version>
         </dependency>
     </dependencies>
 
