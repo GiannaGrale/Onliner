@@ -51,6 +51,9 @@ public class MainPage extends BasePage {
     private Input mainSearchFieldText;
 
     @FindBy(css = ".search__suggest-addon.search__suggest-addon_active")
+    private Text searchFieldHintText;
+
+    @FindBy(xpath = "//span[@class ='text_match']")
     private Text searchInputText;
 
     public MainPage() {
@@ -110,14 +113,15 @@ public class MainPage extends BasePage {
         WaitUtils.waitForVisibility(incorrectCredentialsWarningText);
         return incorrectCredentialsWarningText.getText().toLowerCase().trim();
     }
+
     /***
      * While entering a phrase into the input field, a hint appears
      * @return hint message
      */
     public String getSearchInputMessage() {
         driver.switchTo().frame(driver.findElement(By.className("modal-iframe")));
-        WaitUtils.waitForVisibility(searchInputText);
-        return searchInputText.getText().toLowerCase().trim();
+        WaitUtils.waitForVisibility(searchFieldHintText);
+        return searchFieldHintText.getText().toLowerCase().trim();
     }
 
     /***
@@ -193,5 +197,13 @@ public class MainPage extends BasePage {
     public AboutCompanyPage goToAboutCompanyLink() {
         aboutCompanyLink.click();
         return new AboutCompanyPage();
+    }
+
+    /***
+     * Received text from the field search
+     * @return search input text
+     */
+    public String getSearchFieldText()  {
+        return searchInputText.getText();
     }
 }
