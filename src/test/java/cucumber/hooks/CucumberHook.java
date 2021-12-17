@@ -1,4 +1,4 @@
-package cucumber_tests.hooks;
+package cucumber.hooks;
 
 import drivers.BrowserType;
 import drivers.DriverFactory;

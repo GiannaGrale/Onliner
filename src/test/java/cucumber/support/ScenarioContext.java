@@ -1,4 +1,4 @@
-package cucumber_tests.support;
+package cucumber.support;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -7,6 +7,15 @@ import java.util.Map;
  *  ScenarioContext helps to store data and pass it other steps
  */
 public class ScenarioContext {
+
+    private static ScenarioContext instance;
+
+    public static synchronized ScenarioContext getInstance() {
+        if (instance == null) {
+            instance = new ScenarioContext();
+        }
+        return instance;
+    }
 
     private Map<String, Object> scenarioContext;
 

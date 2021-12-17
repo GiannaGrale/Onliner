@@ -1,4 +1,4 @@
-package cucumber_tests.steps;
+package cucumber.steps;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -61,8 +61,8 @@ public class LoginStepDefinition extends BaseStepDefinition {
         mainPage.clickEntranceButton();
     }
 
-    @Then("A new user is registered")
-    public void aNewUseIsRegistered() {
+    @Then("A new user is registered:{string} appears")
+    public void aNewUseIsRegistered(String confirmation) {
         Assert.assertEquals(registrationPage.emailConfirmationMessage(), "Подтвердите ваш e-mail", "Fail to sign up.");
     }
 
@@ -71,18 +71,18 @@ public class LoginStepDefinition extends BaseStepDefinition {
         Assert.assertTrue(mainPage.isAvatarDisplayed(), " The user failed to log in");
     }
 
-    @Then("The user failed to log in")
-    public void theUserFailedToLogIn() {
-        Assert.assertEquals(mainPage.getIncorrectCredentials(), "неверный логин или пароль", "The user signed in with an incorrect login");
+    @Then("The user failed to log in: {string} message appears")
+    public void theUserFailedToLogIn(String incorrectCredentials) {
+        Assert.assertEquals(mainPage.getIncorrectCredentials(), incorrectCredentials, "The user signed in with an incorrect login");
     }
 
-    @Then("Pops up a warning requiring to define the credentials")
-    public void popsUpAWarningToDefineTheCredentials() {
-        Assert.assertEquals(mainPage.getIncorrectCredentials(), "укажите ник или e-mail", "The user signed in with no credentials");
+    @Then("Pops up a warning requiring to define the credentials: {string}")
+    public void popsUpAWarningToDefineTheCredentials(String credentialsWarning) {
+        Assert.assertEquals(mainPage.getIncorrectCredentials(), credentialsWarning, "The user signed in with no credentials");
     }
 
-    @Then("Check if the entrance form was opened")
-    public void checkIfTheRegistrationFormWasOpened() {
-        Assert.assertEquals(mainPage.getLoginOptionMessage(), "через социальные сети", "Message under login field wasn't found.");
+    @Then("Check if the entrance form was opened: {string} appears")
+    public void checkIfTheRegistrationFormWasOpened(String loginOptions) {
+        Assert.assertEquals(mainPage.getLoginOptionMessage(), loginOptions, "Message under login field wasn't found.");
     }
 }

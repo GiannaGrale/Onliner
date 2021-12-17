@@ -1,4 +1,4 @@
-package cucumber_tests.steps;
+package cucumber.steps;
 
 import entities.CatalogueOptions;
 import entities.Electronics;
@@ -39,9 +39,9 @@ public class FilterStepDefinition extends BaseStepDefinition {
         smartphonePage.chooseBrand(Catalogue.APPLE);
     }
 
-    @Then("Check if the page was filtered")
-    public void checkIfThePageWasFiltered() {
-        Assert.assertEquals(applePage.tagText(), "apple", "The apple manufacturer filter doesn't work");
+    @Then("Check if the page was filtered by {string}")
+    public void checkIfThePageWasFiltered(String brand) {
+        Assert.assertEquals(applePage.tagText(), brand, "The apple manufacturer filter doesn't work");
     }
 
     @Then("Check the goods according to the price filter")

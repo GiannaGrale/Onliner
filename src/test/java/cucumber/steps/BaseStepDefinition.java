@@ -1,6 +1,5 @@
-package cucumber_tests.steps;
+package cucumber.steps;
 
-import cucumber_tests.support.ScenarioContext;
 import pages.*;
 
 public class BaseStepDefinition {
@@ -14,5 +13,4 @@ public class BaseStepDefinition {
     protected SmartphonePage smartphonePage = new SmartphonePage();
     protected RegistrationPage registrationPage = new RegistrationPage();
     protected AboutCompanyPage aboutCompanyPage = new AboutCompanyPage();
-    protected ScenarioContext scenarioContext = new ScenarioContext();
 }

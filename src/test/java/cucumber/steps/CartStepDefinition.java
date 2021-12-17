@@ -1,4 +1,4 @@
-package cucumber_tests.steps;
+package cucumber.steps;
 
 import entities.CatalogueOptions;
 import entities.Food;
@@ -33,13 +33,13 @@ public class CartStepDefinition extends BaseStepDefinition {
         pepperoniPage.clickAddToCartButton();
     }
 
-    @Then("Get the shopping cart label")
-    public void checkShoppingCartMessage() {
-        Assert.assertEquals(cartPage.getShoppingCartMessage(), "корзина", "Shopping cart message while opening the entrance form wasn't found.");
+    @Then("Get the shopping cart label {string}")
+    public void checkShoppingCartMessage(String cart) {
+        Assert.assertEquals(cartPage.getShoppingCartMessage(), cart, "Shopping cart message while opening the entrance form wasn't found.");
     }
 
-    @Then("Check if the item was added to the shopping cart")
-    public void checkIfTheItemWasAddedToTheShoppingCart() {
-        Assert.assertEquals(cartPage.getCompleteOrderButtonText(), "перейти к оформлению", "The item wasn't added to the shopping cart");
+    @Then("Check if the item was added to the shopping cart:{string} button appears")
+    public void checkIfTheItemWasAddedToTheShoppingCart(String finishOrder) {
+        Assert.assertEquals(cartPage.getCompleteOrderButtonText(), finishOrder, "The item wasn't added to the shopping cart");
     }
 }

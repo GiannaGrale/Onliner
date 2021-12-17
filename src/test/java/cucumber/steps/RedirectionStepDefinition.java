@@ -1,4 +1,4 @@
-package cucumber_tests.steps;
+package cucumber.steps;
 
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -11,8 +11,8 @@ public class RedirectionStepDefinition extends BaseStepDefinition {
         mainPage.goToAboutCompanyLink();
     }
 
-    @Then("Check if the page was opened")
-    public void checkIfPageWasOpened() {
-        Assert.assertEquals(aboutCompanyPage.getAboutPageTitle(), "о сайте", "About page wasn't opened");
+    @Then("Check if the page was opened:{string} label appears")
+    public void checkIfPageWasOpened(String page) {
+        Assert.assertEquals(aboutCompanyPage.getAboutPageTitle(), page, "About page wasn't opened");
     }
 }
