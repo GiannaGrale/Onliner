@@ -10,6 +10,7 @@ import org.testng.ITestListener;
 import org.testng.ITestResult;
 import org.testng.annotations.Listeners;
 import util.AllureUtil;
+import util.LogUtil;
 import java.io.File;
 import java.io.IOException;
 import static com.github.automatedowl.tools.AllureEnvironmentWriter.allureEnvironmentWriter;
@@ -21,7 +22,6 @@ import static com.github.automatedowl.tools.AllureEnvironmentWriter.allureEnviro
 public class OnlinerTestListener implements ITestListener {
 
     protected final Logger logger = LogManager.getLogger(this);
-    AllureUtil allureUtil = new AllureUtil();
 
     @Override
     public void onTestStart(ITestResult result) {
@@ -63,12 +63,12 @@ public class OnlinerTestListener implements ITestListener {
     public void onTestSuccess(ITestResult result) {
         logger.info(result.getName() + " successful...");
         try {
-          allureUtil.appendLogToAllure();
-          allureUtil.clearFile();
-          allureUtil.attachScreenshot();
-          allureUtil.attachVideoMP4(result);
-          allureUtil.deleteFolderWithVideo(result);
-        } catch (IOException | NullPointerException e) {
+            AllureUtil.appendLogToAllure();
+            LogUtil.clearFile();
+            AllureUtil.attachScreenshot();
+            AllureUtil.attachVideoMP4(result);
+            AllureUtil.deleteFolderWithVideo(result);
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -77,12 +77,12 @@ public class OnlinerTestListener implements ITestListener {
     public void onTestFailure(ITestResult result) {
         logger.info(result.getName() + " failed...");
         try {
-            allureUtil.appendLogToAllure();
-            allureUtil.clearFile();
-            allureUtil.attachScreenshot();
-            allureUtil.attachVideoMP4(result);
-            allureUtil.deleteFolderWithVideo(result);
-        } catch (IOException | NullPointerException e) {
+            AllureUtil.appendLogToAllure();
+            LogUtil.clearFile();
+            AllureUtil.attachScreenshot();
+            AllureUtil.attachVideoMP4(result);
+            AllureUtil.deleteFolderWithVideo(result);
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -91,12 +91,12 @@ public class OnlinerTestListener implements ITestListener {
     public void onTestSkipped(ITestResult result) {
         logger.info(result.getName() + " skipped...");
         try {
-            allureUtil.appendLogToAllure();
-            allureUtil.clearFile();
-            allureUtil.attachScreenshot();
-            allureUtil.attachVideoMP4(result);
-            allureUtil.deleteFolderWithVideo(result);
-        } catch (IOException | NullPointerException e) {
+            AllureUtil.appendLogToAllure();
+            LogUtil.clearFile();
+            AllureUtil.attachScreenshot();
+            AllureUtil.attachVideoMP4(result);
+            AllureUtil.deleteFolderWithVideo(result);
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
