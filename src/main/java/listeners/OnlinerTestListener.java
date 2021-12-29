@@ -9,7 +9,7 @@ import org.testng.ITestListener;
 import org.testng.ITestResult;
 import org.testng.annotations.Listeners;
 import util.AllureUtil;
-import util.LogUtil;
+import util.FileUtil;
 import java.io.IOException;
 import static com.github.automatedowl.tools.AllureEnvironmentWriter.allureEnvironmentWriter;
 
@@ -57,10 +57,10 @@ public class OnlinerTestListener implements ITestListener {
         logger.info(result.getName() + " successful...");
         try {
             AllureUtil.appendLogToAllure();
-            LogUtil.clearFile();
+            FileUtil.clearFile();
             AllureUtil.attachScreenshot();
             AllureUtil.attachVideoMP4(result);
-            AllureUtil.deleteFolderWithVideo(result);
+            FileUtil.deleteFolderWithVideo(result);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -71,10 +71,10 @@ public class OnlinerTestListener implements ITestListener {
         logger.info(result.getName() + " failed...");
         try {
             AllureUtil.appendLogToAllure();
-            LogUtil.clearFile();
+            FileUtil.clearFile();
             AllureUtil.attachScreenshot();
             AllureUtil.attachVideoMP4(result);
-            AllureUtil.deleteFolderWithVideo(result);
+            FileUtil.deleteFolderWithVideo(result);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -85,10 +85,10 @@ public class OnlinerTestListener implements ITestListener {
         logger.info(result.getName() + " skipped...");
         try {
             AllureUtil.appendLogToAllure();
-            LogUtil.clearFile();
+            FileUtil.clearFile();
             AllureUtil.attachScreenshot();
             AllureUtil.attachVideoMP4(result);
-            AllureUtil.deleteFolderWithVideo(result);
+            FileUtil.deleteFolderWithVideo(result);
         } catch (IOException e) {
             e.printStackTrace();
         }

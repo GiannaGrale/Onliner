@@ -13,22 +13,20 @@ import static util.EncoderUtil.convertAviToMp4;
 
 public class AllureUtil {
 
+    public static final String LOG_FILE = "target/test.log";
+    public static final String VIDEO_EXTENSION_FORMAT = ".mp4";
+
     /***
      Attach log file to allure report
      */
     @Attachment(value = "Test.log", type = "text/plain")
-    public static byte[] appendLogToAllure() {
-        try {
-            return FileUtils.readFileToByteArray(new File("target/test.log"));
-        } catch (IOException e) {
-          e.printStackTrace();
-            return null;
-        }
+    public static byte[] appendLogToAllure() throws IOException {
+        return FileUtils.readFileToByteArray(new File(LOG_FILE));
     }
 
     @Attachment(value = "Record screen MP4", type = "video/mp4")
     public static byte[] attachVideoMP4(ITestResult result) throws IOException {
-        return FileUtils.readFileToByteArray(convertAviToMp4(result.getName() + ".mp4"));
+        return FileUtils.readFileToByteArray(convertAviToMp4(result.getName() + VIDEO_EXTENSION_FORMAT));
     }
 
     /***
@@ -46,13 +44,5 @@ public class AllureUtil {
     @Attachment(value = "Screenshot", type = "image/png")
     public static byte[] attachScreenshot() {
         return ((TakesScreenshot) DriverManager.getDriver()).getScreenshotAs(OutputType.BYTES);
-    }
-
-    /***
-     * Autodelete folder with video
-     */
-    public static void deleteFolderWithVideo(ITestResult result) {
-        File video = new File(result.getName() + ".mp4");
-        video.deleteOnExit();
     }
 }
