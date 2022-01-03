@@ -1,6 +1,5 @@
 package util;
 
-import org.testng.ITestResult;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -16,10 +15,10 @@ public class FileUtil {
     }
 
     /***
-     * Autodelete of generated video
+     * Deletion of the generated video
      */
-    public static void deleteFolderWithVideo(ITestResult result, String extension) {
-        File video = new File(result.getName() + extension);
+    public static void deleteFolderWithVideo(String methodName, String extension) {
+        File video = new File(methodName + extension);
         video.deleteOnExit();
     }
 }

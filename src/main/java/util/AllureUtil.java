@@ -13,6 +13,8 @@ import static util.EncoderUtil.convertAviToMp4;
 
 public class AllureUtil {
 
+    private static final String VIDEO_EXTENSION_FORMAT = ".mp4";
+
     /***
      Attach log file to allure report
      */
@@ -23,7 +25,7 @@ public class AllureUtil {
 
     @Attachment(value = "Record screen MP4", type = "video/mp4")
     public static byte[] attachVideoMP4(ITestResult result) throws IOException {
-        return FileUtils.readFileToByteArray(convertAviToMp4(result.getName() + ".mp4"));
+        return FileUtils.readFileToByteArray(convertAviToMp4(result.getName() + VIDEO_EXTENSION_FORMAT));
     }
 
     /***
