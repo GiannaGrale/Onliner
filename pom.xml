@@ -29,13 +29,8 @@
         <cucumber.version>6.10.4</cucumber.version>
         <pico.version>7.1.0</pico.version>
 
-        <cart>src/test/resources/cart.xml</cart>
-        <filter>src/test/resources/filter.xml</filter>
-        <login.group>src/test/resources/loginGroup.xml</login.group>
-        <redirection>src/test/resources/redirection.xml</redirection>
-        <search>src/test/resources/search.xml</search>
-        <suiteNegative>src/test/resources/suiteNegative.xml</suiteNegative>
-        <suitePositive>src/test/resources/suitePositive.xml</suitePositive>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>ISO-8859-5</project.reporting.outputEncoding>
     </properties>
 
     <dependencies>
@@ -112,17 +107,11 @@
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
                         -Dcucumber.options="--plugin io.qameta.allure.cucumber4jvm.AllureCucumber4Jvm"
                     </argLine>
-                    <parallel>classes</parallel>
-                    <threadCount>2</threadCount>
                     <suiteXmlFiles>
-                        <suiteXmlFile>${cart}</suiteXmlFile>
-                        <suiteXmlFile>${filter}</suiteXmlFile>
-                        <suiteXmlFile>${login.group}</suiteXmlFile>
-                        <suiteXmlFile>${redirection}</suiteXmlFile>
-                        <suiteXmlFile>${search}</suiteXmlFile>
-                        <suiteXmlFile>${suiteNegative}</suiteXmlFile>
-                        <suiteXmlFile>${suitePositive}</suiteXmlFile>
+                        <suiteXmlFile>testng.xml</suiteXmlFile>
                     </suiteXmlFiles>
+                    <parallel>methods</parallel>
+                    <threadCountMethods>2</threadCountMethods>
                 </configuration>
                 <dependencies>
                     <dependency>
