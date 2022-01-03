@@ -21,6 +21,9 @@ public class OnlinerTestListener implements ITestListener {
 
     protected final Logger logger = LogManager.getLogger(this);
 
+    private static final String LOG_FILE_PATH = "target/test.log";
+    private static final String VIDEO_EXTENSION_FORMAT = ".mp4";
+
     @Override
     public void onTestStart(ITestResult result) {
         logger.info(result.getName() + " has started...");
@@ -56,11 +59,11 @@ public class OnlinerTestListener implements ITestListener {
     public void onTestSuccess(ITestResult result) {
         logger.info(result.getName() + " successful...");
         try {
-            AllureUtil.appendLogToAllure();
-            FileUtil.clearFile();
+            AllureUtil.appendLogToAllure(LOG_FILE_PATH);
+            FileUtil.clearFile(LOG_FILE_PATH);
             AllureUtil.attachScreenshot();
             AllureUtil.attachVideoMP4(result);
-            FileUtil.deleteFolderWithVideo(result);
+            FileUtil.deleteFolderWithVideo(result, VIDEO_EXTENSION_FORMAT);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -70,11 +73,11 @@ public class OnlinerTestListener implements ITestListener {
     public void onTestFailure(ITestResult result) {
         logger.info(result.getName() + " failed...");
         try {
-            AllureUtil.appendLogToAllure();
-            FileUtil.clearFile();
+            AllureUtil.appendLogToAllure(LOG_FILE_PATH);
+            FileUtil.clearFile(LOG_FILE_PATH);
             AllureUtil.attachScreenshot();
             AllureUtil.attachVideoMP4(result);
-            FileUtil.deleteFolderWithVideo(result);
+            FileUtil.deleteFolderWithVideo(result, VIDEO_EXTENSION_FORMAT);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -84,11 +87,11 @@ public class OnlinerTestListener implements ITestListener {
     public void onTestSkipped(ITestResult result) {
         logger.info(result.getName() + " skipped...");
         try {
-            AllureUtil.appendLogToAllure();
-            FileUtil.clearFile();
+            AllureUtil.appendLogToAllure(LOG_FILE_PATH);
+            FileUtil.clearFile(LOG_FILE_PATH);
             AllureUtil.attachScreenshot();
             AllureUtil.attachVideoMP4(result);
-            FileUtil.deleteFolderWithVideo(result);
+            FileUtil.deleteFolderWithVideo(result, VIDEO_EXTENSION_FORMAT);
         } catch (IOException e) {
             e.printStackTrace();
         }
