@@ -25,7 +25,7 @@ public class BaseTest {
      * Set and open the local thread browser type.
      */
     @BeforeMethod(alwaysRun = true)
-    public void setUp()   {
+    public void setUp() {
         DriverManager.setWebDriver(DriverFactory.getDriver(BrowserType.CHROME));
     }
 
@@ -33,7 +33,7 @@ public class BaseTest {
      * Closes the local thread driver.
      */
     @AfterMethod(alwaysRun = true)
-    public void tearDown()   {
+    public void tearDown() {
         DriverManager.quitDriver(getDriver());
     }
 }
