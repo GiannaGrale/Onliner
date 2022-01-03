@@ -63,7 +63,7 @@ public class OnlinerTestListener implements ITestListener {
             FileUtil.clearFile(LOG_FILE_PATH);
             AllureUtil.attachScreenshot();
             AllureUtil.attachVideoMP4(result);
-            FileUtil.deleteFolderWithVideo(result.getName(), VIDEO_EXTENSION_FORMAT);
+            FileUtil.deleteMediaFile(result.getName(), VIDEO_EXTENSION_FORMAT);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -77,7 +77,7 @@ public class OnlinerTestListener implements ITestListener {
             FileUtil.clearFile(LOG_FILE_PATH);
             AllureUtil.attachScreenshot();
             AllureUtil.attachVideoMP4(result);
-            FileUtil.deleteFolderWithVideo(result.getName(), VIDEO_EXTENSION_FORMAT);
+            FileUtil.deleteMediaFile(result.getName(), VIDEO_EXTENSION_FORMAT);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -91,7 +91,7 @@ public class OnlinerTestListener implements ITestListener {
             FileUtil.clearFile(LOG_FILE_PATH);
             AllureUtil.attachScreenshot();
             AllureUtil.attachVideoMP4(result);
-            FileUtil.deleteFolderWithVideo(result.getName(), VIDEO_EXTENSION_FORMAT);
+            FileUtil.deleteMediaFile(result.getName(), VIDEO_EXTENSION_FORMAT);
         } catch (IOException e) {
             e.printStackTrace();
         }

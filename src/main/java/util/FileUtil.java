@@ -15,10 +15,10 @@ public class FileUtil {
     }
 
     /***
-     * Deletion of the generated video
+     * Deletion of the generated mediaFile
      */
-    public static void deleteFolderWithVideo(String methodName, String extension) {
-        File video = new File(methodName + extension);
-        video.deleteOnExit();
+    public static void deleteMediaFile (String methodName, String extension) {
+        File mediaFile = new File(methodName + extension);
+        mediaFile.deleteOnExit();
     }
 }
