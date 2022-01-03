@@ -1,5 +1,7 @@
 package retryAnalyzer;
 
+import annotations.Group;
+import org.apache.commons.lang3.ArrayUtils;
 import org.testng.IAnnotationTransformer;
 import org.testng.annotations.ITestAnnotation;
 import java.lang.reflect.Constructor;
@@ -15,6 +17,11 @@ public class AnnotationTransformer implements IAnnotationTransformer {
      */
     @Override
     public void transform(ITestAnnotation annotation, Class testClass, Constructor testConstructor, Method testMethod) {
+        String[] groups = {};
+        if (testMethod.isAnnotationPresent(Group.class)) {
+            groups = testMethod.getAnnotation(Group.class).value();
+            annotation.setGroups(ArrayUtils.addAll(groups));
+        }
         annotation.setRetryAnalyzer(Retry.class);
     }
 }
