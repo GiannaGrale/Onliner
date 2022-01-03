@@ -30,9 +30,7 @@ public class EnviConfigStorage {
         return ReadProperties.getInstance().getKeyProperty(environment, CART_URL);
     }
 
-
     public static String getLogin() {
-
         return ReadProperties.getInstance().getKeyProperty(environment, LOGIN);
     }
 
@@ -40,4 +38,3 @@ public class EnviConfigStorage {
         return ReadProperties.getInstance().getKeyProperty(environment, PASSWORD);
     }
 }
-
