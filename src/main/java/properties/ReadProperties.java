@@ -14,7 +14,6 @@ public final class ReadProperties {
     private static ReadProperties instance;
     private final Properties properties = new Properties();
     private Map<String, Properties> propsMap = new HashMap<>();
-    private static String FILE_NAME = null;
 
     public static synchronized ReadProperties getInstance() {
         if (instance == null) {
@@ -48,21 +47,8 @@ public final class ReadProperties {
      * @param key key from property files
      * @return key value
      */
-    public String getKeyProperty(String environment, String key) {
-        switch (environment) {
-            case "DEV":
-                FILE_NAME = "application-dev.properties";
-                readPropertyFile(FILE_NAME);
-                return propsMap.get(FILE_NAME).getProperty(key);
-            case "QA":
-                FILE_NAME = "application-qa.properties";
-                readPropertyFile(FILE_NAME);
-                return propsMap.get(FILE_NAME).getProperty(key);
-            case "LOCAL":
-                FILE_NAME = "application-local.properties";
-                readPropertyFile(FILE_NAME);
-                return propsMap.get(FILE_NAME).getProperty(key);
-        }
-        return environment;
+    public String getKeyProperty(String propsFileName, String key) {
+        readPropertyFile(propsFileName);
+        return propsMap.get(propsFileName).getProperty(key);
     }
 }

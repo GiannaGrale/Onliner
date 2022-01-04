@@ -9,7 +9,7 @@ import org.apache.logging.log4j.Logger;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
-import properties.EnviConfigStorage;
+import properties.EnvironmentConfig;
 
 import static drivers.DriverManager.getDriver;
 
@@ -18,8 +18,8 @@ public class BaseTest {
 
     protected final Logger logger = LogManager.getLogger(this);
 
-    protected static final String LOGIN = EnviConfigStorage.getLogin();
-    protected static final String PSW = EnviConfigStorage.getPassword();
+    protected static final String LOGIN = EnvironmentConfig.getLogin();
+    protected static final String PSW = EnvironmentConfig.getPassword();
 
     /***
      * Set and open the local thread browser type.

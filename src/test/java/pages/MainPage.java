@@ -7,12 +7,12 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
-import properties.EnviConfigStorage;
+import properties.EnvironmentConfig;
 import util.WaitUtils;
 
 public class MainPage extends BasePage {
 
-    private final String MAIN_URL = EnviConfigStorage.getMainUrl();
+    private final String MAIN_URL = EnvironmentConfig.getMainUrl();
 
     @FindBy(className = "auth-bar__item--text")
     private Button entranceButton;

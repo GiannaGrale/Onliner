@@ -6,12 +6,12 @@ import io.qameta.allure.Step;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
-import properties.EnviConfigStorage;
+import properties.EnvironmentConfig;
 import util.WaitUtils;
 
 public class ShoppingCartPage extends BasePage {
 
-    private final String CART_URL = EnviConfigStorage.getCartUrl();
+    private final String CART_URL = EnvironmentConfig.getCartUrl();
 
     @FindBy(css = ".cart-form__title.cart-form__title_big-alter ")
     private Text cartMessageText;
