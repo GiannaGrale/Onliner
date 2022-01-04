@@ -8,10 +8,10 @@ import org.apache.logging.log4j.Logger;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
+import org.testng.xml.XmlSuite;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-
 import static com.github.automatedowl.tools.AllureEnvironmentWriter.allureEnvironmentWriter;
 
 /***
@@ -20,6 +20,7 @@ import static com.github.automatedowl.tools.AllureEnvironmentWriter.allureEnviro
 public class OnlinerTestListener implements ITestListener {
 
     protected final Logger logger = LogManager.getLogger(this);
+    private final int threadCount = Integer.parseInt(System.getProperty("threadNumber"));
 
     @Override
     public void onTestStart(ITestResult result) {
@@ -45,6 +46,9 @@ public class OnlinerTestListener implements ITestListener {
                         .put("Browser.Version", "96.0.4664.93 (Official build), (64 bit)")
                         .build(), System.getProperty("user.dir")
                         + "/target/allure-results/");
+
+        context.getCurrentXmlTest().getSuite().setParallel(XmlSuite.ParallelMode.METHODS);
+        context.getCurrentXmlTest().getSuite().setThreadCount(threadCount);
     }
 
     @Override

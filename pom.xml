@@ -111,7 +111,8 @@
                         <suiteXmlFile>testng.xml</suiteXmlFile>
                     </suiteXmlFiles>
                     <systemPropertyVariables>
-                        <browser>CHROME</browser>
+                        <browser>EDGE</browser>
+                        <threadNumber>2</threadNumber>
                     </systemPropertyVariables>
                 </configuration>
                 <dependencies>
