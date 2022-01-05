@@ -1,5 +1,12 @@
 package properties;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.Properties;
+
 /***
  * Project environment data
  */
@@ -12,35 +19,66 @@ public class EnvironmentConfig {
     private static final String PASSWORD = "password";
     private static final String LOGIN = "login";
 
-    private static String FILE_NAME = null;
+    private final static String ENVIRONMENT_PROPERTIES_PATH = "src/main/resources/application-%s.properties";
+    private final static Properties properties;
 
-    private static String environment = System.getProperty("environment");
+    @Getter
+    @AllArgsConstructor
+    enum Environment {
+        QA("qa"),
+        DEV("dev"),
+        LOCAL("local");
 
-    public static String setEnvironment(String environment) {
-        return FILE_NAME = String.format("application-%s.properties", environment.toLowerCase());
+        String name;
+
+        public static Environment setEnvironment() {
+            String defaultEnvironment = System.getenv("environment");
+            String environment = defaultEnvironment == null ? properties.getProperty("environment") : defaultEnvironment;
+            return Environment.readValue(environment);
+        }
+
+        public static Environment readValue(String text) {
+            return Arrays.stream(Environment.values())
+                    .filter(environment -> environment.getName().equalsIgnoreCase(text))
+                    .findFirst()
+                    .orElseThrow(() -> new IllegalArgumentException("Unknown environment value : " + text));
+        }
+    }
+
+    private static void loadFromConfig(String path) {
+        try {
+            properties.load(new FileReader(path));
+        } catch (IOException e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    static {
+        properties = new Properties();
+        loadFromConfig(String.format(ENVIRONMENT_PROPERTIES_PATH, Environment.setEnvironment().getName()));
     }
 
     public static String getMainUrl() {
-        return ReadProperties.getInstance().getKeyProperty(setEnvironment(environment), MAIN_URL);
+        return properties.getProperty(MAIN_URL);
     }
 
     public static String getRegistrationUrl() {
-        return ReadProperties.getInstance().getKeyProperty(setEnvironment(environment), REGISTRATION_URL);
+        return properties.getProperty(REGISTRATION_URL);
     }
 
     public static String getCatalogueUrl() {
-        return ReadProperties.getInstance().getKeyProperty(setEnvironment(environment), CATALOGUE_URL);
+        return properties.getProperty(CATALOGUE_URL);
     }
 
     public static String getCartUrl() {
-        return ReadProperties.getInstance().getKeyProperty(setEnvironment(environment), CART_URL);
+        return properties.getProperty(CART_URL);
     }
 
     public static String getLogin() {
-        return ReadProperties.getInstance().getKeyProperty(setEnvironment(environment), LOGIN);
+        return properties.getProperty(LOGIN);
     }
 
     public static String getPassword() {
-        return ReadProperties.getInstance().getKeyProperty(setEnvironment(environment), PASSWORD);
+        return properties.getProperty(PASSWORD);
     }
 }

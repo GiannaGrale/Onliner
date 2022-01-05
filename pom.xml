@@ -28,6 +28,7 @@
         <allure.env.writer>1.0.0</allure.env.writer>
         <cucumber.version>6.10.4</cucumber.version>
         <pico.version>7.1.0</pico.version>
+        <lombok.version>1.18.20</lombok.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>ISO-8859-5</project.reporting.outputEncoding>
@@ -94,6 +95,11 @@
             <artifactId>cucumber-picocontainer</artifactId>
             <version>${pico.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -110,9 +116,9 @@
                     <suiteXmlFiles>
                         <suiteXmlFile>testng.xml</suiteXmlFile>
                     </suiteXmlFiles>
-                    <systemPropertyVariables>
+                    <environmentVariables>
                         <environment>LOCAL</environment>
-                    </systemPropertyVariables>
+                    </environmentVariables>
                 </configuration>
                 <dependencies>
                     <dependency>
