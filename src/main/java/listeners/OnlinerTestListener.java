@@ -1,6 +1,7 @@
 package listeners;
 
 import com.google.common.collect.ImmutableMap;
+import configuration.ThreadCountConfig;
 import io.qameta.allure.Attachment;
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
@@ -20,7 +21,7 @@ import static com.github.automatedowl.tools.AllureEnvironmentWriter.allureEnviro
 public class OnlinerTestListener implements ITestListener {
 
     protected final Logger logger = LogManager.getLogger(this);
-    private final int threadCount = Integer.parseInt(System.getProperty("threadNumber"));
+
 
     @Override
     public void onTestStart(ITestResult result) {
@@ -48,7 +49,7 @@ public class OnlinerTestListener implements ITestListener {
                         + "/target/allure-results/");
 
         context.getCurrentXmlTest().getSuite().setParallel(XmlSuite.ParallelMode.METHODS);
-        context.getCurrentXmlTest().getSuite().setThreadCount(threadCount);
+        context.getCurrentXmlTest().getSuite().setThreadCount(ThreadCountConfig.getThreads());
     }
 
     @Override

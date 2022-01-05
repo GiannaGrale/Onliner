@@ -1,5 +1,6 @@
-package drivers;
+package configuration;
 
+import drivers.BrowserType;
 import java.util.Arrays;
 
 /**

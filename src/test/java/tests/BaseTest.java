@@ -1,6 +1,6 @@
 package tests;
 
-import drivers.BrowserConfig;
+import configuration.BrowserConfig;
 import drivers.DriverFactory;
 import drivers.DriverManager;
 import listeners.OnlinerTestListener;
