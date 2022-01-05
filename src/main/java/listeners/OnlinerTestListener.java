@@ -22,7 +22,6 @@ public class OnlinerTestListener implements ITestListener {
 
     protected final Logger logger = LogManager.getLogger(this);
 
-
     @Override
     public void onTestStart(ITestResult result) {
         logger.info(result.getName() + " has started...");
