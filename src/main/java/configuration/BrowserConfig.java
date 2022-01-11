@@ -9,15 +9,14 @@ import java.util.Arrays;
 public class BrowserConfig {
 
     public static BrowserType getType() {
-        String defaultBrowser = System.getProperty("browser");
-        String browser = defaultBrowser == null ? System.getProperty("browser") : defaultBrowser;
-        return readValue(browser);
+         String browser = System.getProperty("browser");
+         return readValue(browser);
     }
 
     public static BrowserType readValue(String text) {
         return Arrays.stream(BrowserType.values())
-                .filter(browser -> browser.name().equalsIgnoreCase(text))
-                .findFirst()
+                .filter(browser -> browser.getName().equalsIgnoreCase(text))
+                .findAny()
                 .orElseThrow(() -> new IllegalArgumentException("Unknown browser value : " + text));
     }
 }
