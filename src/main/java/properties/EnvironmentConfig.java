@@ -20,6 +20,7 @@ public class EnvironmentConfig {
     private static final String LOGIN = "login";
 
     private final static String ENVIRONMENT_PROPERTIES_PATH = "src/main/resources/application-%s.properties";
+    private final static String LOCAL_PROPERTIES_PATH = "src/main/resources/application-local.properties";
     private final static Properties properties;
 
     @Getter
@@ -31,9 +32,9 @@ public class EnvironmentConfig {
 
         String name;
 
-        public static Environment setEnvironment() {
-            String defaultEnvironment = System.getenv("environment");
-            String environment = defaultEnvironment == null ? properties.getProperty("environment") : defaultEnvironment;
+        public static Environment getEnvironment() {
+            String chosenEnvironment = System.getenv("environment");
+            String environment = chosenEnvironment == null ? properties.getProperty("environment") : chosenEnvironment;
             return Environment.readValue(environment);
         }
 
@@ -54,8 +55,9 @@ public class EnvironmentConfig {
     }
 
     static {
-        properties = new Properties();
-        loadFromConfig(String.format(ENVIRONMENT_PROPERTIES_PATH, Environment.setEnvironment().getName()));
+       properties = new Properties();
+        loadFromConfig(LOCAL_PROPERTIES_PATH);
+        loadFromConfig(String.format(ENVIRONMENT_PROPERTIES_PATH, Environment.getEnvironment().getName()));
     }
 
     public static String getMainUrl() {
