@@ -1,6 +1,5 @@
 package listeners;
 
-
 import com.google.common.collect.ImmutableMap;
 import configuration.ThreadCountConfig;
 import io.qameta.allure.Attachment;
@@ -16,9 +15,7 @@ import org.testng.xml.XmlSuite;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-
 import static com.github.automatedowl.tools.AllureEnvironmentWriter.allureEnvironmentWriter;
-
 
 /***
  * OnlinerTestListener is used to log information on the test run flow and to the reporting system.
@@ -37,7 +34,7 @@ public class OnlinerTestListener implements ITestListener {
         logger.info(result.getName() + " failed but with some percentage of success...");
     }
 
-
+    @Override
     public void onTestFailedWithTimeout(ITestResult result) {
         logger.info(result.getName() + " failed due to the timeout...");
     }
