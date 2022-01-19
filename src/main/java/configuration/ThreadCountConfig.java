@@ -7,18 +7,18 @@ import java.util.regex.Pattern;
  */
 public class ThreadCountConfig {
 
-    private static final Pattern isInteger = Pattern.compile("^\\d+$");
+    private static final Pattern INTEGER_PATTERN = Pattern.compile("^\\d+$");
 
     public static int getThreads() {
         String threadCount = System.getProperty("threadNumber");
-        return getThreadNumber(threadCount);
+        return getThreadNumberFrom(threadCount);
     }
 
-    private static int getThreadNumber(String strNum) {
-        if (isInteger.matcher(strNum).matches()) {
-            return Integer.parseInt(strNum);
+    private static int getThreadNumberFrom(String threadNum) {
+        if (INTEGER_PATTERN.matcher(threadNum).matches()) {
+            return Integer.parseInt(threadNum);
         } else {
-            throw new IllegalArgumentException("Unknown thread count value : " + strNum);
+            throw new IllegalArgumentException("Unknown thread count value : " + threadNum);
         }
     }
 }
