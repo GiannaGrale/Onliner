@@ -110,6 +110,8 @@
                     <suiteXmlFiles>
                         <suiteXmlFile>testng.xml</suiteXmlFile>
                     </suiteXmlFiles>
+                    <parallel>methods</parallel>
+                    <threadCountMethods>2</threadCountMethods>
                 </configuration>
                 <dependencies>
                     <dependency>
