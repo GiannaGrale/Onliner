@@ -116,9 +116,9 @@
                     <suiteXmlFiles>
                         <suiteXmlFile>testng.xml</suiteXmlFile>
                     </suiteXmlFiles>
-                    <environmentVariables>
-                        <environment>LOCAL</environment>
-                    </environmentVariables>
+                    <systemPropertyVariables>
+                        <env>LOCAL</env>
+                    </systemPropertyVariables>
                 </configuration>
                 <dependencies>
                     <dependency>

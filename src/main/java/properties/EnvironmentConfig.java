@@ -2,8 +2,6 @@ package properties;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.Properties;
 
@@ -19,8 +17,6 @@ public class EnvironmentConfig {
     private static final String PASSWORD = "password";
     private static final String LOGIN = "login";
 
-    private final static String ENVIRONMENT_PROPERTIES_PATH = "src/main/resources/application-%s.properties";
-    private final static String LOCAL_PROPERTIES_PATH = "src/main/resources/application-local.properties";
     private final static Properties properties;
 
     @Getter
@@ -33,8 +29,7 @@ public class EnvironmentConfig {
         String name;
 
         public static Environment getEnvironment() {
-            String chosenEnvironment = System.getenv("environment");
-            String environment = chosenEnvironment == null ? properties.getProperty("environment") : chosenEnvironment;
+            String environment = System.getProperty("env");
             return Environment.readValue(environment);
         }
 
@@ -46,18 +41,9 @@ public class EnvironmentConfig {
         }
     }
 
-    private static void loadFromConfig(String path) {
-        try {
-            properties.load(new FileReader(path));
-        } catch (IOException e) {
-            throw new RuntimeException(e.getMessage());
-        }
-    }
-
     static {
-       properties = new Properties();
-        loadFromConfig(LOCAL_PROPERTIES_PATH);
-        loadFromConfig(String.format(ENVIRONMENT_PROPERTIES_PATH, Environment.getEnvironment().getName()));
+        String environmentPropertiesFile = String.format("application-%s.properties", Environment.getEnvironment().getName());
+        properties = ReadProperties.getInstance().readPropertyFile(environmentPropertiesFile);
     }
 
     public static String getMainUrl() {

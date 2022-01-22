@@ -29,7 +29,7 @@ public final class ReadProperties {
      * Reads property file
      * @param file property file
      */
-    private void readPropertyFile(String file) {
+    public Properties readPropertyFile(String file) {
         if (!propsMap.containsKey(file)) {
             InputStream inputStream = getClass().getClassLoader().getResourceAsStream(file);
             try {
@@ -40,6 +40,7 @@ public final class ReadProperties {
             }
             propsMap.put(file, properties);
         }
+        return propsMap.get(file);
     }
 
     /***
