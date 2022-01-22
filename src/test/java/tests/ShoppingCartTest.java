@@ -1,5 +1,7 @@
 package tests;
 
+import annotations.Group;
+import annotations.TestType;
 import entities.CatalogueOptions;
 import entities.Food;
 import entities.Icons;
@@ -17,6 +19,7 @@ import testData.Catalogue;
 @Feature("Shopping cart")
 public class ShoppingCartTest extends BaseTest {
 
+    @Group(TestType.SMOKE)
     @Test(description = "TC-11, Test to check the entrance to the shopping cart")
     public void shoppingCartEntranceFormTest() {
         ShoppingCartPage shoppingCartPage = new MainPage()
@@ -25,6 +28,7 @@ public class ShoppingCartTest extends BaseTest {
         Assert.assertEquals(shoppingCartPage.getShoppingCartMessage(), "корзина", "Shopping cart message while opening the entrance form wasn't found.");
     }
 
+    @Group(TestType.SMOKE)
     @Test(retryAnalyzer = Retry.class, description = "TC-4, Add an item to the shopping cart test")
     public void addItemToCartTest() throws IncorrectClassRedirectionException {
         ShoppingCartPage cartPage = new MainPage()
