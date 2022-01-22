@@ -9,7 +9,6 @@ import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
 import util.ScrollUtils;
 import util.WaitUtils;
-
 import java.lang.reflect.InvocationTargetException;
 
 public class DominoPage extends BasePage {
@@ -27,6 +26,9 @@ public class DominoPage extends BasePage {
 
     @FindBy(xpath = "//div[@class='schema-product__image']")
     private Picture pizzaPicture;
+
+    @FindBy(xpath = "//div[7]/descendant::span[contains(text(),'Показать все варианты')]")
+    private Link showMoreLink;
 
     public DominoPage() {
         super();
@@ -60,6 +62,7 @@ public class DominoPage extends BasePage {
         try {
             waitForPageOpened();
             WaitUtils.waitForVisibility(pizzaPicture);
+            ScrollUtils.jsElementClick(showMoreLink);
             WebElement dominoLink = driver.findElement(By.partialLinkText(pizza));
             ScrollUtils.scrollToElementView(dominoLink);
             dominoLink.click();

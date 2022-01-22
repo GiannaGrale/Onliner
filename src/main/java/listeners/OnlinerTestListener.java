@@ -1,5 +1,6 @@
 package listeners;
 
+import com.automation.remarks.testng.UniversalVideoListener;
 import com.google.common.collect.ImmutableMap;
 import configuration.ThreadCountConfig;
 import io.qameta.allure.Attachment;
@@ -14,15 +15,22 @@ import org.testng.ITestResult;
 import org.testng.xml.XmlSuite;
 import java.io.File;
 import java.io.FileOutputStream;
+import org.testng.annotations.Listeners;
+import util.AllureUtil;
+import util.FileUtil;
 import java.io.IOException;
 import static com.github.automatedowl.tools.AllureEnvironmentWriter.allureEnvironmentWriter;
 
 /***
  * OnlinerTestListener is used to log information on the test run flow and to the reporting system.
  */
+@Listeners(UniversalVideoListener.class)
 public class OnlinerTestListener implements ITestListener {
 
     protected final Logger logger = LogManager.getLogger(this);
+
+    private static final String LOG_FILE_PATH = "target/test.log";
+    private static final String VIDEO_EXTENSION_FORMAT = ".mp4";
 
     @Override
     public void onTestStart(ITestResult result) {
@@ -60,29 +68,15 @@ public class OnlinerTestListener implements ITestListener {
                         + "/target/allure-results/");
     }
 
-    @Attachment(value = "Test.log", type = "text/plain")
-    public static byte[] appendLogToAllure() {
-        try {
-            return FileUtils.readFileToByteArray(new File("target/test.log"));
-        } catch (IOException ignored) {
-            return null;
-        }
-    }
-
-    public static void clearFile() throws IOException {
-        File myFoo = new File("target/test.log");
-        FileOutputStream fooStream = new FileOutputStream(myFoo, false);
-        byte[] myBytes = "".getBytes();
-        fooStream.write(myBytes);
-        fooStream.close();
-    }
-
     @Override
     public void onTestSuccess(ITestResult result) {
         logger.info(result.getName() + " successful...");
         try {
-            appendLogToAllure();
-            clearFile();
+            AllureUtil.appendLogToAllure(LOG_FILE_PATH);
+            FileUtil.clearFile(LOG_FILE_PATH);
+            AllureUtil.attachScreenshot();
+            AllureUtil.attachVideoMP4(result);
+            FileUtil.deleteMediaFile(result.getName(), VIDEO_EXTENSION_FORMAT);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -92,8 +86,11 @@ public class OnlinerTestListener implements ITestListener {
     public void onTestFailure(ITestResult result) {
         logger.info(result.getName() + " failed...");
         try {
-            appendLogToAllure();
-            clearFile();
+            AllureUtil.appendLogToAllure(LOG_FILE_PATH);
+            FileUtil.clearFile(LOG_FILE_PATH);
+            AllureUtil.attachScreenshot();
+            AllureUtil.attachVideoMP4(result);
+            FileUtil.deleteMediaFile(result.getName(), VIDEO_EXTENSION_FORMAT);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -103,8 +100,11 @@ public class OnlinerTestListener implements ITestListener {
     public void onTestSkipped(ITestResult result) {
         logger.info(result.getName() + " skipped...");
         try {
-            appendLogToAllure();
-            clearFile();
+            AllureUtil.appendLogToAllure(LOG_FILE_PATH);
+            FileUtil.clearFile(LOG_FILE_PATH);
+            AllureUtil.attachScreenshot();
+            AllureUtil.attachVideoMP4(result);
+            FileUtil.deleteMediaFile(result.getName(), VIDEO_EXTENSION_FORMAT);
         } catch (IOException e) {
             e.printStackTrace();
         }

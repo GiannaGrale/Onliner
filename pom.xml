@@ -29,6 +29,9 @@
         <cucumber.version>6.10.4</cucumber.version>
         <pico.version>7.1.0</pico.version>
         <lombok.version>1.18.20</lombok.version>
+        <jave.version>2.4.5</jave.version>
+        <jave.win64.version>2.4.5</jave.win64.version>
+        <video.recorder.version>2.0</video.recorder.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>ISO-8859-5</project.reporting.outputEncoding>
@@ -100,6 +103,20 @@
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
         </dependency>
+            <groupId>com.automation-remarks</groupId>
+            <artifactId>video-recorder-testng</artifactId>
+            <version>${video.recorder.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ws.schild</groupId>
+            <artifactId>jave-core</artifactId>
+            <version>${jave.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ws.schild</groupId>
+            <artifactId>jave-native-win64</artifactId>
+            <version>${jave.win64.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -120,6 +137,8 @@
                         <browser>EDGE</browser>
                         <threadNumber>2</threadNumber>
                     </systemPropertyVariables>
+                    <parallel>methods</parallel>
+                    <threadCountMethods>2</threadCountMethods>
                 </configuration>
                 <dependencies>
                     <dependency>
