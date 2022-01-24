@@ -3,6 +3,7 @@ package listeners;
 import com.automation.remarks.testng.UniversalVideoListener;
 import com.google.common.collect.ImmutableMap;
 import configuration.ThreadCountConfig;
+import drivers.DriverManager;
 import io.qameta.allure.Attachment;
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
@@ -59,11 +60,11 @@ public class OnlinerTestListener implements ITestListener {
         logger.info("The test class run finished on ... " + context.getEndDate());
     }
 
-    public static void attachEnvironmentInfo(WebDriver driver ) {
+    public static void attachEnvironmentInfo () {
         allureEnvironmentWriter(
                 ImmutableMap.<String, String>builder()
-                        .put("Browser", ((RemoteWebDriver) driver).getCapabilities().getBrowserName())
-                        .put("Browser.Version", ((RemoteWebDriver) driver).getCapabilities().getBrowserVersion())
+                        .put("Browser", ((RemoteWebDriver) DriverManager.getDriver()).getCapabilities().getBrowserName())
+                        .put("Browser.Version", ((RemoteWebDriver) DriverManager.getDriver()).getCapabilities().getBrowserVersion())
                         .build(), System.getProperty("user.dir")
                         + "/target/allure-results/");
     }
