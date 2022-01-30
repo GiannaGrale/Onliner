@@ -2,11 +2,20 @@ package listeners;
 
 import com.automation.remarks.testng.UniversalVideoListener;
 import com.google.common.collect.ImmutableMap;
+import configuration.ThreadCountConfig;
+import drivers.DriverManager;
+import io.qameta.allure.Attachment;
+import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
+import org.testng.xml.XmlSuite;
+import java.io.File;
+import java.io.FileOutputStream;
 import org.testng.annotations.Listeners;
 import util.AllureUtil;
 import util.FileUtil;
@@ -42,17 +51,22 @@ public class OnlinerTestListener implements ITestListener {
     @Override
     public void onStart(ITestContext context) {
         logger.info("The test class run started on " + context.getStartDate());
-        allureEnvironmentWriter(
-                ImmutableMap.<String, String>builder()
-                        .put("Browser", "Chrome")
-                        .put("Browser.Version", "96.0.4664.93 (Official build), (64 bit)")
-                        .build(), System.getProperty("user.dir")
-                        + "/target/allure-results/");
+        context.getCurrentXmlTest().getSuite().setParallel(XmlSuite.ParallelMode.METHODS);
+        context.getCurrentXmlTest().getSuite().setThreadCount(ThreadCountConfig.getThreads());
     }
 
     @Override
     public void onFinish(ITestContext context) {
         logger.info("The test class run finished on ... " + context.getEndDate());
+    }
+
+    public static void attachEnvironmentInfo () {
+        allureEnvironmentWriter(
+                ImmutableMap.<String, String>builder()
+                        .put("Browser", ((RemoteWebDriver) DriverManager.getDriver()).getCapabilities().getBrowserName())
+                        .put("Browser.Version", ((RemoteWebDriver) DriverManager.getDriver()).getCapabilities().getBrowserVersion())
+                        .build(), System.getProperty("user.dir")
+                        + "/target/allure-results/");
     }
 
     @Override
