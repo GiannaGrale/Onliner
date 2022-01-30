@@ -99,7 +99,6 @@
             <version>${pico.version}</version>
         </dependency>
         <dependency>
-
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
@@ -137,6 +136,8 @@
                     </suiteXmlFiles>
                     <systemPropertyVariables>
                         <env>LOCAL</env>
+                        <browser>EDGE</browser>
+                        <threadNumber>2</threadNumber>
                     </systemPropertyVariables>
                     <parallel>methods</parallel>
                     <threadCountMethods>2</threadCountMethods>
