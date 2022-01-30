@@ -135,6 +135,7 @@
                         <suiteXmlFile>testng.xml</suiteXmlFile>
                     </suiteXmlFiles>
                     <systemPropertyVariables>
+                        <env>LOCAL</env>
                         <browser>EDGE</browser>
                         <threadNumber>2</threadNumber>
                     </systemPropertyVariables>

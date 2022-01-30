@@ -7,12 +7,12 @@ import io.qameta.allure.Step;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
-import properties.ConfigStorage;
+import properties.EnvironmentConfig;
 import util.WaitUtils;
 
 public class RegistrationPage extends BasePage {
 
-    private final String REGISTRATION_URL = ConfigStorage.getRegistrationUrl();
+    private final String REGISTRATION_URL = EnvironmentConfig.getRegistrationUrl();
 
     @FindBy(xpath = "//input[@type='email']")
     private Input loginFieldInput;

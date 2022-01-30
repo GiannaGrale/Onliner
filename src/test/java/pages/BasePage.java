@@ -5,14 +5,14 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import drivers.DriverManager;
 import org.openqa.selenium.WebDriver;
-import properties.ConfigStorage;
+import properties.EnvironmentConfig;
 
 public abstract class BasePage {
 
     protected final Logger logger = LogManager.getLogger(this);
 
     protected WebDriver driver;
-    protected final String CATALOGUE_URL = ConfigStorage.getCatalogueUrl();
+    protected final String CATALOGUE_URL = EnvironmentConfig.getCatalogueUrl();
 
     /***
      * Navigate the webdriver to the chosen url

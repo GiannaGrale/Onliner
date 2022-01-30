@@ -13,9 +13,9 @@ public final class ReadProperties {
     private static final Logger logger = LogManager.getLogger();
     private static ReadProperties instance;
     private final Properties properties = new Properties();
-    private Map<String, Properties> propsMap  = new HashMap<>();
+    private Map<String, Properties> propsMap = new HashMap<>();
 
-    public static ReadProperties getInstance() {
+    public static synchronized ReadProperties getInstance() {
         if (instance == null) {
             instance = new ReadProperties();
         }
@@ -29,7 +29,7 @@ public final class ReadProperties {
      * Reads property file
      * @param file property file
      */
-    private void readPropertyFile(String file) {
+    public Properties readPropertyFile(String file) {
         if (!propsMap.containsKey(file)) {
             InputStream inputStream = getClass().getClassLoader().getResourceAsStream(file);
             try {
@@ -40,11 +40,12 @@ public final class ReadProperties {
             }
             propsMap.put(file, properties);
         }
+        return propsMap.get(file);
     }
 
     /***
-     * Receives the key value from config.properties
-     * @param key key from config.properties
+     * Receives the key value from property files
+     * @param key key from property files
      * @return key value
      */
     public String getKeyProperty(String propsFileName, String key) {
