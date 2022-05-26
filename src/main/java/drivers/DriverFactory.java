@@ -45,8 +45,9 @@ public class DriverFactory {
     public static ChromeDriver getChrome() {
         WebDriverManager.getInstance(DriverManagerType.CHROME).setup();
         ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.addArguments("disable-gpu");
-        chromeOptions.addArguments("--start-maximized");
+        chromeOptions.addArguments("--no-sandbox");
+        chromeOptions.addArguments("--disable-dev-shm-usage");
+        chromeOptions.addArguments("--headless");
         return new ChromeDriver(chromeOptions);
     }
 
