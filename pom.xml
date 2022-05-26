@@ -136,11 +136,11 @@
                     </suiteXmlFiles>
                     <systemPropertyVariables>
                         <env>LOCAL</env>
-                        <browser>EDGE</browser>
-                        <threadNumber>2</threadNumber>
+                        <browser>CHROME</browser>
+                        <threadNumber>1</threadNumber>
                     </systemPropertyVariables>
                     <parallel>methods</parallel>
-                    <threadCountMethods>2</threadCountMethods>
+                    <threadCountMethods>1</threadCountMethods>
                 </configuration>
                 <dependencies>
                     <dependency>
