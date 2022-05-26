@@ -118,6 +118,11 @@
             <artifactId>jave-native-win64</artifactId>
             <version>${jave.win64.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-devtools-v96</artifactId>
+            <version>4.1.0</version>
+        </dependency>
     </dependencies>
 
     <build>
