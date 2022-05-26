@@ -20,9 +20,9 @@ jobs:
           java-version: 8.0.302+8
           distribution: 'temurin'
 
-      - name:  Install Google Chrome # Using shell script to install Google Chrome
-        run:   |
+      - name: Install Google Chrome # Using shell script to install Google Chrome
+        run: |
           chmod +x ./scripts/InstallChrome.sh
                       ./scripts/InstallChrome.sh
       - name: Build with Maven
-        run: mvn clean install
+        run: mvn test --file pom.xml
